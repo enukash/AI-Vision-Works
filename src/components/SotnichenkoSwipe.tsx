@@ -172,10 +172,10 @@ export const SotnichenkoSwipe: React.FC<SotnichenkoSwipeProps> = ({
         {visibleLayers.map(({ card, depth, sourceIndex }) => {
           const isTopCard = depth === 0;
 
-          // Depth styling (Sotnichenko Stack Formula)
+          // Depth styling (Sotnichenko Stack Formula - enhanced visibility)
           const offsetY = depth * 14;
-          const scale = Math.max(0.65, 1 - depth * 0.05);
-          const opacity = Math.max(0.2, 1 - depth * 0.22);
+          const scale = Math.max(0.72, 1 - depth * 0.05);
+          const opacity = Math.max(0.5, 1 - depth * 0.15);
           const cardRotation = deterministicRotation(sourceIndex, 3.5);
 
           if (isTopCard) {
@@ -197,50 +197,48 @@ export const SotnichenkoSwipe: React.FC<SotnichenkoSwipeProps> = ({
                   opacity: 1,
                   zIndex: 40,
                 }}
-                className="absolute inset-0 m-auto w-[92%] sm:w-[94%] h-[90%] sm:h-[92%] rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing border border-slate-700/80 shadow-2xl bg-slate-900 group"
+                className="absolute inset-0 m-auto w-[92%] sm:w-[94%] h-[90%] sm:h-[92%] rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing border border-slate-600/80 shadow-2xl bg-slate-900 group"
               >
-                {/* Background Image with Gradient Overlay */}
+                {/* Background Image - High Visibility, Black Gradient Completely Removed */}
                 <div className="absolute inset-0">
                   <img
                     src={card.image}
                     alt={card.title}
                     draggable={false}
-                    className="w-full h-full object-cover object-center filter brightness-85 contrast-105"
+                    className="w-full h-full object-cover object-center filter brightness-105 contrast-105 saturate-110"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/80 to-slate-950/30" />
-                  <div className="absolute inset-0 bg-radial-at-t from-transparent via-slate-950/40 to-slate-950/90 pointer-events-none" />
                 </div>
 
                 {/* Content Overlay */}
-                <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between z-10 pointer-events-none">
+                <div className="absolute inset-0 p-5 sm:p-7 flex flex-col justify-between z-10 pointer-events-none">
                   {/* Top Bar: Eyebrow Tag & Drag Indicator */}
                   <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-md border border-blue-400/30 text-xs font-mono font-bold text-blue-300">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md border border-blue-400/40 text-xs font-mono font-bold text-blue-300 shadow-md">
                       <Sparkles className="w-3 h-3 text-blue-400" />
                       <span>{card.eyebrow}</span>
                     </span>
 
-                    <span className="text-[11px] font-mono text-slate-300/80 bg-slate-950/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
+                    <span className="text-[11px] font-mono text-slate-200 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 shadow-md">
                       Swipe or drag ⇄
                     </span>
                   </div>
 
-                  {/* Bottom Text & Tools Badges */}
-                  <div className="space-y-3">
+                  {/* Bottom Text & Tools Badges in Frosted High-Contrast Container */}
+                  <div className="space-y-2.5 p-4 sm:p-5 rounded-2xl bg-slate-950/75 backdrop-blur-md border border-white/15 shadow-xl">
                     <h3 className="text-xl sm:text-2xl font-black font-heading text-white tracking-tight leading-snug">
                       {card.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg line-clamp-3">
+                    <p className="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-lg line-clamp-3">
                       {card.description}
                     </p>
 
                     {card.tools && card.tools.length > 0 && (
-                      <div className="pt-2 flex flex-wrap gap-1.5">
+                      <div className="pt-1.5 flex flex-wrap gap-1.5">
                         {card.tools.map((tool, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-0.5 rounded-lg bg-slate-900/90 backdrop-blur-sm border border-slate-700 text-[11px] font-mono font-medium text-slate-200"
+                            className="px-2.5 py-0.5 rounded-lg bg-slate-900/90 border border-slate-700/80 text-[11px] font-mono font-medium text-slate-200 shadow-2xs"
                           >
                             {tool}
                           </span>
@@ -253,7 +251,7 @@ export const SotnichenkoSwipe: React.FC<SotnichenkoSwipeProps> = ({
             );
           }
 
-          // Inactive stacked background cards
+          // Inactive stacked background cards with enhanced visibility
           return (
             <motion.div
               key={card.id}
@@ -272,15 +270,14 @@ export const SotnichenkoSwipe: React.FC<SotnichenkoSwipeProps> = ({
               style={{
                 zIndex: 40 - depth * 10,
               }}
-              className="absolute inset-0 m-auto w-[92%] sm:w-[94%] h-[90%] sm:h-[92%] rounded-3xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900 pointer-events-none"
+              className="absolute inset-0 m-auto w-[92%] sm:w-[94%] h-[90%] sm:h-[92%] rounded-3xl overflow-hidden border border-slate-700 shadow-xl bg-slate-900 pointer-events-none"
             >
               <img
                 src={card.image}
                 alt={card.title}
                 draggable={false}
-                className="w-full h-full object-cover filter brightness-75 blur-xs"
+                className="w-full h-full object-cover filter brightness-95"
               />
-              <div className="absolute inset-0 bg-slate-950/70" />
             </motion.div>
           );
         })}

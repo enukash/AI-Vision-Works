@@ -163,7 +163,11 @@ export const CardShowcase: React.FC<CardShowcaseProps> = ({
         onPointerLeave={() => {
           if (!isCardExpanded) setIsCardHovered(false);
         }}
-        className="w-full flex gap-3 sm:gap-3.5 overflow-x-auto pb-2 scrollbar-none items-stretch min-h-[460px] sm:min-h-[485px] lg:min-h-[500px] max-h-[530px] snap-x snap-mandatory"
+        className={`w-full flex gap-3 sm:gap-3.5 overflow-x-auto pb-3 scrollbar-none items-stretch snap-x snap-mandatory transition-all duration-500 ease-out ${
+          isCardExpanded 
+            ? 'min-h-[760px] sm:min-h-[800px] lg:min-h-[840px]' 
+            : 'min-h-[460px] sm:min-h-[485px] lg:min-h-[500px] max-h-[530px]'
+        }`}
         style={{
           WebkitOverflowScrolling: 'touch',
         }}
@@ -185,12 +189,12 @@ export const CardShowcase: React.FC<CardShowcaseProps> = ({
                 flex: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
               }}
               style={{
-                flex: isThisCardExpanded ? 7 : isActive ? 4.2 : 1,
+                flex: isActive ? 4.2 : 1,
               }}
               className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 flex flex-col p-4 sm:p-5 border snap-center ${
                 isActive
                   ? isThisCardExpanded
-                    ? 'bg-white border-blue-600 shadow-2xl ring-2 ring-blue-500/25 min-w-[340px] sm:min-w-[540px] lg:min-w-[620px] max-w-[720px]'
+                    ? 'bg-white border-blue-600 shadow-2xl ring-2 ring-blue-500/25 min-w-[300px] sm:min-w-[360px] lg:min-w-[400px] max-w-[460px] min-h-[760px] sm:min-h-[800px] lg:min-h-[840px]'
                     : 'bg-white border-blue-500/80 shadow-xl ring-1 ring-blue-500/20 min-w-[300px] sm:min-w-[360px] lg:min-w-[400px] max-w-[460px]'
                   : 'bg-white/85 hover:bg-white border-slate-200 hover:border-blue-300 shadow-sm min-w-[62px] sm:min-w-[70px] lg:min-w-[76px]'
               }`}
@@ -273,8 +277,8 @@ export const CardShowcase: React.FC<CardShowcaseProps> = ({
                     </button>
                   </div>
 
-                  {/* Scrollable Inner Body for Complete Un-truncated Content */}
-                  <div className="overflow-y-auto max-h-[390px] sm:max-h-[420px] pr-2 space-y-3.5 scrollbar-thin">
+                  {/* Inner Body for Complete Un-truncated Content along Expanded Length */}
+                  <div className="overflow-y-auto max-h-[680px] sm:max-h-[720px] lg:max-h-[760px] pr-1.5 space-y-3.5 scrollbar-thin flex-1">
                     <div>
                       <h3 className="text-xl sm:text-2xl font-black font-heading text-slate-950 tracking-tight leading-snug">
                         {card.title}

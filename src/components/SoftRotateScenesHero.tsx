@@ -15,6 +15,8 @@ import {
   Workflow
 } from 'lucide-react';
 import { PageRoute } from '../types';
+import { GlowButton } from './GlowButton';
+import { EyeFollowButton } from './EyeFollowButton';
 
 export interface SceneTheme {
   id: string;
@@ -46,7 +48,7 @@ export const SCENE_THEMES: SceneTheme[] = [
     headlineHighlight: 'Power of AI',
     description: 'Deploying self-correcting LangGraph multi-agent workflows, automated tool integrations, and real-time schema validation to solve enterprise challenges without human bottlenecks.',
     bgImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=85',
-    cardImage: 'src/assets/images/robot_ai_solutions_1789208998741.jpg',
+    cardImage: '/assets/images/robot_ai_solutions_1789208998741.jpg',
     accentColor: '#38bdf8',
     glowColor: 'rgba(56, 189, 248, 0.4)',
     badge: '01 · AI Agent Automation',
@@ -66,7 +68,7 @@ export const SCENE_THEMES: SceneTheme[] = [
     headlineHighlight: 'Brand Identities',
     description: 'Blending mathematical graphic precision with generative neural synthesis. Creating cohesive visual identities, design tokens, marketing packaging, and high-conversion assets.',
     bgImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85',
-    cardImage: 'src/assets/images/robot_turning_bulb_1789365471785.jpg',
+    cardImage: '/assets/images/robot_turning_bulb_1789365471785.jpg',
     accentColor: '#f59e0b',
     glowColor: 'rgba(245, 158, 11, 0.4)',
     badge: '02 · Graphic Design Systems',
@@ -86,7 +88,7 @@ export const SCENE_THEMES: SceneTheme[] = [
     headlineHighlight: 'Model Evals',
     description: 'Structured system prompts, JSON Schema constraints, and automated eval benchmarks across Claude 3.7, GPT-4o, and Gemini 2.5 Pro for mission-critical enterprise decision making.',
     bgImage: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1920&q=85',
-    cardImage: 'src/assets/images/robot_thinking_wide_1789365436523.jpg',
+    cardImage: '/assets/images/robot_thinking_wide_1789365436523.jpg',
     accentColor: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.4)',
     badge: '03 · Cognitive Architecture',
@@ -106,7 +108,7 @@ export const SCENE_THEMES: SceneTheme[] = [
     headlineHighlight: 'Full-Stack Apps',
     description: 'Rapidly compiling ideas into responsive React 19, TypeScript, and Tailwind full-stack web applications with microservices, instant feedback loops, and clean software discipline.',
     bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1920&q=85',
-    cardImage: 'src/assets/images/robot_ai_hologram_1789209021516.jpg',
+    cardImage: '/assets/images/robot_ai_hologram_1789209021516.jpg',
     accentColor: '#10b981',
     glowColor: 'rgba(16, 185, 129, 0.4)',
     badge: '04 · Full-Stack Prototyping',
@@ -271,7 +273,7 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
         setIsHovered(false);
         setMousePos({ x: 0, y: 0 });
       }}
-      className={`relative w-full rounded-3xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-950 text-white select-none transition-all duration-700 min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] flex flex-col justify-between ${className}`}
+      className={`relative w-full overflow-hidden border-b border-slate-800/80 bg-slate-950 text-white select-none transition-all duration-700 min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] flex flex-col justify-between ${className}`}
       style={{
         perspective: '1000px',
       }}
@@ -348,7 +350,7 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
           Desktop: 2-column layout (Left text, Right 3D soft rotate card)
           Mobile & Tablet: Stacked layout with centered 3D card
       ─────────────────────────────────────────────────────────── */}
-      <div className="relative z-10 w-full p-5 sm:p-8 lg:p-12 xl:p-14 flex-1 flex flex-col justify-between">
+      <div className="relative z-10 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-6 sm:py-8 lg:py-12 flex-1 flex flex-col justify-between max-w-[1680px] mx-auto">
         
         {/* Top Header Row: Status Pills & Live Autoplay Sync Meter */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -446,24 +448,21 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
 
             {/* Action CTAs */}
             <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <button
+              <GlowButton
+                variant="primary"
                 onClick={() => onNavigate('projects')}
-                className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-bold text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2.5 active:scale-98 cursor-pointer"
-                style={{
-                  backgroundColor: currentScene.accentColor,
-                  color: currentScene.id === 'scene-graphics' ? '#0f172a' : '#ffffff',
-                }}
+                accentColor={currentScene.accentColor}
+                textColor={currentScene.id === 'scene-graphics' ? '#0f172a' : '#ffffff'}
+                icon={<ArrowRight className="w-4 h-4" />}
               >
                 <span>Explore Project Work</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              </GlowButton>
 
-              <button
+              <EyeFollowButton
+                text="View Services"
                 onClick={() => onNavigate('services')}
-                className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 shadow-xs transition-all duration-300 cursor-pointer"
-              >
-                View Services
-              </button>
+                accentColor={currentScene.accentColor}
+              />
             </div>
           </div>
 

@@ -41,14 +41,10 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   return (
     <div id="home-page-container" className="relative">
-      {/* 1. HERO SECTION WITH SOFT ROTATE SCENES */}
-      <section className="relative pt-6 pb-16 md:pt-10 md:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-12">
-              <SoftRotateScenesHero onNavigate={onNavigate} />
-            </div>
-          </div>
+      {/* 1. HERO SECTION WITH SOFT ROTATE SCENES (Full Screen Width) */}
+      <section className="relative pt-0 pb-8 sm:pb-12 overflow-hidden w-full">
+        <div className="w-full">
+          <SoftRotateScenesHero onNavigate={onNavigate} />
         </div>
       </section>
 

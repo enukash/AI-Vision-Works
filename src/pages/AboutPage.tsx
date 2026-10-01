@@ -41,11 +41,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   };
 
   const skillImages: Record<string, string> = {
-    'skill-prompt-eng': 'src/assets/images/robot_thinking_wide_1789365436523.jpg',
-    'skill-branding': 'src/assets/images/robot_turning_bulb_1789365471785.jpg',
-    'skill-storyboarding': 'src/assets/images/robot_idea_landscape_1789365418011.jpg',
-    'skill-video-creation': 'src/assets/images/robot_ai_hologram_1789209021516.jpg',
-    'skill-vibe-coding': 'src/assets/images/robot_ai_solutions_1789208998741.jpg',
+    'skill-prompt-eng': '/assets/images/robot_thinking_wide_1789365436523.jpg',
+    'skill-branding': '/assets/images/robot_turning_bulb_1789365471785.jpg',
+    'skill-storyboarding': '/assets/images/robot_idea_landscape_1789365418011.jpg',
+    'skill-video-creation': '/assets/images/robot_ai_hologram_1789209021516.jpg',
+    'skill-vibe-coding': '/assets/images/robot_ai_solutions_1789208998741.jpg',
     'skill-visual-art': 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80',
     'skill-agent-dev': 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
   };
@@ -67,7 +67,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
     tagline: skill.tagline,
     description: skill.description,
     tag: skillTags[skill.id] || skill.level,
-    image: skillImages[skill.id] || 'src/assets/images/robot_ai_solutions_1789208998741.jpg',
+    image: skillImages[skill.id] || '/assets/images/robot_ai_solutions_1789208998741.jpg',
     level: skill.level,
     practicalApplications: skill.practicalApplications,
     toolsAndFrameworks: skill.toolsAndFrameworks,
@@ -81,7 +81,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       title: 'Modern Web & Responsive Interfaces',
       description: 'Engineered with semantic HTML5, React 19, TypeScript, and modern Tailwind CSS. Component-driven systems crafted with Figma precision and strict accessibility standards.',
       tools: ['React 19', 'TypeScript', 'Tailwind CSS', 'Bootstrap', 'Figma', 'Vite'],
-      image: 'src/assets/images/robot_ai_solutions_1789208998741.jpg',
+      image: '/assets/images/robot_ai_solutions_1789208998741.jpg',
     },
     {
       id: 'tech-cognitive',
@@ -89,7 +89,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       title: 'Deterministic AI & Prompt Architecture',
       description: 'System prompts, LangGraph state machines, multi-agent coordination, structured JSON Schema contracts, and automated eval benchmarks for zero-hallucination accuracy.',
       tools: ['Claude 3.7', 'GPT-4o', 'Gemini 2.5 Pro', 'LangGraph', 'JSON Schema', 'Evals'],
-      image: 'src/assets/images/robot_thinking_wide_1789365436523.jpg',
+      image: '/assets/images/robot_thinking_wide_1789365436523.jpg',
     },
     {
       id: 'tech-media',
@@ -97,7 +97,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       title: 'AI Video Synthesis & Production',
       description: 'Cinema-grade video generation, dynamic camera motions, neural voice synthesis with ElevenLabs, and broadcast editing via DaVinci Resolve and Adobe Premiere.',
       tools: ['Runway Gen-3', 'Luma Dream', 'DaVinci Resolve', 'ElevenLabs', 'Premiere Pro'],
-      image: 'src/assets/images/robot_ai_hologram_1789209021516.jpg',
+      image: '/assets/images/robot_ai_hologram_1789209021516.jpg',
     },
     {
       id: 'tech-backend',
@@ -135,7 +135,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           <div className="lg:col-span-5 space-y-6 relative z-10">
             {/* Framer ASCII Reveal Component */}
             <ASCIIReveal
-              imageSrc="src/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg"
+              imageSrc="/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg"
               alt="Renuka Sharma - AI Generalist"
               trigger="auto"
               method="dither"
@@ -247,7 +247,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               The 7 Pillars of My AI Generalist Practice
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
-              Hover over any card to inspect deliverables, workflows, and production systems.
+              Click any card to expand its length and inspect full deliverables, tools, and production systems.
             </p>
           </ScrollFadeIn>
 

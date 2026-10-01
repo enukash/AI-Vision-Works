@@ -11,11 +11,11 @@ interface InfiniteScrollTunnelProps {
 }
 
 const DEFAULT_TUNNEL_IMAGES = [
-  'src/assets/images/robot_ai_solutions_1789208998741.jpg',
-  'src/assets/images/robot_turning_bulb_1789365471785.jpg',
-  'src/assets/images/robot_thinking_wide_1789365436523.jpg',
-  'src/assets/images/robot_ai_hologram_1789209021516.jpg',
-  'src/assets/images/robot_idea_landscape_1789365418011.jpg',
+  '/assets/images/robot_ai_solutions_1789208998741.jpg',
+  '/assets/images/robot_turning_bulb_1789365471785.jpg',
+  '/assets/images/robot_thinking_wide_1789365436523.jpg',
+  '/assets/images/robot_ai_hologram_1789209021516.jpg',
+  '/assets/images/robot_idea_landscape_1789365418011.jpg',
   'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
   'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80',
   'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',

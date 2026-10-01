@@ -195,23 +195,47 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
 
   // Page 1: Front Cover with Embedded AI Artwork Image
   const renderFrontCover = (forMobile = false) => (
-    <div className={`w-full h-full bg-linear-to-br from-slate-950 via-slate-900 to-blue-950 text-white flex flex-col justify-between relative overflow-hidden select-none border-l-4 border-l-blue-600 shadow-2xl ${
+    <div className={`w-full h-full bg-linear-to-br from-slate-950 via-slate-900 to-blue-950 text-white flex flex-col justify-between relative overflow-hidden select-none border-l-4 border-l-blue-600 shadow-2xl group/cover-root ${
       forMobile ? 'p-5 rounded-2xl' : 'p-6 sm:p-7'
     }`}>
-      {/* Decorative Book Foil Corner & Background Mesh */}
-      <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Decorative Book Foil Corner & Dynamic Breathing Background Mesh */}
+      <motion.div 
+        animate={{ scale: [1, 1.25, 1], opacity: [0.12, 0.28, 0.12] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-0 right-0 w-48 h-48 bg-blue-500 rounded-full blur-3xl pointer-events-none" 
+      />
+      <motion.div 
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.15, 0.30, 0.15] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-0 left-0 w-52 h-52 bg-indigo-500 rounded-full blur-3xl pointer-events-none" 
+      />
       <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-blue-400 via-indigo-300 to-blue-500 opacity-60" />
 
+      {/* Dynamic Animated Spine Glow Beam */}
+      <motion.div
+        animate={{ y: ['-100%', '200%'] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: 'linear' }}
+        className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-transparent via-sky-300 to-transparent pointer-events-none z-30"
+      />
+
+      {/* Holographic Diagonal Light Foil Sweep */}
+      <motion.div
+        animate={{ x: ['-120%', '240%'] }}
+        transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.8 }}
+        className="absolute inset-y-0 w-1/2 bg-linear-to-r from-transparent via-white/12 to-transparent pointer-events-none -skew-x-12 z-20"
+        aria-hidden="true"
+      />
+
       {/* Top Foil Header */}
-      <div>
+      <div className="relative z-10">
         <div className="flex items-center justify-between text-[11px] text-blue-400 font-mono uppercase tracking-widest pb-2.5 border-b border-white/10">
           <span className="flex items-center gap-1.5 font-bold">
             <BookOpen className="w-3.5 h-3.5 text-blue-400" />
             Vol. I · Executive Edition
           </span>
-          <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] font-semibold border border-blue-400/30">
-            Interactive 3D
+          <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[10px] font-semibold border border-blue-400/30 flex items-center gap-1.5 shadow-2xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <span>Interactive 3D</span>
           </span>
         </div>
 
@@ -229,8 +253,8 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
         </div>
       </div>
 
-      {/* Inlaid Featured Cover Artwork Image */}
-      <div className="relative my-2 sm:my-3 rounded-xl overflow-hidden border border-white/20 shadow-xl group/cover flex-1 max-h-[170px] sm:max-h-[190px] bg-slate-900">
+      {/* Inlaid Featured Cover Artwork Image with Animated Scanner */}
+      <div className="relative my-2 sm:my-3 rounded-xl overflow-hidden border border-white/20 shadow-xl group/cover flex-1 max-h-[170px] sm:max-h-[190px] bg-slate-900 z-10">
         <img
           src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
           alt="The AI Generalist Architecture Blueprint"
@@ -239,9 +263,16 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
         {/* Subtle dark gradient overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-slate-950/85 via-slate-950/20 to-transparent pointer-events-none" />
         
+        {/* Animated Cybernetic Scan Beam across Artwork */}
+        <motion.div
+          animate={{ y: ['-100%', '220%'] }}
+          transition={{ duration: 3.2, repeat: Infinity, ease: 'linear', repeatDelay: 1.2 }}
+          className="absolute inset-x-0 h-16 bg-linear-to-b from-transparent via-sky-400/25 to-transparent pointer-events-none"
+        />
+
         {/* Artwork Badge Overlay */}
-        <div className="absolute top-2 left-2 bg-slate-950/75 backdrop-blur-md px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-mono font-bold text-blue-300 border border-white/10 flex items-center gap-1.5 shadow-sm">
-          <Sparkles className="w-3 h-3 text-blue-400" />
+        <div className="absolute top-2 left-2 bg-slate-950/80 backdrop-blur-md px-2 py-0.5 rounded-md text-[9px] sm:text-[10px] font-mono font-bold text-blue-300 border border-white/10 flex items-center gap-1.5 shadow-sm">
+          <Sparkles className="w-3 h-3 text-blue-400 animate-spin" style={{ animationDuration: '9s' }} />
           <span>Cognitive Systems Blueprint</span>
         </div>
 
@@ -251,17 +282,26 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
         </div>
       </div>
 
-      {/* Book Bottom Credential & Callout */}
-      <div className="pt-2.5 border-t border-white/10 flex items-center justify-between">
+      {/* Book Bottom Credential & Animated Callout */}
+      <div className="pt-2.5 border-t border-white/10 flex items-center justify-between relative z-10">
         <div>
           <div className="text-[9px] uppercase font-mono tracking-wider text-slate-400">Author</div>
           <div className="text-xs font-bold text-white">Alex Mercer · AI Architect</div>
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-950 font-bold text-xs shadow-sm hover:bg-blue-400 transition-colors">
+        <motion.div 
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-white text-slate-950 font-bold text-xs shadow-md shadow-blue-500/20 hover:bg-sky-200 transition-colors"
+        >
           <span>{forMobile ? 'Tap to Read' : 'Tap to Open'}</span>
-          <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
-        </div>
+          <motion.span
+            animate={{ x: [0, 3.5, 0] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
+          </motion.span>
+        </motion.div>
       </div>
     </div>
   );

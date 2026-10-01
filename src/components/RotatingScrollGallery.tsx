@@ -28,31 +28,31 @@ interface RotatingScrollGalleryProps {
 
 const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
   {
-    image: 'src/assets/images/robot_ai_solutions_1789208998741.jpg',
+    image: '/assets/images/robot_ai_solutions_1789208998741.jpg',
     alt: 'AGI Robot Solutions & Workflows',
     title: 'Autonomous AGI Solutions',
     tag: 'Enterprise Workflow',
   },
   {
-    image: 'src/assets/images/robot_turning_bulb_1789365471785.jpg',
+    image: '/assets/images/robot_turning_bulb_1789365471785.jpg',
     alt: 'Idea Synthesis & Lighting Bulb Robot',
     title: 'Idea Synthesis & Creative AI',
     tag: 'Innovation Engine',
   },
   {
-    image: 'src/assets/images/robot_thinking_wide_1789365436523.jpg',
+    image: '/assets/images/robot_thinking_wide_1789365436523.jpg',
     alt: 'Cognitive Architecture Robot',
     title: 'Cognitive Architecture',
     tag: 'LLM Reasoning',
   },
   {
-    image: 'src/assets/images/robot_ai_hologram_1789209021516.jpg',
+    image: '/assets/images/robot_ai_hologram_1789209021516.jpg',
     alt: 'Cinematic Storytelling & Hologram',
     title: 'Cinematic Storytelling',
     tag: 'Visual Media',
   },
   {
-    image: 'src/assets/images/robot_idea_landscape_1789365418011.jpg',
+    image: '/assets/images/robot_idea_landscape_1789365418011.jpg',
     alt: 'Generative Brand Systems',
     title: 'Generative Brand Systems',
     tag: 'Design Engineering',

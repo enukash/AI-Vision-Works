@@ -25,7 +25,7 @@ interface InteractiveTeamCardProps {
  * - Mobile friendly: touch-to-toggle support
  */
 export const InteractiveTeamCard: React.FC<InteractiveTeamCardProps> = ({
-  imageSrc = 'src/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg',
+  imageSrc = '/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg',
   name = 'Renuka Sharma',
   role = 'AI Generalist & Builder',
   tagline = 'Available for Q3/Q4 Client Projects',
