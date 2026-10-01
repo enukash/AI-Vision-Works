@@ -1,0 +1,6 @@
+{
+  "name": "AI Vision Works",
+  "description": "AI Vision Works - Real-world AI solutions across autonomous agents, prompt engineering, branding, UI/UX, video creation, and visual art.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
