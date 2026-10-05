@@ -43,82 +43,82 @@ export const SCENE_THEMES: SceneTheme[] = [
   {
     id: 'scene-automation',
     name: 'AI Automation',
-    tag: 'AUTONOMOUS WORKFLOWS',
-    headlinePrefix: 'Solving real business problems with the',
-    headlineHighlight: 'Power of AI',
-    description: 'Deploying self-correcting LangGraph multi-agent workflows, automated tool integrations, and real-time schema validation to solve enterprise challenges without human bottlenecks.',
+    tag: 'SMART AI WORKFLOWS',
+    headlinePrefix: 'Automate everyday business tasks with',
+    headlineHighlight: 'Autonomous AI Agents',
+    description: 'I build smart AI agents that handle repetitive tasks, connect to your existing software, and work 24/7 without costly human delays.',
     bgImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_ai_solutions_1789208998741.jpg',
     accentColor: '#38bdf8',
     glowColor: 'rgba(56, 189, 248, 0.4)',
-    badge: '01 · AI Agent Automation',
+    badge: '01 · Autonomous AI Agents',
     icon: Workflow,
     telemetry: {
-      label: 'Agent Nodes Active',
-      value: '14 Graphs',
-      sublabel: '99.9% Deterministic Uptime',
+      label: 'Active Automations',
+      value: '14 Workflows',
+      sublabel: 'Fast & Reliable Execution',
     },
-    tags: ['LangGraph', 'Task Automation', 'Python Microservices', 'Webhook Sync'],
+    tags: ['AI Agents', 'Task Automation', 'API Integrations', 'Smart Workflows'],
   },
   {
     id: 'scene-graphics',
-    name: 'Graphic Systems',
-    tag: 'DESIGN ENGINEERING',
-    headlinePrefix: 'Building scalable generative visual systems &',
-    headlineHighlight: 'Brand Identities',
-    description: 'Blending mathematical graphic precision with generative neural synthesis. Creating cohesive visual identities, design tokens, marketing packaging, and high-conversion assets.',
+    name: 'Brand & Design',
+    tag: 'MODERN BRAND DESIGN',
+    headlinePrefix: 'Build a memorable visual identity with',
+    headlineHighlight: 'Modern Brand Systems',
+    description: 'From logos and color palettes to website design systems, I help companies look polished, trustworthy, and ready to win customers.',
     bgImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_turning_bulb_1789365471785.jpg',
     accentColor: '#f59e0b',
     glowColor: 'rgba(245, 158, 11, 0.4)',
-    badge: '02 · Graphic Design Systems',
+    badge: '02 · Brand & Design Systems',
     icon: Palette,
     telemetry: {
-      label: 'Vector Precision',
-      value: '4K Ultra-Res',
-      sublabel: 'Harmonized 60-30-10 Palette',
+      label: 'Brand Consistency',
+      value: 'Complete Systems',
+      sublabel: 'Logos, Fonts & Guidelines',
     },
-    tags: ['Figma Tokens', 'Vector Graphics', 'Visual Guidelines', 'Generative Art'],
+    tags: ['Logo Design', 'Brand Identity', 'Figma Systems', 'Visual Design'],
   },
   {
     id: 'scene-cognitive',
-    name: 'Cognitive LLMs',
-    tag: 'DEEP REASONING',
-    headlinePrefix: 'Engineering deterministic cognitive prompts &',
-    headlineHighlight: 'Model Evals',
-    description: 'Structured system prompts, JSON Schema constraints, and automated eval benchmarks across Claude 3.7, GPT-4o, and Gemini 2.5 Pro for mission-critical enterprise decision making.',
+    name: 'Prompt Engineering',
+    tag: 'PRECISE AI PROMPTS',
+    headlinePrefix: 'Get reliable, accurate answers from',
+    headlineHighlight: 'Expert Prompt Design',
+    description: 'I craft custom prompts, instructions, and guardrails so your AI gives consistent, high-quality answers without making mistakes.',
     bgImage: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_thinking_wide_1789365436523.jpg',
     accentColor: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.4)',
-    badge: '03 · Cognitive Architecture',
+    badge: '03 · Prompt Engineering',
     icon: Cpu,
     telemetry: {
-      label: 'Evals Accuracy',
-      value: '99.4%',
-      sublabel: 'Strict JSON Schema Contracts',
+      label: 'Answer Quality',
+      value: 'High Accuracy',
+      sublabel: 'Clear Rules & Guardrails',
     },
-    tags: ['Claude 3.7', 'GPT-4o', 'JSON Schema', 'Zero-Hallucination Evals'],
+    tags: ['Prompt Engineering', 'ChatGPT & Claude', 'AI Testing', 'Safe AI Guardrails'],
   },
   {
     id: 'scene-prototyping',
     name: 'Vibe Coding',
-    tag: 'RAPID PROTOTYPING',
-    headlinePrefix: 'Turning natural language prompts into',
-    headlineHighlight: 'Full-Stack Apps',
-    description: 'Rapidly compiling ideas into responsive React 19, TypeScript, and Tailwind full-stack web applications with microservices, instant feedback loops, and clean software discipline.',
+    tag: 'FAST WEB DEVELOPMENT',
+    headlinePrefix: 'Turn ideas into working websites &',
+    headlineHighlight: 'Apps in Just Days',
+    description: 'Using modern AI-assisted coding and React, I quickly build clean, responsive websites, web apps, and MVPs so you can launch fast.',
     bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_ai_hologram_1789209021516.jpg',
     accentColor: '#10b981',
     glowColor: 'rgba(16, 185, 129, 0.4)',
-    badge: '04 · Full-Stack Prototyping',
+    badge: '04 · Vibe Coding & Web Apps',
     icon: Code2,
     telemetry: {
-      label: 'Build Pipeline',
-      value: 'Vite & TS Strict',
-      sublabel: 'Instant Production Deploy',
+      label: 'Launch Speed',
+      value: 'Days, Not Months',
+      sublabel: 'Fast, Working Prototypes',
     },
-    tags: ['React 19', 'TypeScript', 'Tailwind CSS', 'FastAPI'],
+    tags: ['React & Tailwind', 'Fast Web Apps', 'MVP Prototyping', 'Vibe Coding'],
   },
 ];
 
@@ -466,8 +466,8 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
             </div>
           </div>
 
-          {/* Right Column: 3D Soft Rotate Card (Responsive for all screens) */}
-          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end mt-4 lg:mt-0">
+          {/* Right Column: 3D Soft Rotate Card (Responsive for all screens with Mirror Reflection) */}
+          <div className="lg:col-span-5 flex items-center justify-center lg:justify-end mt-4 lg:mt-0 pb-10 sm:pb-14 lg:pb-16">
             <div 
               className="relative w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-[440px] aspect-4/5 sm:aspect-14/11"
               style={{ transformStyle: 'preserve-3d' }}
@@ -504,66 +504,102 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
                     duration: 0.6,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="absolute inset-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/20 will-change-transform cursor-pointer group"
+                  className="absolute inset-0 will-change-transform cursor-pointer group"
+                  style={{ transformStyle: 'preserve-3d' }}
                   onClick={nextScene}
                   title="Click or swipe up to reveal next AI scene"
                 >
-                  {/* Foreground AI Tech Artwork Image */}
-                  <img
-                    src={currentScene.cardImage}
-                    alt={currentScene.name}
-                    draggable={false}
-                    className="w-full h-full object-cover object-center filter brightness-95 contrast-105 group-hover:scale-104 transition-transform duration-700"
-                  />
+                  {/* Main Foreground 3D Card */}
+                  <div className="relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+                    {/* Foreground AI Tech Artwork Image */}
+                    <img
+                      src={currentScene.cardImage}
+                      alt={currentScene.name}
+                      draggable={false}
+                      className="w-full h-full object-cover object-center filter brightness-95 contrast-105 group-hover:scale-104 transition-transform duration-700"
+                    />
 
-                  {/* Gradient Scrim for text overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-950/95 via-slate-950/30 to-transparent pointer-events-none" />
+                    {/* Gradient Scrim for text overlay */}
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/95 via-slate-950/30 to-transparent pointer-events-none" />
 
-                  {/* Top Badge on Card */}
-                  <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between pointer-events-none z-10">
-                    <span 
-                      className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md text-[11px] sm:text-xs font-mono font-bold text-white shadow-sm border"
-                      style={{
-                        backgroundColor: 'rgba(15, 23, 42, 0.8)',
-                        borderColor: currentScene.accentColor,
-                      }}
-                    >
-                      <Sparkles className="w-3 h-3" style={{ color: currentScene.accentColor }} />
-                      <span>{currentScene.badge}</span>
-                    </span>
+                    {/* Top Badge on Card */}
+                    <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between pointer-events-none z-10">
+                      <span 
+                        className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md text-[11px] sm:text-xs font-mono font-bold text-white shadow-sm border"
+                        style={{
+                          backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                          borderColor: currentScene.accentColor,
+                        }}
+                      >
+                        <Sparkles className="w-3 h-3" style={{ color: currentScene.accentColor }} />
+                        <span>{currentScene.badge}</span>
+                      </span>
 
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/80" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/80" />
+                    </div>
+
+                    {/* Bottom Card Copy & Tech Tags */}
+                    <div className="absolute bottom-3 inset-x-3 sm:bottom-4 sm:inset-x-4 pointer-events-none z-10 space-y-1.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <span 
+                          className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider font-extrabold"
+                          style={{ color: currentScene.accentColor }}
+                        >
+                          {currentScene.tag}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-300 bg-slate-950/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10">
+                          Swipe up ⇅
+                        </span>
+                      </div>
+
+                      <div className="text-sm sm:text-base font-bold font-heading text-white line-clamp-1">
+                        {currentScene.name}
+                      </div>
+
+                      {/* Tool Badges */}
+                      <div className="pt-1 flex flex-wrap gap-1">
+                        {currentScene.tags.slice(0, 3).map((tag, i) => (
+                          <span 
+                            key={i}
+                            className="px-2 py-0.5 rounded bg-slate-900/80 backdrop-blur-xs border border-white/10 text-[10px] font-mono text-slate-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Bottom Card Copy & Tech Tags */}
-                  <div className="absolute bottom-3 inset-x-3 sm:bottom-4 sm:inset-x-4 pointer-events-none z-10 space-y-1.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <span 
-                        className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider font-extrabold"
-                        style={{ color: currentScene.accentColor }}
-                      >
-                        {currentScene.tag}
-                      </span>
-                      <span className="text-[10px] font-mono text-slate-300 bg-slate-950/70 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10">
-                        Swipe up ⇅
-                      </span>
-                    </div>
+                  {/* Surface Horizon Glow Line */}
+                  <div 
+                    className="absolute -bottom-1 inset-x-6 h-[2px] rounded-full blur-[1px] opacity-75 pointer-events-none transition-colors duration-500"
+                    style={{
+                      background: `linear-gradient(90deg, transparent 0%, ${currentScene.accentColor} 50%, transparent 100%)`,
+                    }}
+                  />
 
-                    <div className="text-sm sm:text-base font-bold font-heading text-white line-clamp-1">
-                      {currentScene.name}
-                    </div>
-
-                    {/* Tool Badges */}
-                    <div className="pt-1 flex flex-wrap gap-1">
-                      {currentScene.tags.slice(0, 3).map((tag, i) => (
-                        <span 
-                          key={i}
-                          className="px-2 py-0.5 rounded bg-slate-900/80 backdrop-blur-xs border border-white/10 text-[10px] font-mono text-slate-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Real Mirror Reflection of the Swiped Image */}
+                  <div 
+                    className="absolute top-[calc(100%+6px)] sm:top-[calc(100%+8px)] inset-x-0 h-[45%] sm:h-[50%] pointer-events-none rounded-2xl sm:rounded-3xl overflow-hidden opacity-60 sm:opacity-70 select-none will-change-transform"
+                    style={{
+                      transform: 'scaleY(-1)',
+                      maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 45%, transparent 85%)',
+                      WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 45%, transparent 85%)',
+                    }}
+                    aria-hidden="true"
+                  >
+                    <img
+                      src={currentScene.cardImage}
+                      alt=""
+                      draggable={false}
+                      className="w-full h-full object-cover object-center filter brightness-90 contrast-110 blur-[0.4px]"
+                    />
+                    {/* Atmospheric color tint on the reflection */}
+                    <div 
+                      className="absolute inset-0 mix-blend-color opacity-30"
+                      style={{ backgroundColor: currentScene.accentColor }}
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
                   </div>
                 </motion.div>
               </AnimatePresence>

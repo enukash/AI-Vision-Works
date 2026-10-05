@@ -1,7 +1,8 @@
-import React from 'react';
-import { PageRoute, ServiceItem } from '../types';
+import React, { useState } from 'react';
+import { PageRoute } from '../types';
 import { CMS_SERVICES } from '../data/cmsServices';
 import { ScrollFadeIn } from '../components/ScrollFadeIn';
+import { ExpandOnHoverList } from '../components/ExpandOnHoverList';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -9,13 +10,20 @@ import {
   Clock, 
   Layers, 
   Sparkles, 
-  Share2, 
-  ArrowUpRight, 
   Quote, 
   ShieldCheck, 
   Zap, 
-  Cpu, 
-  Workflow 
+  Workflow,
+  ChevronDown,
+  Check,
+  Bot,
+  Building2,
+  TrendingUp,
+  Users,
+  Brain,
+  Wrench,
+  HelpCircle,
+  Globe
 } from 'lucide-react';
 
 interface ServiceSlugPageProps {
@@ -30,9 +38,16 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
   const prevService = currentIndex > 0 ? CMS_SERVICES[currentIndex - 1] : CMS_SERVICES[CMS_SERVICES.length - 1];
   const nextService = currentIndex < CMS_SERVICES.length - 1 ? CMS_SERVICES[currentIndex + 1] : CMS_SERVICES[0];
 
+  const rich = currentService.richContent;
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
   return (
     <div id="service-slug-page-container" className="py-10 sm:py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Breadcrumbs & Back Action */}
         <div className="flex items-center justify-between mb-8">
@@ -50,11 +65,13 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
           </span>
         </div>
 
-        {/* Service Header Title & Category */}
+        {/* =========================================================================
+            1. HERO & INTRODUCTION
+        ========================================================================= */}
         <ScrollFadeIn className="space-y-4 mb-10">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700">
-              {currentService.category}
+              {rich?.hero?.eyebrow || currentService.category}
             </span>
             {currentService.badge && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-semibold">
@@ -65,15 +82,40 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-heading tracking-tight leading-tight">
-            {currentService.title}
+            {rich?.hero?.heading || currentService.title}
           </h1>
 
-          <p className="text-lg text-slate-600 leading-relaxed max-w-3xl">
-            {currentService.tagline}
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl">
+            {rich?.hero?.description || currentService.tagline}
           </p>
 
+          {/* Hero CTAs */}
+          {rich?.hero && (
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => onNavigate('contact')}
+                className="px-6 py-3 rounded-full text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all cursor-pointer flex items-center gap-2"
+              >
+                <span>{rich.hero.primaryCTA}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const target = document.getElementById('capabilities-section') || document.getElementById('deep-dive-section');
+                  target?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-6 py-3 rounded-full text-sm font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+              >
+                {rich.hero.secondaryCTA}
+              </button>
+            </div>
+          )}
+
           {/* Metadata Ledger */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs text-xs mt-4">
             <div>
               <span className="text-slate-400 uppercase font-semibold">Typical Timeline</span>
               <div className="font-bold text-slate-900 mt-0.5">{currentService.typicalDuration}</div>
@@ -84,7 +126,7 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
             </div>
             <div>
               <span className="text-slate-400 uppercase font-semibold">Execution Style</span>
-              <div className="font-bold text-slate-900 mt-0.5">Full AI Generalist</div>
+              <div className="font-bold text-slate-900 mt-0.5">AI Vision Works</div>
             </div>
             <div>
               <span className="text-slate-400 uppercase font-semibold">Delivery Mode</span>
@@ -94,17 +136,17 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
         </ScrollFadeIn>
 
         {/* Primary Showcase Image */}
-        <ScrollFadeIn delay={0.1} className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 mb-12 bg-slate-100">
+        <ScrollFadeIn delay={0.1} className="relative rounded-3xl overflow-hidden shadow-xl border border-slate-200 mb-12 bg-slate-900">
           <img
             src={currentService.coverImage}
             alt={currentService.title}
-            className="w-full h-80 sm:h-[460px] object-cover"
+            className="w-full h-80 sm:h-[480px] object-cover"
           />
         </ScrollFadeIn>
 
         {/* Impact Metrics Banner */}
         {currentService.metrics && currentService.metrics.length > 0 && (
-          <ScrollFadeIn delay={0.15} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
+          <ScrollFadeIn delay={0.12} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
             {currentService.metrics.map((metric, i) => (
               <div
                 key={i}
@@ -126,145 +168,630 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
           </ScrollFadeIn>
         )}
 
-        {/* Detailed Service Deep Dive Narrative */}
-        <div className="space-y-12 mb-16 text-slate-700 leading-relaxed">
-          
-          {/* Executive Overview */}
-          <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-3">
-            <h2 className="text-xl font-bold text-slate-950 font-heading">Service Overview</h2>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              {currentService.description}
-            </p>
-          </ScrollFadeIn>
-
-          {/* Challenge & Solution Grid */}
-          {(currentService.theChallenge || currentService.theSolution) && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {currentService.theChallenge && (
-                <ScrollFadeIn delay={0.08} className="p-8 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-3">
-                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">The Problem</span>
-                  <h3 className="text-lg font-bold text-slate-950 font-heading">The Operational Bottleneck</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    {currentService.theChallenge}
-                  </p>
-                </ScrollFadeIn>
-              )}
-
-              {currentService.theSolution && (
-                <ScrollFadeIn delay={0.16} className="p-8 rounded-2xl bg-blue-50/60 border border-blue-200/80 space-y-3">
-                  <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">The Solution</span>
-                  <h3 className="text-lg font-bold text-slate-950 font-heading">The AI-Native Approach</h3>
-                  <p className="text-slate-700 text-sm leading-relaxed">
-                    {currentService.theSolution}
-                  </p>
-                </ScrollFadeIn>
-              )}
-            </div>
-          )}
-
-          {/* Secondary Visual Showcase if available */}
-          {currentService.secondaryImage && (
-            <ScrollFadeIn className="rounded-3xl overflow-hidden shadow-lg border border-slate-200">
-              <img
-                src={currentService.secondaryImage}
-                alt={`${currentService.title} secondary showcase`}
-                className="w-full h-72 sm:h-96 object-cover"
-              />
-            </ScrollFadeIn>
-          )}
-
-          {/* Methodology & Workflow */}
-          {currentService.methodology && currentService.methodology.length > 0 && (
-            <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-4">
-              <h3 className="text-xl font-bold text-slate-950 font-heading">Delivery Methodology & Process</h3>
-              <ul className="space-y-3">
-                {currentService.methodology.map((step, idx) => (
-                  <li key={idx} className="flex items-start gap-3 text-sm text-slate-700">
-                    <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                      {idx + 1}
-                    </div>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ul>
-            </ScrollFadeIn>
-          )}
-
-          {/* Concrete Deliverables */}
-          <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-4">
-            <h3 className="text-xl font-bold text-slate-950 font-heading">Guaranteed Deliverables</h3>
+        {/* =========================================================================
+            RICH CONTENT SECTIONS (Rendered when richContent is provided)
+        ========================================================================= */}
+        {rich ? (
+          <div id="deep-dive-section" className="space-y-16 mb-20 text-slate-700 leading-relaxed">
             
-            {currentService.deliverablesDetails && currentService.deliverablesDetails.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                {currentService.deliverablesDetails.map((del, i) => (
-                  <div key={i} className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
-                    <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                      <span>{del.title}</span>
-                    </div>
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {del.description}
+            {/* 1. INTRODUCTION & HIGHLIGHTS */}
+            {rich.introduction && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Overview
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.introduction.heading}
+                  </h2>
+                  <p className="text-slate-600 text-base sm:text-lg leading-relaxed mt-2">
+                    {rich.introduction.description}
+                  </p>
+                  {rich.introduction.supportingText && (
+                    <p className="text-slate-500 text-sm leading-relaxed mt-2">
+                      {rich.introduction.supportingText}
                     </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <ul className="space-y-2.5 pt-2">
-                {currentService.deliverables.map((del, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
-                    <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                    <span>{del}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </ScrollFadeIn>
-
-          {/* Business ROI Box */}
-          <ScrollFadeIn className="p-6 rounded-2xl bg-blue-50/80 border border-blue-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <div className="text-xs uppercase font-bold text-blue-700 tracking-wider">Business Impact</div>
-              <div className="text-sm font-semibold text-slate-900 mt-1">{currentService.businessImpact}</div>
-            </div>
-            <button
-              onClick={() => onNavigate('contact')}
-              className="px-5 py-2.5 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shrink-0 shadow-xs cursor-pointer"
-            >
-              Request Proposal
-            </button>
-          </ScrollFadeIn>
-
-          {/* Tech Stack / Tools Deployed */}
-          <ScrollFadeIn className="p-6 rounded-2xl bg-slate-900 text-white space-y-3">
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Toolchain & Frameworks Deployed</h4>
-            <div className="flex flex-wrap gap-2">
-              {currentService.toolsUsed.map((tool) => (
-                <span key={tool} className="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-xs font-mono text-blue-300">
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </ScrollFadeIn>
-
-          {/* Client Feedback Quote */}
-          {currentService.clientQuote && (
-            <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 shadow-sm relative">
-              <Quote className="w-8 h-8 text-blue-200 absolute top-6 right-6" />
-              <p className="text-slate-800 text-base sm:text-lg italic leading-relaxed mb-4">
-                "{currentService.clientQuote.text}"
-              </p>
-              <div className="border-t border-slate-100 pt-3">
-                <div className="font-bold text-slate-950 text-sm font-heading">{currentService.clientQuote.author}</div>
-                <div className="text-xs text-slate-500">
-                  {currentService.clientQuote.role} · {currentService.clientQuote.company}
+                  )}
                 </div>
+
+                {rich.introduction.highlights && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2">
+                    {rich.introduction.highlights.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-start gap-2.5 p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm font-medium text-slate-800"
+                      >
+                        <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </ScrollFadeIn>
+            )}
+
+            {/* 2. WHAT ARE AUTONOMOUS AI AGENTS? & WORKFLOW PIPELINE */}
+            {rich.whatAreAutonomousAIAgents && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-950 text-white shadow-xl space-y-6 relative overflow-hidden">
+                <div className="relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-700/60 text-xs font-bold text-blue-300">
+                    <Brain className="w-3.5 h-3.5 text-blue-400" />
+                    <span>The Autonomous Difference</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black font-heading mt-3">
+                    {rich.whatAreAutonomousAIAgents.heading}
+                  </h3>
+                  <p className="text-slate-300 text-base sm:text-lg mt-2 leading-relaxed max-w-3xl">
+                    {rich.whatAreAutonomousAIAgents.description}
+                  </p>
+                  <p className="text-slate-400 text-sm mt-1 leading-relaxed max-w-3xl">
+                    {rich.whatAreAutonomousAIAgents.body}
+                  </p>
+                </div>
+
+                {/* Workflow pipeline track */}
+                {rich.whatAreAutonomousAIAgents.workflow && (
+                  <div className="pt-4 border-t border-slate-800">
+                    <div className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider mb-4">
+                      Execution Flow Pipeline
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+                      {rich.whatAreAutonomousAIAgents.workflow.map((step, idx) => (
+                        <div
+                          key={idx}
+                          className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between"
+                        >
+                          <span className="text-[10px] font-mono text-blue-400 font-bold">0{idx + 1}</span>
+                          <span className="text-xs font-semibold text-white mt-1 leading-snug">{step}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </ScrollFadeIn>
+            )}
+
+            {/* 3. AI AGENTS BUILT AROUND YOUR BUSINESS (Expand-OnHover List Layout) */}
+            {rich.services && (
+              <ScrollFadeIn className="space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Agent Catalog
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.services.heading}
+                  </h3>
+                </div>
+
+                <ExpandOnHoverList
+                  items={rich.services.items}
+                  onNavigate={onNavigate}
+                />
+              </ScrollFadeIn>
+            )}
+
+            {/* 4. CAPABILITIES */}
+            {rich.capabilities && (
+              <ScrollFadeIn id="capabilities-section" className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Capabilities
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.capabilities.heading}
+                  </h3>
+                  <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed max-w-3xl">
+                    {rich.capabilities.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {rich.capabilities.items.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm text-slate-800"
+                    >
+                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {rich.capabilities.highlight && (
+                  <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-900 font-bold text-sm flex items-center gap-2.5">
+                    <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
+                    <span>{rich.capabilities.highlight}</span>
+                  </div>
+                )}
+              </ScrollFadeIn>
+            )}
+
+            {/* 5. HOW IT WORKS (From Goal to Action) */}
+            {rich.howItWorks && (
+              <ScrollFadeIn className="space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Execution
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.howItWorks.heading}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rich.howItWorks.steps.map((step) => (
+                    <div
+                      key={step.number}
+                      className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2 hover:border-blue-300 transition-colors"
+                    >
+                      <span className="text-xs font-mono font-bold text-blue-600">STEP {step.number}</span>
+                      <h4 className="text-lg font-bold text-slate-950 font-heading">{step.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 6. USE CASES ACROSS DEPARTMENTS */}
+            {rich.useCases && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Applications
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.useCases.heading}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rich.useCases.items.map((useCase, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-xl bg-white border border-slate-200/90 shadow-2xs space-y-1.5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4 text-blue-600" />
+                        <h4 className="text-sm font-bold text-slate-900 font-heading">{useCase.title}</h4>
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed">{useCase.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 7. BENEFITS */}
+            {rich.benefits && (
+              <ScrollFadeIn className="space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Measurable Value
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.benefits.heading}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rich.benefits.items.map((benefit, idx) => (
+                    <div
+                      key={idx}
+                      className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2 hover:shadow-sm transition-shadow"
+                    >
+                      <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                        <Zap className="w-4 h-4" />
+                      </div>
+                      <h4 className="text-base font-bold text-slate-950 font-heading">{benefit.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{benefit.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 8. COMPARISON MATRIX (Traditional vs Autonomous) */}
+            {rich.comparison && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Comparison
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.comparison.heading}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Traditional Automation */}
+                  <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                    <h4 className="text-lg font-bold text-slate-800 font-heading">
+                      {rich.comparison.traditionalAutomation.title}
+                    </h4>
+                    <ul className="space-y-2.5">
+                      {rich.comparison.traditionalAutomation.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Autonomous AI Agents */}
+                  <div className="p-6 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-bold text-blue-950 font-heading">
+                        {rich.comparison.autonomousAIAgents.title}
+                      </h4>
+                      <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
+                        Next-Gen
+                      </span>
+                    </div>
+                    <ul className="space-y-2.5">
+                      {rich.comparison.autonomousAIAgents.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-blue-950 font-medium">
+                          <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {rich.comparison.conclusion && (
+                  <p className="text-xs sm:text-sm text-slate-600 text-center italic pt-2">
+                    {rich.comparison.conclusion}
+                  </p>
+                )}
+              </ScrollFadeIn>
+            )}
+
+            {/* 9. DEVELOPMENT PROCESS (7 Steps) */}
+            {rich.developmentProcess && (
+              <ScrollFadeIn className="space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Roadmap
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.developmentProcess.heading}
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {rich.developmentProcess.steps.map((step) => (
+                    <div
+                      key={step.number}
+                      className="p-5 rounded-2xl bg-white border border-slate-200 space-y-2"
+                    >
+                      <div className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-mono font-bold text-xs flex items-center justify-center">
+                        {step.number}
+                      </div>
+                      <h4 className="text-base font-bold text-slate-950 font-heading">{step.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 10. INTEGRATIONS */}
+            {rich.integrations && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-950 text-white space-y-6 shadow-xl">
+                <div>
+                  <span className="text-xs font-bold text-blue-400 uppercase tracking-wider bg-blue-950/80 px-3 py-1 rounded-full border border-blue-800">
+                    Ecosystem
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black font-heading mt-3">
+                    {rich.integrations.heading}
+                  </h3>
+                  <p className="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
+                    {rich.integrations.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2.5">
+                  {rich.integrations.items.map((tool, idx) => (
+                    <span
+                      key={idx}
+                      className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-200"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+
+                {rich.integrations.cta && (
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => onNavigate('contact')}
+                      className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold text-slate-950 bg-white hover:bg-blue-400 hover:text-white transition-colors cursor-pointer"
+                    >
+                      {rich.integrations.cta}
+                    </button>
+                  </div>
+                )}
+              </ScrollFadeIn>
+            )}
+
+            {/* 11. WHY AI VISION WORKS */}
+            {rich.whyAIvisionWorks && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Core Philosophy
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.whyAIvisionWorks.heading}
+                  </h3>
+                  <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
+                    {rich.whyAIvisionWorks.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rich.whyAIvisionWorks.pillars.map((pillar, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1.5"
+                    >
+                      <h4 className="text-base font-bold text-slate-950 font-heading">{pillar.title}</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed">{pillar.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 12. TARGET AUDIENCE */}
+            {rich.targetAudience && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Who This Is For
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.targetAudience.heading}
+                  </h3>
+                  <p className="text-slate-600 text-xs sm:text-sm mt-1">
+                    {rich.targetAudience.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {rich.targetAudience.items.map((aud, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-2xs"
+                    >
+                      {aud}
+                    </span>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 13. FREQUENTLY ASKED QUESTIONS */}
+            {rich.faq && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    FAQ
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.faq.heading}
+                  </h3>
+                </div>
+
+                <div className="space-y-3">
+                  {rich.faq.items.map((item, idx) => {
+                    const isOpen = openFaqIndex === idx;
+                    return (
+                      <div
+                        key={idx}
+                        className="rounded-2xl border border-slate-200 overflow-hidden transition-colors"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleFaq(idx)}
+                          className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base cursor-pointer hover:bg-slate-50 transition-colors"
+                        >
+                          <span>{item.question}</span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ${
+                              isOpen ? 'rotate-180 text-blue-600' : ''
+                            }`}
+                          />
+                        </button>
+                        {isOpen && (
+                          <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+                            {item.answer}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 14. FINAL CALL TO ACTION */}
+            {rich.finalCTA && (
+              <ScrollFadeIn className="p-8 sm:p-12 rounded-3xl bg-linear-to-r from-blue-600 to-indigo-700 text-white text-center space-y-4 shadow-xl">
+                <h3 className="text-2xl sm:text-4xl font-black font-heading">
+                  {rich.finalCTA.heading}
+                </h3>
+                <p className="text-blue-100 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                  {rich.finalCTA.description}
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('contact')}
+                    className="px-8 py-3.5 rounded-full text-sm font-bold text-blue-700 bg-white hover:bg-slate-100 transition-all shadow-md cursor-pointer"
+                  >
+                    {rich.finalCTA.primaryCTA}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('contact')}
+                    className="px-6 py-3.5 rounded-full text-sm font-semibold text-white border border-white/30 hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    {rich.finalCTA.secondaryCTA}
+                  </button>
+                </div>
+              </ScrollFadeIn>
+            )}
+
+          </div>
+        ) : (
+          /* =========================================================================
+              STANDARD SERVICE TEMPLATE (Fallback for other services)
+          ========================================================================= */
+          <div className="space-y-12 mb-16 text-slate-700 leading-relaxed">
+            
+            {/* Executive Overview */}
+            <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-3">
+              <h2 className="text-xl font-bold text-slate-950 font-heading">Service Overview</h2>
+              <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                {currentService.description}
+              </p>
+            </ScrollFadeIn>
+
+            {/* Challenge & Solution Grid */}
+            {(currentService.theChallenge || currentService.theSolution) && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {currentService.theChallenge && (
+                  <ScrollFadeIn delay={0.08} className="p-8 rounded-2xl bg-slate-50 border border-slate-200/90 space-y-3">
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">The Problem</span>
+                    <h3 className="text-lg font-bold text-slate-950 font-heading">The Operational Bottleneck</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed">
+                      {currentService.theChallenge}
+                    </p>
+                  </ScrollFadeIn>
+                )}
+
+                {currentService.theSolution && (
+                  <ScrollFadeIn delay={0.16} className="p-8 rounded-2xl bg-blue-50/60 border border-blue-200/80 space-y-3">
+                    <span className="text-xs font-bold text-blue-700 uppercase tracking-wider">The Solution</span>
+                    <h3 className="text-lg font-bold text-slate-950 font-heading">The AI-Native Approach</h3>
+                    <p className="text-slate-700 text-sm leading-relaxed">
+                      {currentService.theSolution}
+                    </p>
+                  </ScrollFadeIn>
+                )}
+              </div>
+            )}
+
+            {/* Secondary Visual Showcase if available */}
+            {currentService.secondaryImage && (
+              <ScrollFadeIn className="rounded-3xl overflow-hidden shadow-lg border border-slate-200">
+                <img
+                  src={currentService.secondaryImage}
+                  alt={`${currentService.title} secondary showcase`}
+                  className="w-full h-72 sm:h-96 object-cover"
+                />
+              </ScrollFadeIn>
+            )}
+
+            {/* Methodology & Workflow */}
+            {currentService.methodology && currentService.methodology.length > 0 && (
+              <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-4">
+                <h3 className="text-xl font-bold text-slate-950 font-heading">Delivery Methodology & Process</h3>
+                <ul className="space-y-3">
+                  {currentService.methodology.map((step, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-sm text-slate-700">
+                      <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                        {idx + 1}
+                      </div>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </ScrollFadeIn>
+            )}
+
+            {/* Concrete Deliverables */}
+            <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 space-y-4">
+              <h3 className="text-xl font-bold text-slate-950 font-heading">Guaranteed Deliverables</h3>
+              
+              {currentService.deliverablesDetails && currentService.deliverablesDetails.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  {currentService.deliverablesDetails.map((del, i) => (
+                    <div key={i} className="p-5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-2">
+                      <div className="flex items-center gap-2 font-bold text-slate-900 text-sm">
+                        <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
+                        <span>{del.title}</span>
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        {del.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="space-y-2.5 pt-2">
+                  {currentService.deliverables.map((del, i) => (
+                    <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                      <span>{del}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </ScrollFadeIn>
+
+            {/* Business ROI Box */}
+            <ScrollFadeIn className="p-6 rounded-2xl bg-blue-50/80 border border-blue-200/90 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <div className="text-xs uppercase font-bold text-blue-700 tracking-wider">Business Impact</div>
+                <div className="text-sm font-semibold text-slate-900 mt-1">{currentService.businessImpact}</div>
+              </div>
+              <button
+                onClick={() => onNavigate('contact')}
+                className="px-5 py-2.5 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shrink-0 shadow-xs cursor-pointer"
+              >
+                Request Proposal
+              </button>
+            </ScrollFadeIn>
+
+            {/* Tech Stack / Tools Deployed */}
+            <ScrollFadeIn className="p-6 rounded-2xl bg-slate-900 text-white space-y-3">
+              <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Toolchain & Frameworks Deployed</h4>
+              <div className="flex flex-wrap gap-2">
+                {currentService.toolsUsed.map((tool) => (
+                  <span key={tool} className="px-3 py-1 rounded-lg bg-slate-800 border border-slate-700 text-xs font-mono text-blue-300">
+                    {tool}
+                  </span>
+                ))}
               </div>
             </ScrollFadeIn>
-          )}
 
-        </div>
+            {/* Client Feedback Quote */}
+            {currentService.clientQuote && (
+              <ScrollFadeIn className="p-8 rounded-2xl bg-white border border-slate-200 shadow-sm relative">
+                <Quote className="w-8 h-8 text-blue-200 absolute top-6 right-6" />
+                <p className="text-slate-800 text-base sm:text-lg italic leading-relaxed mb-4">
+                  "{currentService.clientQuote.text}"
+                </p>
+                <div className="border-t border-slate-100 pt-3">
+                  <div className="font-bold text-slate-950 text-sm font-heading">{currentService.clientQuote.author}</div>
+                  <div className="text-xs text-slate-500">
+                    {currentService.clientQuote.role} · {currentService.clientQuote.company}
+                  </div>
+                </div>
+              </ScrollFadeIn>
+            )}
 
-        {/* Service Navigation (Previous / Next) */}
+          </div>
+        )}
+
+        {/* =========================================================================
+            SERVICE NAVIGATION (Previous / Next)
+        ========================================================================= */}
         <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 mb-16">
           <button
             onClick={() => onNavigate('service-slug', prevService.slug)}
@@ -296,29 +823,31 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
           </button>
         </div>
 
-        {/* Call to action for this service type */}
-        <ScrollFadeIn className="p-8 sm:p-12 rounded-3xl bg-slate-950 text-white text-center space-y-4">
-          <h3 className="text-2xl sm:text-3xl font-black font-heading">
-            Need {currentService.title}?
-          </h3>
-          <p className="text-slate-300 text-sm max-w-lg mx-auto">
-            Let's discuss how we can execute this service within your required timelines and technical environment.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={() => onNavigate('contact')}
-              className="px-8 py-3.5 rounded-full text-sm font-bold text-slate-950 bg-white hover:bg-blue-500 hover:text-white transition-all duration-200 cursor-pointer shadow-md"
-            >
-              Schedule Scoping Consultation
-            </button>
-            <button
-              onClick={() => onNavigate('projects')}
-              className="px-6 py-3.5 rounded-full text-sm font-semibold text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer"
-            >
-              View Related Projects
-            </button>
-          </div>
-        </ScrollFadeIn>
+        {/* Closing Global CTA */}
+        {!rich && (
+          <ScrollFadeIn className="p-8 sm:p-12 rounded-3xl bg-slate-950 text-white text-center space-y-4">
+            <h3 className="text-2xl sm:text-3xl font-black font-heading">
+              Need {currentService.title}?
+            </h3>
+            <p className="text-slate-300 text-sm max-w-lg mx-auto">
+              Let's discuss how we can execute this service within your required timelines and technical environment.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button
+                onClick={() => onNavigate('contact')}
+                className="px-8 py-3.5 rounded-full text-sm font-bold text-slate-950 bg-white hover:bg-blue-500 hover:text-white transition-all duration-200 cursor-pointer shadow-md"
+              >
+                Schedule Scoping Consultation
+              </button>
+              <button
+                onClick={() => onNavigate('projects')}
+                className="px-6 py-3.5 rounded-full text-sm font-semibold text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700 transition-colors cursor-pointer"
+              >
+                View Related Projects
+              </button>
+            </div>
+          </ScrollFadeIn>
+        )}
 
       </div>
     </div>

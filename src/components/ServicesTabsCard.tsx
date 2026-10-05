@@ -38,7 +38,7 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
   const [activeIndex, setActiveIndex] = useState<number>(INITIAL_CARD_INDEX);
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  // Resize listener for responsive geometry
+  // ResizeObserver & window resize listener for responsive geometry
   useEffect(() => {
     const handleResize = () => {
       if (containerRef.current) {
@@ -48,7 +48,23 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && containerRef.current) {
+      observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.contentRect.width > 0) {
+            setContainerWidth(entry.contentRect.width);
+          }
+        }
+      });
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (observer) observer.disconnect();
+    };
   }, []);
 
   const count = services.length;
@@ -76,6 +92,32 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
       setActiveIndex(rounded);
     }
   }, [currentFloat, count, activeIndex]);
+
+  // Touch gesture handling for smooth swipe on mobile & tablets
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartFloatRef = useRef<number>(INITIAL_CARD_INDEX);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    touchStartFloatRef.current = currentFloat;
+    setIsHovered(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null || !containerRef.current) return;
+    const deltaX = e.touches[0].clientX - touchStartXRef.current;
+    const containerW = containerRef.current.clientWidth || 360;
+    // Dragging left advances cards (+), dragging right goes back (-)
+    const indexDelta = -(deltaX / (containerW * 0.36));
+    const nextFloat = Math.max(0, Math.min(count - 1, touchStartFloatRef.current + indexDelta));
+    targetFloatRef.current = nextFloat;
+  };
+
+  const handleTouchEnd = () => {
+    touchStartXRef.current = null;
+    setIsHovered(false);
+    targetFloatRef.current = Math.round(targetFloatRef.current);
+  };
 
   // Cursor movement handler: maps horizontal cursor coordinate directly to card arc
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -111,15 +153,24 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [count]);
 
-  // Responsive Arc Parameters
+  // Responsive Arc Parameters for All Screen Breakpoints (Mobile, Tablet, Desktop, Ultra-wide)
   const isMobile = containerWidth < 640;
   const isTablet = containerWidth >= 640 && containerWidth < 1024;
+  const isDesktop = containerWidth >= 1024 && containerWidth < 1440;
+  const isWide = containerWidth >= 1440;
 
-  const cardWidth = isMobile ? 120 : isTablet ? 148 : 172;
-  const cardHeight = isMobile ? 165 : isTablet ? 205 : 238;
-  const arcRadius = isMobile ? 320 : isTablet ? 440 : 540;
-  const stepAngleDeg = isMobile ? 26 : isTablet ? 23 : 21;
-  const arcTop = isMobile ? 18 : 28;
+  // Fluid and responsive card dimensions across all screen breakpoints
+  const cardWidth = isMobile ? 124 : isTablet ? 154 : isDesktop ? 184 : 216;
+  const cardHeight = isMobile ? 172 : isTablet ? 216 : isDesktop ? 256 : 296;
+  const arcRadius = isMobile 
+    ? Math.max(280, containerWidth * 0.72) 
+    : isTablet 
+    ? Math.max(420, containerWidth * 0.52) 
+    : isDesktop 
+    ? Math.max(540, containerWidth * 0.46) 
+    : Math.max(680, containerWidth * 0.42);
+  const stepAngleDeg = isMobile ? 26 : isTablet ? 22 : isDesktop ? 19 : 17;
+  const arcTop = isMobile ? 16 : isTablet ? 24 : 32;
 
   const getServiceIcon = (index: number) => {
     switch (index % 4) {
@@ -150,15 +201,18 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
         onPointerMove={handlePointerMove}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
-        className="relative w-full rounded-3xl border border-slate-800/80 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl overflow-hidden select-none cursor-ew-resize group"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-800/80 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl overflow-hidden select-none cursor-ew-resize group"
         style={{
-          minHeight: isMobile ? 540 : 620,
+          minHeight: isMobile ? 540 : isTablet ? 610 : isWide ? 720 : 660,
           touchAction: 'pan-y'
         }}
       >
         {/* Ambient Glow Orbs */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[520px] h-[320px] rounded-full bg-blue-600/10 blur-[100px] pointer-events-none" />
-        <div className="absolute top-0 right-10 w-72 h-72 rounded-full bg-indigo-500/10 blur-[90px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[520px] sm:w-[760px] xl:w-[1020px] h-[320px] sm:h-[460px] rounded-full bg-blue-600/10 blur-[110px] pointer-events-none" />
+        <div className="absolute top-0 right-10 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none" />
 
         {/* Top Eyebrow & Interactive Cursor Indicator */}
         <div className="relative z-10 pt-6 sm:pt-8 px-6 flex flex-col items-center gap-2.5 text-center pointer-events-none">
@@ -185,7 +239,7 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
         ─────────────────────────────────────────────────────────── */}
         <div 
           className="relative w-full overflow-hidden pointer-events-auto"
-          style={{ height: cardHeight * 1.52 + arcTop + 10 }}
+          style={{ height: cardHeight * 1.5 + arcTop + 14 }}
         >
           {services.map((service, index) => {
             // Distance from current continuous cursor float position
@@ -283,10 +337,10 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
             2. EDITORIAL CENTER FOCUS SECTION (Clean, without buttons)
             Title, Subtitle, Key Metrics & CTAs smoothly updated by cursor
         ─────────────────────────────────────────────────────────── */}
-        <div className="relative z-20 px-4 sm:px-8 pb-10 max-w-3xl mx-auto flex flex-col items-center text-center pointer-events-auto">
+        <div className="relative z-20 px-4 sm:px-8 pb-10 max-w-4xl mx-auto flex flex-col items-center text-center pointer-events-auto">
           
           {/* Dynamic Animated Title (No buttons, pure cursor control) */}
-          <div className="w-full max-w-2xl px-2 mb-3">
+          <div className="w-full max-w-3xl px-2 mb-3">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeService.id}
@@ -316,7 +370,7 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="max-w-xl mx-auto"
+              className="max-w-2xl mx-auto"
             >
               <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed line-clamp-2">
                 {activeService.tagline || activeService.description}

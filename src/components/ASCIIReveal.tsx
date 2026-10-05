@@ -491,7 +491,7 @@ export const ASCIIReveal: React.FC<ASCIIRevealProps> = ({
               Renuka Sharma
             </h3>
             <p className="text-xs font-mono font-semibold text-blue-600 mt-0.5 truncate flex items-center gap-1.5">
-              <span>Principal AI Generalist & Builder</span>
+              <span>AI Vision Works · Founder & Builder</span>
             </p>
           </div>
 

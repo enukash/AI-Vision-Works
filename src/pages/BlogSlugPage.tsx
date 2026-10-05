@@ -188,7 +188,7 @@ export const BlogSlugPage: React.FC<BlogSlugPageProps> = ({ slug, onNavigate }) 
             </h3>
             <p className="text-xs text-blue-600 font-semibold">{currentBlog.author.role}</p>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Alex Mercer is Lead AI Generalist and Solution Architect at AI Vision Works, advising enterprise leaders and high-growth founders on deploying reliable autonomous agents, prompt architectures, and full-stack generative systems.
+              Renuka Sharma is the Founder of AI Vision Works, helping startups and established businesses build real-world AI agents, rapid web applications, modern brand identities, and high-impact digital experiences.
             </p>
           </div>
         </div>

@@ -4,118 +4,120 @@ export const CORE_SKILLS: CoreSkill[] = [
   {
     id: 'skill-prompt-eng',
     name: 'Prompt Engineering',
-    level: 'Principal / Architect',
-    tagline: 'AI Prompt Engineering & Solutions',
-    description: 'I create clear and effective prompts that help AI tools produce more accurate and useful results. I work with AI workflows, system prompts, prompt optimization, and AI automation to solve real-world business problems.',
+    level: 'Prompt Engineer & Architect',
+    tagline: 'Making AI Models Give Accurate, Useful Answers Every Time',
+    description: 'I design clear, structured prompts and instructions that guide AI models like Claude, ChatGPT, and Gemini to deliver precise, reliable results without guessing or making things up.',
     practicalApplications: [
-      'Prompt engineering for business and creative tasks',
-      'System prompts and AI instructions',
-      'Structured AI outputs and workflows',
-      'AI testing and prompt optimization',
-      'AI safety and quality checks',
-      'AI integration with apps and business processes'
+      'Custom system prompts and AI instructions for businesses',
+      'Structured AI data outputs (clean JSON, tables, and reports)',
+      'Testing and refining prompts for high accuracy',
+      'AI guardrails to prevent errors and off-topic answers',
+      'Connecting AI models with company tools and databases',
+      'Automating repetitive writing, analysis, and research tasks'
     ],
-    toolsAndFrameworks: ['Claude opus', 'GPT-6 astra', 'Gemini ', 'DeepSeek', 'JSON Schema'],
-    businessValue: 'Helps teams save time, improve AI output quality, and use AI more effectively.'
+    toolsAndFrameworks: ['Claude 3.7', 'GPT-4o', 'Gemini 2.5', 'DeepSeek', 'JSON Schema', 'Prompt Testing Tools'],
+    businessValue: 'Saves hours of manual work, improves answer accuracy to 99%+, and keeps your AI safe and dependable.'
   },
   {
     id: 'skill-branding',
-    name: 'Branding',
-    level: 'Creative Director',
-    tagline: 'Turning ideas into a strong and memorable brand',
-    description: 'I create modern brand identities and visual systems that help businesses communicate their personality clearly and consistently.',
+    name: 'Branding & Visual Identity',
+    level: 'Brand Designer & Creative Director',
+    tagline: 'Memorable Logos, Color Palettes & Design Systems',
+    description: 'I craft clean, modern brand identities that help businesses stand out and connect with their audience. From logos and typography to complete brand guidelines, I make sure your company looks polished across every touchpoint.',
     practicalApplications: [
-      'Logo and brand identity design',
-      'Visual branding',
-      'Color and typography selection',
-      'Social media creatives',
-      'Brand guidelines',
-      'AI-generated visual concepts'
+      'Logo design and visual brand identity',
+      'Color palettes, typography rules, and font pairings',
+      'Complete brand guidelines and style books',
+      'Marketing collateral, social media banners, and pitch decks',
+      'Design systems for apps and websites (Figma components)',
+      'Packaging, product mockups, and business cards'
     ],
-    toolsAndFrameworks: ['Figma', 'Canva', 'Adobe Photoshop'],
-    businessValue: 'Creates a consistent visual identity that makes a brand easier to recognize and remember.'
+    toolsAndFrameworks: ['Figma', 'Adobe Illustrator', 'Photoshop', 'Tailwind CSS'],
+    businessValue: 'Builds instant trust with customers, strengthens brand recall, and gives your team a consistent visual system.'
   },
   {
     id: 'skill-storyboarding',
-    name: 'Storyboarding & Visual Storytelling',
-    level: 'Senior Director',
-    tagline: 'Turning ideas into engaging stories',
-    description: 'I transform concepts, products, and ideas into visual stories and cinematic experiences that are easier for audiences to understand and connect with.',
+    name: 'Storyboarding & Narrative Design',
+    level: 'Visual Storyteller & Director',
+    tagline: 'Turning Ideas into Clear, Engaging Visual Stories',
+    description: 'Before creating a video or launch campaign, I map out each scene shot by shot. This helps teams visualize the story, plan the pacing, and align on the creative vision before spending budget on production.',
     practicalApplications: [
-      'Video storyboarding',
-      'Shot-by-shot concepts',
-      'Promotional videos',
-      'Visual storytelling',
-      'YouTube and social media content',
-      'AI-generated video concepts'
+      'Shot-by-shot video storyboards and visual concepts',
+      'Product launch and marketing video planning',
+      'Pre-visualization video animatics with voiceover',
+      'Explainer video scripts and visual flow',
+      'High-retention social media video hooks',
+      'Pitch deck visual narratives for startups'
     ],
-    toolsAndFrameworks: ['ChatGPT', 'Nano Banana', 'Google Flow', 'Elevenlabs'],
-    businessValue: 'Helps brands communicate their ideas clearly and create more engaging content.'
+    toolsAndFrameworks: ['Midjourney', 'Figma', 'ElevenLabs', 'Runway', 'DaVinci Resolve'],
+    businessValue: 'Saves time and eliminates costly revisions by getting everyone on the same page before filming or rendering.'
   },
   {
     id: 'skill-video-creation',
-    name: 'Video Creation and Editing',
-    level: 'Master Editor & Producer',
-    tagline: 'AI-Powered Video & Visual Storytelling',
-    description: 'I create engaging videos that combine AI video generation, storytelling, editing, and creative direction. From short promotional videos to cinematic stories, I focus on making content that looks professional and keeps the audience interested.',
+    name: 'Video Creation & AI Video Editing',
+    level: 'Video Producer & Editor',
+    tagline: 'Cinematic AI Videos, Clear Voiceovers & Professional Editing',
+    description: 'I produce high-quality promotional videos, product explainers, and cinematic stories by combining modern AI video tools with professional editing, voiceovers, sound effects, and color grading.',
     practicalApplications: [
-      'AI-generated promotional and marketing videos',
-      'Cinematic storytelling and short films',
-      'YouTube and social media videos',
-      'Video editing and pacing',
-      'Voiceovers, sound effects, and background music',
-      'Scene planning and visual storytelling',
-      'Color correction and final video enhancement'
+      'Promotional product videos and social media ads',
+      'AI-generated cinematic scenes and short films',
+      'Natural AI voiceovers, background music, and sound design',
+      'Dynamic 4K upscaling, smooth camera movements, and pacing',
+      'Professional video editing, subtitles, and color grading',
+      'High-energy YouTube intros, hooks, and explainer videos'
     ],
-    toolsAndFrameworks: ['Omniflash', 'Veo', 'Runway Gen-3', 'Luma Dream Machine', 'DaVinci Resolve Studio', 'Premiere Pro', 'ElevenLabs', 'After Effects'],
-    businessValue: 'Helps brands create professional video content faster and with less production cost.'
+    toolsAndFrameworks: ['Runway Gen-3', 'Luma Dream Machine', 'DaVinci Resolve', 'Adobe Premiere Pro', 'ElevenLabs', 'After Effects'],
+    businessValue: 'Gives your brand cinema-quality video content in days instead of months, at a fraction of traditional agency costs.'
   },
   {
     id: 'skill-vibe-coding',
-    name: 'Vibe Coding',
-    level: 'Full-Stack Rapid Architect',
-    tagline: 'Building Digital Solutions with AI',
-    description: 'I use Vibe Coding and AI-assisted development to turn ideas into working websites, web applications, dashboards, and MVPs without making the development process unnecessarily complicated.',
+    name: 'Vibe Coding & Web Development',
+    level: 'Full-Stack Developer & Builder',
+    tagline: 'Turning Ideas into Working Web Apps and MVPs in Days',
+    description: 'Using modern AI coding tools and clean full-stack web standards, I build fast, responsive websites, SaaS apps, and functional prototypes directly from ideas—without slow development cycles.',
     practicalApplications: [
-      'AI-assisted website development',
-      'Landing pages and business websites',
-      'Web applications and MVPs',
-      'Interactive dashboards and tools',
-      'AI-powered applications',
-      'Rapid prototyping and product testing',
-      'Database and API integration'
+      'Full-stack web applications and SaaS MVPs',
+      'Fast, modern websites built with React and Tailwind CSS',
+      'Interactive dashboards, calculators, and client portals',
+      'Connecting APIs, forms, and databases',
+      'Mobile-friendly, responsive layouts that load instantly',
+      'Rapid prototyping to test product ideas with real users'
     ],
-    toolsAndFrameworks: ['Cursor', 'Google AI Studio', 'Claude', 'Lyzr', 'Kimi2.5', 'Lovable AI', 'Framer AI', 'Bolt'],
-    businessValue: 'Helps businesses turn ideas into working digital products faster, making it easier to test and launch new concepts.'
+    toolsAndFrameworks: ['React 19', 'TypeScript', 'Tailwind CSS', 'Vite', 'Cursor', 'Node.js', 'PostgreSQL'],
+    businessValue: 'Launches working digital products 10x faster, so you can test your idea in the market and start getting customers immediately.'
   },
   {
     id: 'skill-visual-art',
-    name: 'Visual Art',
-    level: 'Concept & Fine Artist',
-    tagline: 'High-Impact Digital Art, Keynote Visuals & Surreal Concept Design',
-    description: 'Crafting bespoke digital art, museum-grade key art, atmospheric concept landscapes, and marketing imagery with exquisite control over lighting, perspective, and micro-textures.',
+    name: 'Digital Art & Key Visuals',
+    level: 'Concept Artist & Visual Designer',
+    tagline: 'Stunning Concept Art, Keynote Visuals & Custom Imagery',
+    description: 'I create custom digital artwork, marketing hero images, and futuristic concept visuals that grab attention and tell a story, giving your brand an original look that generic stock photos cannot match.',
     practicalApplications: [
-      'High-resolution promotional key visuals for global enterprise campaigns',
-      'Exhibition-scale digital artwork with ultra-fine detail for fine art print',
-      'Editorial illustrations for leading technology publications and whitepapers',
-      'Concept art for architectural, product, and brand worldbuilding'
+      'Custom hero graphics for website banners and keynotes',
+      'Concept art for products, tech visions, and campaigns',
+      'High-resolution editorial art for articles and whitepapers',
+      'Eye-catching visuals for social media campaigns',
+      'Custom AI art generation tailored to your exact brand style',
+      'High-resolution print-ready artwork'
     ],
-    toolsAndFrameworks: ['Midjourney v6', 'ComfyUI (Custom Latents)', 'Adobe Photoshop', 'Magnific AI', 'Procreate'],
-    businessValue: 'Stops viewer scroll cold with unique, mathematically balanced art that elevates brand perception beyond stock photography.'
+    toolsAndFrameworks: ['Midjourney', 'ComfyUI', 'Photoshop', 'Magnific AI', 'Procreate'],
+    businessValue: 'Stops people from scrolling past your content with custom, high-impact visuals that make your brand look world-class.'
   },
   {
-    id: 'skill-agent-development',
-    name: 'Agent Development',
-    level: 'Cognitive Systems Architect',
-    tagline: 'Autonomous Goal-Directed Workflows, Multi-Agent Tool Calling & Orchestration',
-    description: 'Architecting resilient autonomous agents capable of multi-step reasoning, external tool execution, API calls, database interaction, self-reflection, and robust human-in-the-loop control.',
+    id: 'skill-agent-dev',
+    name: 'Autonomous AI Agents',
+    level: 'AI Systems Developer',
+    tagline: 'Smart AI Agents that Automate Everyday Business Tasks',
+    description: 'I build custom AI agents that can think through steps, use tools, call APIs, look up information, and complete multi-step tasks on their own—saving your team hours of repetitive work.',
     practicalApplications: [
-      'Multi-agent specialized architectures (Dispatcher, Specialist, Auditor, Committer)',
-      'Function calling and tool-use integrations with enterprise ERPs and CRM systems',
-      'Persistent memory architectures, session state, and vector retrieval pipelines',
-      'Circuit breakers, safety boundaries, and human-in-the-loop authorization gates'
+      'Automated customer support and lead response agents',
+      'Smart research agents that find and summarize information',
+      'Connecting AI agents to your CRM, email, and spreadsheets',
+      'Document processing and automated data extraction',
+      'Safe human-in-the-loop controls for sensitive decisions',
+      'Background automation that runs 24/7 reliably'
     ],
-    toolsAndFrameworks: ['LangGraph', 'Python', 'TypeScript', 'Docker', 'PostgreSQL / Vector DBs', 'REST Webhooks'],
-    businessValue: 'Automates complex, multi-hour knowledge worker processes into autonomous background workflows that run with 99%+ accuracy.'
+    toolsAndFrameworks: ['LangGraph', 'Python', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Webhooks'],
+    businessValue: 'Takes repetitive, multi-hour chores off your team\'s plate so they can focus on growing the business.'
   }
 ];

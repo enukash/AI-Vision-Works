@@ -51,13 +51,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate }) => {
         {/* Header */}
         <div className="max-w-3xl mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700">
-            <span>Research & Articles CMS</span>
+            <span>Guides & Articles</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black text-slate-950 font-heading tracking-tight">
-            Engineering Insights & AI Analysis.
+            Practical AI Guides & Insights.
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            In-depth perspectives on Generative AI architectures, prompt engineering system design, algorithmic finance, autonomous agents, and the vibe coding paradigm shift.
+            Straightforward, practical articles explaining autonomous AI agents, prompt engineering, vibe coding, and how modern businesses build with AI.
           </p>
         </div>
 
@@ -224,13 +224,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate }) => {
         {/* Newsletter Subscription Box */}
         <div className="rounded-3xl bg-slate-950 text-white p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-4 shadow-xl">
           <span className="text-xs font-bold text-blue-400 uppercase tracking-wider bg-blue-900/60 border border-blue-800 px-3 py-1 rounded-full">
-            Bi-Weekly Engineering Dispatch
+            Practical AI Dispatch
           </span>
           <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-            Receive Architecture Breakdowns & Case Studies
+            Get Practical AI Guides & Real-World Case Studies
           </h3>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-md mx-auto">
-            Practical insights on enterprise AI pipelines, agent reliability evals, and multimodal creative tooling. Zero promotional fluff.
+          <p className="text-slate-300 text-xs sm:text-sm max-w-md mx-auto leading-relaxed">
+            Straightforward insights on building autonomous AI agents, prompt engineering, vibe coding, and launching web apps fast. Zero fluff.
           </p>
 
           <form onSubmit={handleSubscribe} className="pt-3 max-w-md mx-auto flex flex-col sm:flex-row gap-2">

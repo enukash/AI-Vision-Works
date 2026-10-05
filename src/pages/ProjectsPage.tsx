@@ -29,6 +29,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
     'UI/UX Designing',
     'Poster Creation',
     'Logo Generation',
+    'Social Media Posts',
     'Video Creation & Editing',
     'Digital & Visual Art',
     'Thumbnail Creation',
@@ -59,13 +60,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700">
-              <span>Client Portfolio CMS</span>
+              <span>Client Work & Case Studies</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-black text-slate-950 font-heading tracking-tight">
-              Selected AI Projects & Case Studies.
+              Real Projects, Proven Results.
             </h1>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-              Explore real-world client solutions across UI/UX design, poster creation, logo generation, video creation and editing, digital art, YouTube thumbnails, and autonomous agents.
+              Explore real-world client solutions across automated AI workflows, modern web apps, brand systems, and promotional video creation.
             </p>
           </div>
 

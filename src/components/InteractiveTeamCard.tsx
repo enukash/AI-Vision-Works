@@ -27,7 +27,7 @@ interface InteractiveTeamCardProps {
 export const InteractiveTeamCard: React.FC<InteractiveTeamCardProps> = ({
   imageSrc = '/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg',
   name = 'Renuka Sharma',
-  role = 'AI Generalist & Builder',
+  role = 'AI Vision Works · Lead Builder',
   tagline = 'Available for Q3/Q4 Client Projects',
   linkedinUrl = 'https://linkedin.com',
   twitterUrl = 'https://x.com',

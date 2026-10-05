@@ -245,7 +245,7 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
             Turning Problems Into Solutions
           </span>
           <h2 className="text-lg sm:text-xl font-black font-heading tracking-tight text-white leading-tight">
-            THE AI GENERALIST PLAYBOOK
+            THE AI VISION WORKS PLAYBOOK
           </h2>
           <p className="text-[11px] sm:text-xs text-slate-300 font-light leading-relaxed line-clamp-2">
             Why unified full-stack AI engineering outperforms fragmented specialized agencies.
@@ -257,7 +257,7 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
       <div className="relative my-2 sm:my-3 rounded-xl overflow-hidden border border-white/20 shadow-xl group/cover flex-1 max-h-[170px] sm:max-h-[190px] bg-slate-900 z-10">
         <img
           src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-          alt="The AI Generalist Architecture Blueprint"
+          alt="The AI Vision Works Architecture Blueprint"
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/cover:scale-105"
         />
         {/* Subtle dark gradient overlay */}
@@ -286,7 +286,7 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
       <div className="pt-2.5 border-t border-white/10 flex items-center justify-between relative z-10">
         <div>
           <div className="text-[9px] uppercase font-mono tracking-wider text-slate-400">Author</div>
-          <div className="text-xs font-bold text-white">Alex Mercer · AI Architect</div>
+          <div className="text-xs font-bold text-white">Renuka Sharma · AI Vision Works Founder</div>
         </div>
 
         <motion.div 

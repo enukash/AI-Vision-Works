@@ -102,7 +102,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button onClick={() => handleNav('about')} className="text-slate-400 hover:text-white transition-colors">
-                  About the AI Generalist
+                  About AI Vision Works
                 </button>
               </li>
               <li>

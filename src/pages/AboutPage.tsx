@@ -77,34 +77,34 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   const techStackCards: SwipeCardItem[] = [
     {
       id: 'tech-frontend',
-      eyebrow: '01 · Frontend & UI Architecture',
-      title: 'Modern Web & Responsive Interfaces',
-      description: 'Engineered with semantic HTML5, React 19, TypeScript, and modern Tailwind CSS. Component-driven systems crafted with Figma precision and strict accessibility standards.',
-      tools: ['React 19', 'TypeScript', 'Tailwind CSS', 'Bootstrap', 'Figma', 'Vite'],
+      eyebrow: '01 · Frontend & Web Apps',
+      title: 'Modern Web Apps & Responsive Interfaces',
+      description: 'Built with React 19, TypeScript, and modern Tailwind CSS. Fast, accessible, and mobile-friendly layouts crafted with Figma precision and smooth interactive animations.',
+      tools: ['React 19', 'TypeScript', 'Tailwind CSS', 'Figma', 'Vite', 'HTML5/CSS3'],
       image: '/assets/images/robot_ai_solutions_1789208998741.jpg',
     },
     {
       id: 'tech-cognitive',
-      eyebrow: '02 · Cognitive & LLM Systems',
-      title: 'Deterministic AI & Prompt Architecture',
-      description: 'System prompts, LangGraph state machines, multi-agent coordination, structured JSON Schema contracts, and automated eval benchmarks for zero-hallucination accuracy.',
-      tools: ['Claude 3.7', 'GPT-4o', 'Gemini 2.5 Pro', 'LangGraph', 'JSON Schema', 'Evals'],
+      eyebrow: '02 · AI Prompts & Agents',
+      title: 'Prompt Engineering & Autonomous Agents',
+      description: 'Custom system prompts, LangGraph agent workflows, and structured data validation (JSON schemas) designed to prevent hallucinations and deliver accurate, reliable answers.',
+      tools: ['Claude 3.7', 'GPT-4o', 'Gemini 2.5', 'LangGraph', 'JSON Schema', 'Prompt Evals'],
       image: '/assets/images/robot_thinking_wide_1789365436523.jpg',
     },
     {
       id: 'tech-media',
-      eyebrow: '03 · Generative Video & Cinematic Suite',
-      title: 'AI Video Synthesis & Production',
-      description: 'Cinema-grade video generation, dynamic camera motions, neural voice synthesis with ElevenLabs, and broadcast editing via DaVinci Resolve and Adobe Premiere.',
+      eyebrow: '03 · AI Video & Media Production',
+      title: 'Cinematic AI Videos & Storyboards',
+      description: 'Cinema-quality video creation using Runway Gen-3 and Luma, combined with studio voice narration in ElevenLabs, dynamic sound design, and master editing in DaVinci Resolve.',
       tools: ['Runway Gen-3', 'Luma Dream', 'DaVinci Resolve', 'ElevenLabs', 'Premiere Pro'],
       image: '/assets/images/robot_ai_hologram_1789209021516.jpg',
     },
     {
       id: 'tech-backend',
-      eyebrow: '04 · Data & Scalable Backend',
-      title: 'Enterprise APIs & Distributed Workflows',
-      description: 'Hardened Docker microservices, Node.js & PHP API layers, PostgreSQL relational persistence, and event-driven webhook connectors for resilient enterprise integrations.',
-      tools: ['PostgreSQL', 'Docker', 'Node.js', 'Express', 'PHP APIs', 'REST Webhooks'],
+      eyebrow: '04 · APIs & Backend Workflows',
+      title: 'Connected APIs & Reliable Data Workflows',
+      description: 'Lightweight, dependable microservices connecting AI tools to your existing databases, CRMs, and email systems using Node.js, Python, and secure webhooks.',
+      tools: ['Node.js', 'Python', 'PostgreSQL', 'Express', 'Docker', 'REST Webhooks'],
       image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
     },
   ];
@@ -116,13 +116,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
         {/* Header Intro */}
         <ScrollFadeIn className="max-w-3xl mb-16 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700">
-            <span>My Profile</span>
+            <span>Hi, I'm Renuka Sharma</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black text-slate-950 font-heading tracking-tight">
-            Bringing Powerful AI into Practical, Everyday Solutions.
+            Turning Powerful AI into Practical, Everyday Solutions.
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            I combine AI, design, development, branding, and automation to turn ideas into practical solutions—all in one place.
+            I help founders and businesses build real-world AI solutions—from smart automation agents and modern web applications to brand identity and cinematic video—all in one seamless flow.
           </p>
         </ScrollFadeIn>
 
@@ -136,7 +136,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             {/* Framer ASCII Reveal Component */}
             <ASCIIReveal
               imageSrc="/assets/images/WhatsApp Image 2026-09-14 at 9.45.15 PM.jpeg"
-              alt="Renuka Sharma - AI Generalist"
+              alt="Renuka Sharma - AI Vision Works"
               trigger="auto"
               method="dither"
               columns={40}
@@ -148,10 +148,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
               <div className="font-semibold text-slate-900 flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-blue-600" />
-                <span>Quality-Focused Execution</span>
+                <span>Real-World Quality & Reliability</span>
               </div>
               <p className="leading-relaxed">
-                Every project is built with a focus on architectural clarity, strict JSON schema contracts, evaluation suites, and real-world usability—not just impressive-looking one-off demos.
+                Every project is built to work in production—with clean code, reliable AI responses, and thoughtful design that real people enjoy using.
               </p>
             </div>
           </div>
@@ -169,12 +169,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             {/* Large Scroll-Driven Reveal Statement */}
             <div className="space-y-4">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 font-heading">
-                The "AI Generalist" Advantage
+                The AI Vision Works Advantage
               </h2>
 
               {/* Framer Text Reveal Scroll Component */}
               <TextRevealScroll
-                text="When businesses build with AI, they often juggle fragmented teams—a developer for technology, a designer for visuals, and a video director for creative storytelling. Managing handoffs takes time, increases friction, and dilutes vision."
+                text="When businesses build with AI, they often juggle separate teams—a developer for code, a designer for visuals, and a video editor for marketing. Managing all those handoffs takes time, costs more, and dilutes your vision."
                 revealMode="words"
                 startOffset={85}
                 endOffset={30}
@@ -183,7 +183,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               />
 
               <TextRevealScroll
-                text="An AI Generalist unifies these disciplines into one singular execution loop: turning bold ideas into full-stack web applications, generative design systems, and autonomous agent workflows."
+                text="AI Vision Works brings all these disciplines together into one smooth workflow: turning ideas into full-stack web apps, brand systems, and automated AI agents."
                 revealMode="words"
                 startOffset={75}
                 endOffset={20}
@@ -200,7 +200,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                   <span>End-to-End Delivery</span>
                 </div>
                 <div className="text-xs text-slate-600 leading-relaxed">
-                  From initial concept and architectural storytelling to design, full-stack code, and final deployment—managed in one cohesive flow.
+                  From initial concept and visual design to full-stack code and live deployment—managed by one person who sees the complete picture.
                 </div>
               </div>
 
@@ -210,7 +210,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                   <span>Fast AI-Powered Development</span>
                 </div>
                 <div className="text-xs text-slate-600 leading-relaxed">
-                  Rapid prototyping and vibe coding help deliver production web apps and digital campaigns in days rather than months.
+                  Rapid prototyping and vibe coding help deliver working web apps and digital assets in days rather than waiting months.
                 </div>
               </div>
 
@@ -220,7 +220,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                   <span>Reliable AI Systems</span>
                 </div>
                 <div className="text-xs text-slate-600 leading-relaxed">
-                  Engineered AI workflows with deterministic prompts, schema validation, regression tests, and human review for enterprise accuracy.
+                  Carefully engineered prompts, guardrails, and validation rules to ensure your AI behaves accurately and safely.
                 </div>
               </div>
 
@@ -230,7 +230,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                   <span>Creative & Cinematic Content</span>
                 </div>
                 <div className="text-xs text-slate-600 leading-relaxed">
-                  High-impact brand systems, promotional film production, narrative storyboarding, and responsive component UI.
+                  High-impact brand systems, promotional videos, storyboard planning, and clean responsive user interfaces.
                 </div>
               </div>
             </div>
@@ -244,10 +244,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               Skills Breakdown
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-950 font-heading">
-              The 7 Pillars of My AI Generalist Practice
+              The 7 Core Capabilities of My Practice
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base">
-              Click any card to expand its length and inspect full deliverables, tools, and production systems.
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+              Click any card to explore what I build, the tools I use, and the value it brings to your business.
             </p>
           </ScrollFadeIn>
 
@@ -266,10 +266,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               Full-Stack Tooling Ecosystem
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-              Engineered with Modern Web & AI Systems
+              Built on Battle-Tested Modern Web & AI Systems
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Every deliverable is crafted using industry-standard engineering principles—from semantic HTML5 and responsive Bootstrap/Tailwind layouts to Node.js/PHP microservices and strict JSON schema contracts.
+              Every deliverable is crafted with strict engineering discipline—from semantic HTML5, React 19, and modern Tailwind CSS layouts to LangGraph multi-agent runtimes, PostgreSQL persistence, and strict JSON Schema contracts.
             </p>
           </div>
 

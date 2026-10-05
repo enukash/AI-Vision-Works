@@ -14,6 +14,7 @@ export type ProjectCategory =
   | 'UI/UX Designing'
   | 'Poster Creation'
   | 'Logo Generation'
+  | 'Social Media Posts'
   | 'Video Creation & Editing'
   | 'Digital & Visual Art'
   | 'Thumbnail Creation'
@@ -100,6 +101,132 @@ export interface ServiceDeliverable {
   description: string;
 }
 
+export type ServiceCategory = 
+  | 'all'
+  | 'Agent Development'
+  | 'UI/UX & Prototyping'
+  | 'Logo & Brand Identity'
+  | 'Social Media Posts'
+  | 'Video Creation & Editing'
+  | 'Digital & Visual Art'
+  | 'Thumbnail Creation';
+
+export interface ServiceRichContent {
+  seo?: {
+    title: string;
+    metaDescription: string;
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+  };
+  hero?: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    primaryCTA: string;
+    secondaryCTA: string;
+  };
+  introduction?: {
+    heading: string;
+    description: string;
+    supportingText?: string;
+    highlights?: string[];
+  };
+  whatAreAutonomousAIAgents?: {
+    heading: string;
+    description: string;
+    body: string;
+    workflow: string[];
+  };
+  services?: {
+    heading: string;
+    items: Array<{
+      number: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  capabilities?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
+  howItWorks?: {
+    heading: string;
+    steps: Array<{
+      number: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  useCases?: {
+    heading: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  benefits?: {
+    heading: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  comparison?: {
+    heading: string;
+    traditionalAutomation: {
+      title: string;
+      features: string[];
+    };
+    autonomousAIAgents: {
+      title: string;
+      features: string[];
+    };
+    conclusion?: string;
+  };
+  developmentProcess?: {
+    heading: string;
+    steps: Array<{
+      number: string;
+      title: string;
+      description: string;
+    }>;
+  };
+  integrations?: {
+    heading: string;
+    description: string;
+    items: string[];
+    cta?: string;
+  };
+  whyAIvisionWorks?: {
+    heading: string;
+    description: string;
+    pillars: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  targetAudience?: {
+    heading: string;
+    items: string[];
+    description: string;
+  };
+  finalCTA?: {
+    heading: string;
+    description: string;
+    primaryCTA: string;
+    secondaryCTA: string;
+  };
+  faq?: {
+    heading: string;
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
+}
+
 export interface ServiceItem {
   id: string;
   slug: string;
@@ -125,6 +252,7 @@ export interface ServiceItem {
     role: string;
     company: string;
   };
+  richContent?: ServiceRichContent;
 }
 
 export interface CoreSkill {

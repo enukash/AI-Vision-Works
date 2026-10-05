@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { PageRoute } from './types';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -13,10 +13,43 @@ import { BlogPage } from './pages/BlogPage';
 import { BlogSlugPage } from './pages/BlogSlugPage';
 import { ContactPage } from './pages/ContactPage';
 import { motion, AnimatePresence } from 'motion/react';
+import Lenis from 'lenis';
+import { useDocumentMetadata } from './hooks/useDocumentMetadata';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageRoute>('home');
   const [currentSlug, setCurrentSlug] = useState<string>('');
+  const lenisRef = useRef<Lenis | null>(null);
+
+  // Automatically update document title, meta description, OG tags, Twitter cards, and Schema.org JSON-LD
+  useDocumentMetadata(currentPage, currentSlug);
+
+  // Initialize Lenis luxury inertial smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.5,
+    });
+    lenisRef.current = lenis;
+
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   // Synchronize with URL hash for clean navigation and back button support
   useEffect(() => {
@@ -63,7 +96,13 @@ export default function App() {
       setCurrentSlug('');
       window.location.hash = `#/${page}`;
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Smooth scroll to top on page switch
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
   };
 
   return (
@@ -79,10 +118,11 @@ export default function App() {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentPage + (currentSlug ? `-${currentSlug}` : '')}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            className="will-change-transform"
           >
             {currentPage === 'home' && (
               <HomePage onNavigate={handleNavigate} />

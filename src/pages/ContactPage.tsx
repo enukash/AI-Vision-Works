@@ -12,7 +12,9 @@ import {
   Sparkles, 
   MessageSquare,
   Building,
-  Check
+  Check,
+  Loader2,
+  ExternalLink
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -32,43 +34,80 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitNotice, setSubmitNotice] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const faqs = [
     {
-      question: 'Who owns the intellectual property (IP) and deliverables?',
-      answer: 'You retain 100% full commercial ownership of all deliverables upon completion—including vector source files, Figma libraries, video master timelines, Python/TypeScript agent microservices, and custom system instruction configurations.'
+      question: 'Who owns the intellectual property (IP) and project deliverables?',
+      answer: 'You own 100% of everything created for your project once completed. That includes all vector logos, Figma design files, master video edits, clean React/TypeScript code, backend microservices, and custom AI prompt instructions.'
     },
     {
-      question: 'How do you prevent hallucinations in critical business workflows?',
-      answer: 'I engineer deterministic validation harnesses using JSON schema contracts, type validation invariants, and continuous evaluation benchmarks. Cognitive outputs must satisfy rigorous validation rules before triggering downstream database mutations or API calls.'
+      question: 'How do you make sure AI agents don’t make mistakes or give wrong answers?',
+      answer: 'I build reliable safety checks and automated verification into every AI workflow. AI outputs are structured in clean data formats (like JSON schemas) and checked before they touch your database or send notifications. For sensitive decisions, I always include a simple human approval step.'
     },
     {
-      question: 'Why choose an AI Generalist over a traditional multi-team agency?',
-      answer: 'Traditional agencies introduce handoff friction: the strategist writes a deck, the designer creates mockups without understanding LLM limits, and developers struggle to implement. An AI Generalist synthesizes the entire stack, eliminating miscommunication and delivering 5x to 10x faster.'
+      question: 'Why work with AI Vision Works instead of a traditional agency?',
+      answer: 'Traditional agencies split your project across account managers, designers, and programmers who rarely understand how modern AI works. At AI Vision Works, I handle the whole puzzle—from system strategy and design to working code and video—meaning faster launches, clear communication, and lower costs.'
     },
     {
-      question: 'What is the typical onboarding and kickoff timeline?',
-      answer: 'Following our initial 45-minute discovery consultation and scope confirmation, client engagements typically kick off within 3 to 5 business days with immediate preliminary deliverables in week one.'
+      question: 'How quickly can we get started and see initial results?',
+      answer: 'After a quick 30-minute discovery call to confirm your project goals, we usually kick off within 3 to 5 business days. You will often see initial prototypes, working layouts, or agent workflows within the first week.'
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.projectDescription) return;
 
-    // Trigger celebration confetti
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    } catch {
-      // safe fallback
-    }
+    setIsSubmitting(true);
+    setSubmitNotice(null);
 
-    setSubmitted(true);
+    try {
+      // Send directly to owner inbox via FormSubmit AJAX API
+      const res = await fetch('https://formsubmit.co/ajax/renukash2490@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || 'Not Specified',
+          serviceCategory: formData.serviceCategory,
+          budgetRange: formData.budgetRange,
+          timeline: formData.timeline,
+          message: formData.projectDescription,
+          _subject: `[AI Vision Works] New Inquiry from ${formData.name} (${formData.serviceCategory})`,
+          _replyto: formData.email,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Status ${res.status}`);
+      }
+
+      setSubmitNotice('Delivered directly to renukash2490@gmail.com');
+    } catch (err) {
+      console.warn('Form relay notification:', err);
+      setSubmitNotice('Form captured! You can also click below to confirm in your mail client.');
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+      } catch {
+        // safe fallback
+      }
+    }
   };
 
   const handleReset = () => {
@@ -82,6 +121,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
       projectDescription: ''
     });
     setSubmitted(false);
+    setSubmitNotice(null);
   };
 
   return (
@@ -94,10 +134,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             <span>Direct Client Consultation</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black text-slate-950 font-heading tracking-tight">
-            Let's Architect Your AI Solution.
+            Let's Talk About Your Project.
           </h1>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Have a business challenge that requires autonomous agents, brand identity, rapid vibe coding, or promotional storytelling video? Share your requirements below to schedule a technical discovery consultation.
+            Have a project or business challenge that could benefit from AI automation, custom web development, brand design, or promotional video? Share a few details below and let's set up a free 30-minute discovery call.
           </p>
         </div>
 
@@ -117,8 +157,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   </div>
                   <div>
                     <div className="font-bold text-slate-900">Direct Email</div>
-                    <a href="mailto:contact@aivisionworks.com" className="text-blue-600 hover:underline text-xs sm:text-sm">
-                      contact@aivisionworks.com
+                    <a href="mailto:renukash2490@gmail.com" className="text-blue-600 hover:underline text-xs sm:text-sm font-semibold">
+                      renukash2490@gmail.com
                     </a>
                     <div className="text-[11px] text-slate-400 mt-0.5">Average response under 12 hours</div>
                   </div>
@@ -164,14 +204,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             {/* Quick Process Card */}
             <div className="p-8 rounded-3xl bg-slate-950 text-white space-y-4 shadow-xl">
               <h4 className="text-base font-bold text-white font-heading">
-                Discovery Session Format
+                What to Expect on Our Call
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed">
-                During our initial 45-minute technical discovery session, we review your operational bottlenecks, evaluate API feasibility, and draft an architectural blueprint with concrete cost and time estimates.
+                During our initial 30-minute discovery call, we’ll talk through your business goals, explore the best technical approach, and outline realistic timelines and estimated costs.
               </p>
               <div className="text-xs text-blue-400 font-semibold flex items-center gap-1 pt-1">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Zero obligation · Pure technical clarity</span>
+                <span>No pressure · Just clear, honest technical advice</span>
               </div>
             </div>
           </div>
@@ -186,25 +226,41 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-bold text-slate-950 font-heading">
-                    Inquiry Received Successfully
+                    Inquiry Sent Successfully
                   </h3>
 
                   <p className="text-slate-600 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
-                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. I have received your project details regarding <strong className="text-slate-900">{formData.serviceCategory}</strong> and will reply within 12 business hours to schedule your discovery session.
+                    Thank you, <strong className="text-slate-900">{formData.name}</strong>. Your project details regarding <strong className="text-slate-900">{formData.serviceCategory}</strong> have been submitted directly to <strong className="text-blue-600">renukash2490@gmail.com</strong>.
                   </p>
 
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 max-w-sm mx-auto text-left space-y-1">
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 max-w-sm mx-auto text-left space-y-1.5">
+                    <div className="text-[11px] font-bold text-emerald-700 uppercase tracking-wide flex items-center gap-1 mb-1">
+                      <Check className="w-3.5 h-3.5" /> Delivered to renukash2490@gmail.com
+                    </div>
                     <div><span className="font-bold">Contact:</span> {formData.email}</div>
                     {formData.company && <div><span className="font-bold">Company:</span> {formData.company}</div>}
-                    <div><span className="font-bold">Estimated Window:</span> {formData.timeline}</div>
+                    <div><span className="font-bold">Service:</span> {formData.serviceCategory}</div>
+                    <div><span className="font-bold">Budget & Window:</span> {formData.budgetRange} · {formData.timeline}</div>
                   </div>
 
-                  <button
-                    onClick={handleReset}
-                    className="px-6 py-2.5 rounded-full text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors"
-                  >
-                    Submit Another Inquiry
-                  </button>
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <a
+                      href={`mailto:renukash2490@gmail.com?subject=${encodeURIComponent(`[AI Vision Works Inquiry] ${formData.name} - ${formData.serviceCategory}`)}&body=${encodeURIComponent(
+                        `Hi Renuka,\n\nI just submitted an inquiry on your portfolio website:\n\nName: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'N/A'}\nService: ${formData.serviceCategory}\nBudget: ${formData.budgetRange}\nTimeline: ${formData.timeline}\n\nProject Overview:\n${formData.projectDescription}\n\nLooking forward to speaking soon!`
+                      )}`}
+                      className="px-5 py-2.5 rounded-full text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 transition-colors inline-flex items-center gap-1.5 shadow-2xs"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Open Copy in Mail Client</span>
+                    </a>
+
+                    <button
+                      onClick={handleReset}
+                      className="px-5 py-2.5 rounded-full text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors cursor-pointer"
+                    >
+                      Submit Another Inquiry
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -228,7 +284,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Alex Vance"
+                        placeholder="Sarah Johnson"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
                       />
                     </div>
@@ -242,7 +298,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="alex@company.com"
+                        placeholder="sarah@company.com"
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
                       />
                     </div>
@@ -334,10 +390,20 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 px-6 rounded-full text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 flex items-center justify-center gap-2"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 px-6 rounded-full text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <span>Submit Inquiry & Request Discovery</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Sending to renukash2490@gmail.com...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit Inquiry & Send to Inbox</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}

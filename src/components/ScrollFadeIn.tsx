@@ -18,10 +18,10 @@ export const ScrollFadeIn: React.FC<ScrollFadeInProps> = ({
   children,
   className = '',
   delay = 0,
-  duration = 1,
+  duration = 0.72,
   direction = 'up',
-  distance = 30,
-  amount = 0.15,
+  distance = 28,
+  amount = 0.12,
   once = true,
   id,
   as = 'div',
@@ -62,7 +62,7 @@ export const ScrollFadeIn: React.FC<ScrollFadeInProps> = ({
     transition: {
       duration,
       delay,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.16, 1, 0.3, 1],
     },
   };
 
