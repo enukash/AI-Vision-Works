@@ -45,6 +45,207 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
 
+  const explainer = rich?.whatIsSocialMediaPostDesign
+    ? {
+        heading: rich.whatIsSocialMediaPostDesign.heading,
+        description: rich.whatIsSocialMediaPostDesign.description,
+        body: rich.whatIsSocialMediaPostDesign.body,
+        workflow: rich.whatIsSocialMediaPostDesign.elements,
+        badgeLabel: 'Social Media Framework',
+        pipelineLabel: 'Key Design Elements'
+      }
+    : rich?.whatIsThumbnailPackaging
+    ? {
+        heading: rich.whatIsThumbnailPackaging.heading,
+        description: rich.whatIsThumbnailPackaging.description,
+        body: rich.whatIsThumbnailPackaging.body,
+        workflow: rich.whatIsThumbnailPackaging.elements,
+        badgeLabel: 'Thumbnail Architecture',
+        pipelineLabel: 'Packaging Core Elements'
+      }
+    : rich?.whatIsDigitalVisualArt
+    ? {
+        heading: rich.whatIsDigitalVisualArt.heading,
+        description: rich.whatIsDigitalVisualArt.description,
+        body: rich.whatIsDigitalVisualArt.body,
+        workflow: rich.whatIsDigitalVisualArt.elements,
+        badgeLabel: 'Visual Art Framework',
+        pipelineLabel: 'Core Visual Elements'
+      }
+    : rich?.whatIsAIvideoCreation
+    ? {
+        heading: rich.whatIsAIvideoCreation.heading,
+        description: rich.whatIsAIvideoCreation.description,
+        body: rich.whatIsAIvideoCreation.body,
+        workflow: rich.whatIsAIvideoCreation.workflow,
+        badgeLabel: 'AI Video Framework',
+        pipelineLabel: 'Visual Production Workflow'
+      }
+    : rich?.whatIsBrandIdentity
+    ? {
+        heading: rich.whatIsBrandIdentity.heading,
+        description: rich.whatIsBrandIdentity.description,
+        body: rich.whatIsBrandIdentity.body,
+        workflow: rich.whatIsBrandIdentity.elements,
+        badgeLabel: 'Brand Architecture',
+        pipelineLabel: 'Core Visual Identity Elements'
+      }
+    : rich?.whatIsVibeCoding
+    ? {
+        heading: rich.whatIsVibeCoding.heading,
+        description: rich.whatIsVibeCoding.description,
+        body: rich.whatIsVibeCoding.body,
+        workflow: rich.whatIsVibeCoding.workflow,
+        badgeLabel: 'Core Framework',
+        pipelineLabel: 'Rapid Iteration Cycle'
+      }
+    : rich?.whatAreAutonomousAIAgents
+    ? {
+        heading: rich.whatAreAutonomousAIAgents.heading,
+        description: rich.whatAreAutonomousAIAgents.description,
+        body: rich.whatAreAutonomousAIAgents.body,
+        workflow: rich.whatAreAutonomousAIAgents.workflow,
+        badgeLabel: 'Core Framework',
+        pipelineLabel: 'Execution Flow Pipeline'
+      }
+    : null;
+
+  const comparison = rich?.genericVsStrategic
+    ? {
+        heading: rich.genericVsStrategic.heading,
+        leftTitle: rich.genericVsStrategic.genericDesign.title,
+        leftFeatures: rich.genericVsStrategic.genericDesign.features,
+        rightTitle: rich.genericVsStrategic.strategicDesign.title,
+        rightFeatures: rich.genericVsStrategic.strategicDesign.features,
+        conclusion: rich.genericVsStrategic.conclusion,
+        badge: 'Strategic Design'
+      }
+    : rich?.traditionalVsAI
+    ? {
+        heading: rich.traditionalVsAI.heading,
+        leftTitle: rich.traditionalVsAI.traditionalDesign?.title || rich.traditionalVsAI.traditionalProduction?.title || 'Traditional Approach',
+        leftFeatures: rich.traditionalVsAI.traditionalDesign?.features || rich.traditionalVsAI.traditionalProduction?.features || [],
+        rightTitle: rich.traditionalVsAI.aiVisualCreation?.title || rich.traditionalVsAI.aiVideoCreation?.title || 'AI-Assisted Creation',
+        rightFeatures: rich.traditionalVsAI.aiVisualCreation?.features || rich.traditionalVsAI.aiVideoCreation?.features || [],
+        conclusion: rich.traditionalVsAI.conclusion,
+        badge: 'AI-Enhanced'
+      }
+    : rich?.brandVsRandomDesign
+    ? {
+        heading: rich.brandVsRandomDesign.heading,
+        leftTitle: rich.brandVsRandomDesign.randomDesign.title,
+        leftFeatures: rich.brandVsRandomDesign.randomDesign.features,
+        rightTitle: rich.brandVsRandomDesign.strategicBrandSystem.title,
+        rightFeatures: rich.brandVsRandomDesign.strategicBrandSystem.features,
+        conclusion: rich.brandVsRandomDesign.conclusion,
+        badge: 'Strategic System'
+      }
+    : rich?.traditionalVsVibeCoding
+    ? {
+        heading: rich.traditionalVsVibeCoding.heading,
+        leftTitle: rich.traditionalVsVibeCoding.traditionalDevelopment.title,
+        leftFeatures: rich.traditionalVsVibeCoding.traditionalDevelopment.features,
+        rightTitle: rich.traditionalVsVibeCoding.vibeCoding.title,
+        rightFeatures: rich.traditionalVsVibeCoding.vibeCoding.features,
+        conclusion: rich.traditionalVsVibeCoding.conclusion,
+        badge: 'AI-Native'
+      }
+    : rich?.comparison
+    ? {
+        heading: rich.comparison.heading,
+        leftTitle: rich.comparison.traditionalAutomation.title,
+        leftFeatures: rich.comparison.traditionalAutomation.features,
+        rightTitle: rich.comparison.autonomousAIAgents.title,
+        rightFeatures: rich.comparison.autonomousAIAgents.features,
+        conclusion: rich.comparison.conclusion,
+        badge: 'Next-Gen'
+      }
+    : null;
+
+  const capabilities = rich?.postTypes
+    ? {
+        badge: 'Content Formats & Post Types',
+        heading: rich.postTypes.heading,
+        description: rich.postTypes.description,
+        items: rich.postTypes.items,
+        highlight: rich.postTypes.highlight
+      }
+    : rich?.thumbnailTypes
+    ? {
+        badge: 'Thumbnail Types & Formats',
+        heading: rich.thumbnailTypes.heading,
+        description: rich.thumbnailTypes.description,
+        items: rich.thumbnailTypes.items,
+        highlight: rich.thumbnailTypes.highlight
+      }
+    : rich?.visualTypes
+    ? {
+        badge: 'Visual Artwork Types',
+        heading: rich.visualTypes.heading,
+        description: rich.visualTypes.description,
+        items: rich.visualTypes.items,
+        highlight: rich.visualTypes.highlight
+      }
+    : rich?.videoTypes
+    ? {
+        badge: 'Video Formats & Types',
+        heading: rich.videoTypes.heading,
+        description: rich.videoTypes.description,
+        items: rich.videoTypes.items,
+        highlight: rich.videoTypes.highlight
+      }
+    : rich?.designSystem
+    ? {
+        badge: 'Design System',
+        heading: rich.designSystem.heading,
+        description: rich.designSystem.description,
+        items: rich.designSystem.items,
+        highlight: rich.designSystem.highlight
+      }
+    : rich?.capabilities
+    ? {
+        badge: 'Capabilities',
+        heading: rich.capabilities.heading,
+        description: rich.capabilities.description,
+        items: rich.capabilities.items,
+        highlight: rich.capabilities.highlight
+      }
+    : null;
+
+  const creativePillars = rich?.creativeCapabilities
+    ? {
+        badge: 'Creative Depth',
+        heading: rich.creativeCapabilities.heading,
+        description: rich.creativeCapabilities.description,
+        items: rich.creativeCapabilities.items
+      }
+    : rich?.brandElements
+    ? {
+        badge: 'Design Foundations',
+        heading: rich.brandElements.heading,
+        description: rich.brandElements.description,
+        items: rich.brandElements.items
+      }
+    : null;
+
+  const techOrIntegrations = rich?.technology
+    ? {
+        badge: 'Modern Tech Stack',
+        heading: rich.technology.heading,
+        description: rich.technology.description,
+        items: rich.technology.areas,
+        cta: 'Build With Modern Tech'
+      }
+    : rich?.integrations
+    ? {
+        badge: 'Ecosystem',
+        heading: rich.integrations.heading,
+        description: rich.integrations.description,
+        items: rich.integrations.items,
+        cta: rich.integrations.cta
+      }
+    : null;
+
   return (
     <div id="service-slug-page-container" className="py-10 sm:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -141,6 +342,10 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
             src={currentService.coverImage}
             alt={currentService.title}
             className="w-full h-80 sm:h-[480px] object-cover"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = currentService.secondaryImage || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80';
+            }}
           />
         </ScrollFadeIn>
 
@@ -210,33 +415,33 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
-            {/* 2. WHAT ARE AUTONOMOUS AI AGENTS? & WORKFLOW PIPELINE */}
-            {rich.whatAreAutonomousAIAgents && (
+            {/* 2. EXPLAINER & WORKFLOW / ELEMENTS */}
+            {explainer && (
               <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-950 text-white shadow-xl space-y-6 relative overflow-hidden">
                 <div className="relative z-10">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-700/60 text-xs font-bold text-blue-300">
                     <Brain className="w-3.5 h-3.5 text-blue-400" />
-                    <span>The Autonomous Difference</span>
+                    <span>{explainer.badgeLabel}</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black font-heading mt-3">
-                    {rich.whatAreAutonomousAIAgents.heading}
+                    {explainer.heading}
                   </h3>
                   <p className="text-slate-300 text-base sm:text-lg mt-2 leading-relaxed max-w-3xl">
-                    {rich.whatAreAutonomousAIAgents.description}
+                    {explainer.description}
                   </p>
                   <p className="text-slate-400 text-sm mt-1 leading-relaxed max-w-3xl">
-                    {rich.whatAreAutonomousAIAgents.body}
+                    {explainer.body}
                   </p>
                 </div>
 
-                {/* Workflow pipeline track */}
-                {rich.whatAreAutonomousAIAgents.workflow && (
+                {/* Workflow or elements pipeline track */}
+                {explainer.workflow && (
                   <div className="pt-4 border-t border-slate-800">
                     <div className="text-xs font-mono font-bold text-blue-400 uppercase tracking-wider mb-4">
-                      Execution Flow Pipeline
+                      {explainer.pipelineLabel}
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
-                      {rich.whatAreAutonomousAIAgents.workflow.map((step, idx) => (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-9 gap-2">
+                      {explainer.workflow.map((step, idx) => (
                         <div
                           key={idx}
                           className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex flex-col justify-between"
@@ -251,12 +456,46 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
-            {/* 3. AI AGENTS BUILT AROUND YOUR BUSINESS (Expand-OnHover List Layout) */}
+            {/* CREATIVE PILLARS / BRAND ELEMENTS */}
+            {creativePillars && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    {creativePillars.badge}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {creativePillars.heading}
+                  </h3>
+                  <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed max-w-3xl">
+                    {creativePillars.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {creativePillars.items.map((elem, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2 hover:border-blue-300 transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 font-mono font-bold text-xs flex items-center justify-center shrink-0">
+                          0{idx + 1}
+                        </div>
+                        <h4 className="text-base font-bold text-slate-950 font-heading">{elem.title}</h4>
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed">{elem.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </ScrollFadeIn>
+            )}
+
+            {/* 3. SERVICES (Expand-OnHover List Layout) */}
             {rich.services && (
               <ScrollFadeIn className="space-y-6">
                 <div>
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                    Agent Catalog
+                    Service Catalog
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
                     {rich.services.heading}
@@ -270,23 +509,23 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
-            {/* 4. CAPABILITIES */}
-            {rich.capabilities && (
+            {/* 4. CAPABILITIES / DESIGN SYSTEM */}
+            {capabilities && (
               <ScrollFadeIn id="capabilities-section" className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
                 <div>
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                    Capabilities
+                    {capabilities.badge}
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
-                    {rich.capabilities.heading}
+                    {capabilities.heading}
                   </h3>
                   <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed max-w-3xl">
-                    {rich.capabilities.description}
+                    {capabilities.description}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {rich.capabilities.items.map((item, idx) => (
+                  {capabilities.items.map((item, idx) => (
                     <div
                       key={idx}
                       className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm text-slate-800"
@@ -297,10 +536,10 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
                   ))}
                 </div>
 
-                {rich.capabilities.highlight && (
+                {capabilities.highlight && (
                   <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-900 font-bold text-sm flex items-center gap-2.5">
                     <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
-                    <span>{rich.capabilities.highlight}</span>
+                    <span>{capabilities.highlight}</span>
                   </div>
                 )}
               </ScrollFadeIn>
@@ -362,6 +601,47 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
+            {/* PLATFORM FORMATS */}
+            {rich.formats && (
+              <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-xs space-y-6">
+                <div>
+                  <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    Platform Delivery
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
+                    {rich.formats.heading}
+                  </h3>
+                  <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed max-w-3xl">
+                    {rich.formats.description}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {rich.formats.items.map((fmt, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-1.5 hover:border-blue-300 transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-blue-600" />
+                        <h4 className="text-sm font-bold text-slate-900 font-heading">{fmt.title}</h4>
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed">{fmt.description}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {rich.formats.technicalNote && (
+                  <div className="p-4 rounded-2xl bg-white border border-blue-200/80 text-xs sm:text-sm text-slate-700 leading-relaxed flex items-start gap-3">
+                    <span className="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 font-bold text-xs uppercase tracking-wider shrink-0 mt-0.5">
+                      Spec
+                    </span>
+                    <p>{rich.formats.technicalNote}</p>
+                  </div>
+                )}
+              </ScrollFadeIn>
+            )}
+
             {/* 7. BENEFITS */}
             {rich.benefits && (
               <ScrollFadeIn className="space-y-6">
@@ -391,26 +671,26 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
-            {/* 8. COMPARISON MATRIX (Traditional vs Autonomous) */}
-            {rich.comparison && (
+            {/* 8. COMPARISON MATRIX */}
+            {comparison && (
               <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 space-y-6 shadow-xs">
                 <div>
                   <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
                     Comparison
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black text-slate-950 font-heading mt-3">
-                    {rich.comparison.heading}
+                    {comparison.heading}
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Traditional Automation */}
+                  {/* Traditional Approach */}
                   <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
                     <h4 className="text-lg font-bold text-slate-800 font-heading">
-                      {rich.comparison.traditionalAutomation.title}
+                      {comparison.leftTitle}
                     </h4>
                     <ul className="space-y-2.5">
-                      {rich.comparison.traditionalAutomation.features.map((feat, idx) => (
+                      {comparison.leftFeatures.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-600">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
                           <span>{feat}</span>
@@ -419,18 +699,18 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
                     </ul>
                   </div>
 
-                  {/* Autonomous AI Agents */}
+                  {/* Modern Approach */}
                   <div className="p-6 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-4">
                     <div className="flex items-center justify-between">
                       <h4 className="text-lg font-bold text-blue-950 font-heading">
-                        {rich.comparison.autonomousAIAgents.title}
+                        {comparison.rightTitle}
                       </h4>
                       <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
-                        Next-Gen
+                        {comparison.badge}
                       </span>
                     </div>
                     <ul className="space-y-2.5">
-                      {rich.comparison.autonomousAIAgents.features.map((feat, idx) => (
+                      {comparison.rightFeatures.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-blue-950 font-medium">
                           <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>{feat}</span>
@@ -440,9 +720,9 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
                   </div>
                 </div>
 
-                {rich.comparison.conclusion && (
+                {comparison.conclusion && (
                   <p className="text-xs sm:text-sm text-slate-600 text-center italic pt-2">
-                    {rich.comparison.conclusion}
+                    {comparison.conclusion}
                   </p>
                 )}
               </ScrollFadeIn>
@@ -477,23 +757,23 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
               </ScrollFadeIn>
             )}
 
-            {/* 10. INTEGRATIONS */}
-            {rich.integrations && (
+            {/* 10. TECHNOLOGY & INTEGRATIONS */}
+            {techOrIntegrations && (
               <ScrollFadeIn className="p-8 sm:p-10 rounded-3xl bg-slate-950 text-white space-y-6 shadow-xl">
                 <div>
                   <span className="text-xs font-bold text-blue-400 uppercase tracking-wider bg-blue-950/80 px-3 py-1 rounded-full border border-blue-800">
-                    Ecosystem
+                    {techOrIntegrations.badge}
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-black font-heading mt-3">
-                    {rich.integrations.heading}
+                    {techOrIntegrations.heading}
                   </h3>
                   <p className="text-slate-300 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
-                    {rich.integrations.description}
+                    {techOrIntegrations.description}
                   </p>
                 </div>
 
                 <div className="flex flex-wrap gap-2.5">
-                  {rich.integrations.items.map((tool, idx) => (
+                  {techOrIntegrations.items.map((tool, idx) => (
                     <span
                       key={idx}
                       className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-200"
@@ -503,14 +783,14 @@ export const ServiceSlugPage: React.FC<ServiceSlugPageProps> = ({ slug, onNaviga
                   ))}
                 </div>
 
-                {rich.integrations.cta && (
+                {techOrIntegrations.cta && (
                   <div className="pt-2">
                     <button
                       type="button"
                       onClick={() => onNavigate('contact')}
                       className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold text-slate-950 bg-white hover:bg-blue-400 hover:text-white transition-colors cursor-pointer"
                     >
-                      {rich.integrations.cta}
+                      {techOrIntegrations.cta}
                     </button>
                   </div>
                 )}

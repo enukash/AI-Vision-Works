@@ -219,6 +219,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                       alt={srv.title}
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                       loading="lazy"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = srv.secondaryImage;
+                      }}
                     />
                     <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-900 border border-slate-200/80 shadow-2xs group-hover:border-blue-300 transition-colors">
                       {srv.category}

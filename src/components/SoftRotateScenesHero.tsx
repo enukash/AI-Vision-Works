@@ -313,15 +313,6 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
           );
         })}
 
-        {/* High-Tech Circuit & Neural Grid Overlay Pattern */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.18) 1px, transparent 0)`,
-            backgroundSize: '32px 32px',
-          }}
-        />
-
         {/* Vignette Overlay for focus & typography contrast */}
         <div 
           className="absolute inset-0 pointer-events-none"

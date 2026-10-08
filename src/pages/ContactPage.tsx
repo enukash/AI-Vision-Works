@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { z } from 'zod';
 import { PageRoute } from '../types';
 import { 
   Mail, 
@@ -14,13 +15,44 @@ import {
   Building,
   Check,
   Loader2,
-  ExternalLink
+  ExternalLink,
+  AlertCircle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface ContactPageProps {
   onNavigate: (page: PageRoute, slug?: string) => void;
 }
+
+const contactFormSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, 'Please enter your name.')
+    .min(2, 'Name must be at least 2 characters.'),
+  email: z
+    .string()
+    .trim()
+    .min(1, 'Please enter your email address.')
+    .email('Please enter a valid email address (e.g. sarah@company.com).'),
+  company: z.string().trim().optional(),
+  serviceCategory: z
+    .string()
+    .min(1, 'Please select a primary service.'),
+  budgetRange: z
+    .string()
+    .min(1, 'Please select your target budget range.'),
+  timeline: z
+    .string()
+    .min(1, 'Please select your desired launch window.'),
+  projectDescription: z
+    .string()
+    .trim()
+    .min(1, 'Please describe your project or problem.')
+    .min(10, 'Please provide at least 10 characters describing your project goals.'),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const [formData, setFormData] = useState({
@@ -33,10 +65,22 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
     projectDescription: ''
   });
 
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitNotice, setSubmitNotice] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const handleFieldChange = (field: keyof typeof formData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    if (errors[field as keyof ContactFormData]) {
+      setErrors(prev => {
+        const next = { ...prev };
+        delete next[field as keyof ContactFormData];
+        return next;
+      });
+    }
+  };
 
   const faqs = [
     {
@@ -59,10 +103,26 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.projectDescription) return;
 
+    // Validate using Zod schema
+    const validationResult = contactFormSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+      for (const issue of validationResult.error.issues) {
+        const field = issue.path[0] as keyof ContactFormData;
+        if (field && !fieldErrors[field]) {
+          fieldErrors[field] = issue.message;
+        }
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
     setIsSubmitting(true);
     setSubmitNotice(null);
+
+    const validData = validationResult.data;
 
     try {
       // Send directly to owner inbox via FormSubmit AJAX API
@@ -73,15 +133,15 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company || 'Not Specified',
-          serviceCategory: formData.serviceCategory,
-          budgetRange: formData.budgetRange,
-          timeline: formData.timeline,
-          message: formData.projectDescription,
-          _subject: `[AI Vision Works] New Inquiry from ${formData.name} (${formData.serviceCategory})`,
-          _replyto: formData.email,
+          name: validData.name,
+          email: validData.email,
+          company: validData.company || 'Not Specified',
+          serviceCategory: validData.serviceCategory,
+          budgetRange: validData.budgetRange,
+          timeline: validData.timeline,
+          message: validData.projectDescription,
+          _subject: `[AI Vision Works] New Inquiry from ${validData.name} (${validData.serviceCategory})`,
+          _replyto: validData.email,
           _template: 'table',
           _captcha: 'false',
         }),
@@ -120,6 +180,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
       timeline: 'Within 3-4 Weeks',
       projectDescription: ''
     });
+    setErrors({});
     setSubmitted(false);
     setSubmitNotice(null);
   };
@@ -263,7 +324,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                   <div>
                     <h3 className="text-2xl font-bold text-slate-950 font-heading mb-1">
                       Project Consultation Form
@@ -281,12 +342,21 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       </label>
                       <input
                         type="text"
-                        required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => handleFieldChange('name', e.target.value)}
                         placeholder="Sarah Johnson"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
+                        className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 transition-colors focus:outline-hidden ${
+                          errors.name
+                            ? 'border-red-400 bg-red-50/30 focus:border-red-500'
+                            : 'bg-slate-50 border-slate-200 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white'
+                        }`}
                       />
+                      {errors.name && (
+                        <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-500" />
+                          <span>{errors.name}</span>
+                        </p>
+                      )}
                     </div>
 
                     <div>
@@ -295,12 +365,21 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       </label>
                       <input
                         type="email"
-                        required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => handleFieldChange('email', e.target.value)}
                         placeholder="sarah@company.com"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
+                        className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 transition-colors focus:outline-hidden ${
+                          errors.email
+                            ? 'border-red-400 bg-red-50/30 focus:border-red-500'
+                            : 'bg-slate-50 border-slate-200 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white'
+                        }`}
                       />
+                      {errors.email && (
+                        <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                          <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-500" />
+                          <span>{errors.email}</span>
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -312,7 +391,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                     <input
                       type="text"
                       value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      onChange={(e) => handleFieldChange('company', e.target.value)}
                       placeholder="e.g. FinPulse Labs, Stealth AI Startup"
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
                     />
@@ -325,8 +404,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                     </label>
                     <select
                       value={formData.serviceCategory}
-                      onChange={(e) => setFormData({ ...formData, serviceCategory: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-hidden focus:border-blue-600 focus:bg-white"
+                      onChange={(e) => handleFieldChange('serviceCategory', e.target.value)}
+                      className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 transition-colors focus:outline-hidden ${
+                        errors.serviceCategory
+                          ? 'border-red-400 bg-red-50/30 focus:border-red-500'
+                          : 'bg-slate-50 border-slate-200 focus:border-blue-600 focus:bg-white'
+                      }`}
                     >
                       <option>Autonomous AI Agents</option>
                       <option>Vibe Coding & Full-Stack Web App</option>
@@ -336,6 +419,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       <option>High-CTR YouTube Packaging & Thumbnails</option>
                       <option>Prompt Architecture & Enterprise Advisory</option>
                     </select>
+                    {errors.serviceCategory && (
+                      <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-500" />
+                        <span>{errors.serviceCategory}</span>
+                      </p>
+                    )}
                   </div>
 
                   {/* Budget and Timeline */}
@@ -346,7 +435,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       </label>
                       <select
                         value={formData.budgetRange}
-                        onChange={(e) => setFormData({ ...formData, budgetRange: e.target.value })}
+                        onChange={(e) => handleFieldChange('budgetRange', e.target.value)}
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-hidden focus:border-blue-600 focus:bg-white"
                       >
                         <option>$5,000 - $15,000</option>
@@ -362,7 +451,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       </label>
                       <select
                         value={formData.timeline}
-                        onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                        onChange={(e) => handleFieldChange('timeline', e.target.value)}
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-hidden focus:border-blue-600 focus:bg-white"
                       >
                         <option>Immediate (Within 1-2 Weeks)</option>
@@ -379,14 +468,38 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                       Describe the Real-World Problem You Wish to Solve *
                     </label>
                     <textarea
-                      required
                       rows={4}
                       value={formData.projectDescription}
-                      onChange={(e) => setFormData({ ...formData, projectDescription: e.target.value })}
+                      onChange={(e) => handleFieldChange('projectDescription', e.target.value)}
                       placeholder="Share details on your operational bottleneck, target audience, existing systems, or desired deliverables..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white resize-none"
+                      className={`w-full px-4 py-2.5 rounded-xl border text-sm text-slate-900 placeholder:text-slate-400 resize-none transition-colors focus:outline-hidden ${
+                        errors.projectDescription
+                          ? 'border-red-400 bg-red-50/30 focus:border-red-500'
+                          : 'bg-slate-50 border-slate-200 focus:border-blue-600 focus:bg-white'
+                      }`}
                     />
+                    {errors.projectDescription && (
+                      <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                        <AlertCircle className="w-3.5 h-3.5 shrink-0 text-red-500" />
+                        <span>{errors.projectDescription}</span>
+                      </p>
+                    )}
                   </div>
+
+                  {/* Validation Error Summary */}
+                  {Object.keys(errors).length > 0 && (
+                    <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2.5 animate-in fade-in duration-200">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-600 mt-0.5" />
+                      <div>
+                        <span className="font-bold block text-red-800">Please correct the following before sending:</span>
+                        <ul className="list-disc list-inside mt-1 space-y-0.5 text-[11px] text-red-700">
+                          {Object.values(errors).map((err, i) => (
+                            <li key={i}>{err}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
 
                   <button
                     type="submit"

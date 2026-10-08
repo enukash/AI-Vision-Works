@@ -351,7 +351,6 @@ export const OrbitServicesHero: React.FC<OrbitServicesHeroProps> = ({
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[680px] h-[300px] sm:h-[360px] bg-blue-600/12 rounded-full blur-[120px]" />
         <div className="absolute bottom-6 left-1/4 w-[300px] sm:w-[480px] h-[220px] sm:h-[260px] bg-sky-500/10 rounded-full blur-[100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:28px_28px] opacity-10" />
       </div>
 
       {/* MOBILE-ONLY CLEAN HEADER (Zero Overlap) */}

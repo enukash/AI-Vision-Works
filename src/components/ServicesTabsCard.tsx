@@ -4,9 +4,6 @@ import { PageRoute, ServiceItem } from '../types';
 import { CMS_SERVICES } from '../data/cmsServices';
 import { 
   ArrowRight, 
-  ArrowUpRight, 
-  Sparkles, 
-  CheckCircle2, 
   Workflow, 
   Code2, 
   Palette, 
@@ -14,8 +11,10 @@ import {
   Zap, 
   Clock, 
   ExternalLink,
-  MoveHorizontal,
-  MousePointer2
+  Play,
+  Pause,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 interface ServicesArcFocusCarouselProps {
@@ -30,13 +29,19 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1100);
 
-  const INITIAL_CARD_INDEX = 2; // Always display the Third Card on reload
+  const INITIAL_CARD_INDEX = 2; // Start card index
 
-  // Continuous cursor float position (0.0 to count - 1) initialized to 3rd card
+  // Infinite continuous float position
   const targetFloatRef = useRef<number>(INITIAL_CARD_INDEX);
   const [currentFloat, setCurrentFloat] = useState<number>(INITIAL_CARD_INDEX);
   const [activeIndex, setActiveIndex] = useState<number>(INITIAL_CARD_INDEX);
   const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+
+  // Drag interaction state
+  const isDraggingRef = useRef<boolean>(false);
+  const dragStartXRef = useRef<number>(0);
+  const dragStartFloatRef = useRef<number>(INITIAL_CARD_INDEX);
 
   // ResizeObserver & window resize listener for responsive geometry
   useEffect(() => {
@@ -68,65 +73,102 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
   }, []);
 
   const count = services.length;
-  const activeService = services[activeIndex] || services[INITIAL_CARD_INDEX] || services[0];
 
-  // Silky smooth LERP animation loop: tracks cursor position with inertia
+  // Infinite circular auto-loop animation
   useEffect(() => {
     let animId: number;
-    const loop = () => {
+    let lastTime = performance.now();
+
+    const loop = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // When auto-playing and user is not actively hovering or dragging, advance the loop
+      if (isPlaying && !isHovered && !isDraggingRef.current) {
+        targetFloatRef.current += dt * 0.28; // Complete cycle smoothly
+      }
+
       setCurrentFloat(prev => {
         const diff = targetFloatRef.current - prev;
-        if (Math.abs(diff) < 0.001) return targetFloatRef.current;
-        return prev + diff * 0.14; // smooth easing factor
+        if (Math.abs(diff) < 0.0001) return targetFloatRef.current;
+        return prev + diff * 0.12; // Smooth easing factor
       });
+
       animId = requestAnimationFrame(loop);
     };
+
     animId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animId);
-  }, []);
+  }, [isPlaying, isHovered]);
 
-  // Synchronize integer active index when floating cursor position changes
+  // Synchronize normalized active index in circular space [0 ... count-1]
   useEffect(() => {
-    const rounded = Math.max(0, Math.min(count - 1, Math.round(currentFloat)));
-    if (rounded !== activeIndex) {
-      setActiveIndex(rounded);
+    const normalized = ((Math.round(currentFloat) % count) + count) % count;
+    if (normalized !== activeIndex) {
+      setActiveIndex(normalized);
     }
   }, [currentFloat, count, activeIndex]);
 
-  // Touch gesture handling for smooth swipe on mobile & tablets
-  const touchStartXRef = useRef<number | null>(null);
-  const touchStartFloatRef = useRef<number>(INITIAL_CARD_INDEX);
+  const activeService = services[activeIndex] || services[0];
 
+  // Helper to jump to a specific index using the shortest path in circular loop
+  const rotateTo = useCallback((targetIndex: number) => {
+    const normCurrent = ((targetFloatRef.current % count) + count) % count;
+    let diff = targetIndex - normCurrent;
+    if (diff > count / 2) diff -= count;
+    if (diff < -count / 2) diff += count;
+    targetFloatRef.current += diff;
+  }, [count]);
+
+  const handleNext = useCallback(() => {
+    targetFloatRef.current = Math.round(targetFloatRef.current) + 1;
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    targetFloatRef.current = Math.round(targetFloatRef.current) - 1;
+  }, []);
+
+  // Touch gesture handling
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    touchStartXRef.current = e.touches[0].clientX;
-    touchStartFloatRef.current = currentFloat;
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.touches[0].clientX;
+    dragStartFloatRef.current = targetFloatRef.current;
     setIsHovered(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartXRef.current === null || !containerRef.current) return;
-    const deltaX = e.touches[0].clientX - touchStartXRef.current;
+    if (!isDraggingRef.current || !containerRef.current) return;
+    const deltaX = e.touches[0].clientX - dragStartXRef.current;
     const containerW = containerRef.current.clientWidth || 360;
-    // Dragging left advances cards (+), dragging right goes back (-)
-    const indexDelta = -(deltaX / (containerW * 0.36));
-    const nextFloat = Math.max(0, Math.min(count - 1, touchStartFloatRef.current + indexDelta));
-    targetFloatRef.current = nextFloat;
+    const indexDelta = -(deltaX / (containerW * 0.35));
+    targetFloatRef.current = dragStartFloatRef.current + indexDelta;
   };
 
   const handleTouchEnd = () => {
-    touchStartXRef.current = null;
+    isDraggingRef.current = false;
     setIsHovered(false);
-    targetFloatRef.current = Math.round(targetFloatRef.current);
   };
 
-  // Cursor movement handler: maps horizontal cursor coordinate directly to card arc
+  // Pointer drag & steering handling
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    // Only drag on primary button
+    if (e.button !== 0) return;
+    isDraggingRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragStartFloatRef.current = targetFloatRef.current;
+  };
+
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const relX = (e.clientX - rect.left) / rect.width;
-    // Map ratio [0, 1] to index space [0, count - 1]
-    const clampedX = Math.max(0, Math.min(1, relX));
-    targetFloatRef.current = clampedX * (count - 1);
+    if (isDraggingRef.current) {
+      const deltaX = e.clientX - dragStartXRef.current;
+      const sensitivity = isMobile ? 120 : 180;
+      targetFloatRef.current = dragStartFloatRef.current - deltaX / sensitivity;
+    }
+  };
+
+  const handlePointerUp = () => {
+    isDraggingRef.current = false;
   };
 
   const handlePointerEnter = () => {
@@ -134,32 +176,30 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
   };
 
   const handlePointerLeave = () => {
+    isDraggingRef.current = false;
     setIsHovered(false);
-    // When cursor leaves, gently snap to the nearest card
-    targetFloatRef.current = Math.round(targetFloatRef.current);
   };
 
-  // Keyboard navigation as accessibility backup
+  // Keyboard navigation support
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
-        targetFloatRef.current = Math.max(0, Math.round(targetFloatRef.current) - 1);
+        handlePrev();
       } else if (e.key === 'ArrowRight') {
-        targetFloatRef.current = Math.min(count - 1, Math.round(targetFloatRef.current) + 1);
+        handleNext();
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [count]);
+  }, [handleNext, handlePrev]);
 
-  // Responsive Arc Parameters for All Screen Breakpoints (Mobile, Tablet, Desktop, Ultra-wide)
+  // Responsive Arc Parameters
   const isMobile = containerWidth < 640;
   const isTablet = containerWidth >= 640 && containerWidth < 1024;
   const isDesktop = containerWidth >= 1024 && containerWidth < 1440;
   const isWide = containerWidth >= 1440;
 
-  // Fluid and responsive card dimensions across all screen breakpoints
   const cardWidth = isMobile ? 124 : isTablet ? 154 : isDesktop ? 184 : 216;
   const cardHeight = isMobile ? 172 : isTablet ? 216 : isDesktop ? 256 : 296;
   const arcRadius = isMobile 
@@ -170,43 +210,27 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
     ? Math.max(540, containerWidth * 0.46) 
     : Math.max(680, containerWidth * 0.42);
   const stepAngleDeg = isMobile ? 26 : isTablet ? 22 : isDesktop ? 19 : 17;
-  const arcTop = isMobile ? 16 : isTablet ? 24 : 32;
-
-  const getServiceIcon = (index: number) => {
-    switch (index % 4) {
-      case 0:
-        return <Workflow className="w-3.5 h-3.5" />;
-      case 1:
-        return <Code2 className="w-3.5 h-3.5" />;
-      case 2:
-        return <Palette className="w-3.5 h-3.5" />;
-      case 3:
-        return <Video className="w-3.5 h-3.5" />;
-      default:
-        return <Sparkles className="w-3.5 h-3.5" />;
-    }
-  };
-
-  // Cursor progress percentage for visual scrubber bar
-  const cursorProgressPercent = (currentFloat / (count - 1)) * 100;
+  const arcTop = isMobile ? 44 : isTablet ? 64 : isDesktop ? 76 : 88;
 
   return (
     <div className="w-full" id="services-tabs-card-section">
       {/* 
         Outer Arc Focus Carousel Frame
-        Cursor moves left/right to continuously steer the arc cards without buttons
+        Infinite looping circular arc with interactive steering & auto-play
       */}
       <div 
         ref={containerRef}
+        onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
         onPointerEnter={handlePointerEnter}
         onPointerLeave={handlePointerLeave}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-800/80 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl overflow-hidden select-none cursor-ew-resize group"
+        className="relative w-full rounded-2xl sm:rounded-3xl border border-slate-800/80 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl overflow-hidden select-none cursor-grab active:cursor-grabbing group"
         style={{
-          minHeight: isMobile ? 540 : isTablet ? 610 : isWide ? 720 : 660,
+          minHeight: isMobile ? 570 : isTablet ? 640 : isWide ? 760 : 700,
           touchAction: 'pan-y'
         }}
       >
@@ -214,39 +238,48 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[520px] sm:w-[760px] xl:w-[1020px] h-[320px] sm:h-[460px] rounded-full bg-blue-600/10 blur-[110px] pointer-events-none" />
         <div className="absolute top-0 right-10 w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none" />
 
-        {/* Top Eyebrow & Interactive Cursor Indicator */}
-        <div className="relative z-10 pt-6 sm:pt-8 px-6 flex flex-col items-center gap-2.5 text-center pointer-events-none">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-800/80 text-[11px] font-mono font-bold uppercase tracking-wider text-blue-300 shadow-sm">
-            <MoveHorizontal className={`w-3.5 h-3.5 text-blue-400 ${isHovered ? 'animate-pulse' : ''}`} />
-            <span>Move cursor left ↔ right to explore</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-0.5" />
-          </div>
-
-          {/* Interactive Horizontal Cursor Track Scrubber */}
-          <div className="w-48 sm:w-64 h-1.5 bg-slate-800/90 rounded-full overflow-hidden relative border border-slate-700/60 mt-1">
-            <div 
-              className="absolute top-0 bottom-0 w-8 sm:w-10 bg-linear-to-r from-blue-500 to-indigo-400 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)] transition-all duration-75"
-              style={{
-                left: `calc(${cursorProgressPercent}% - ${cursorProgressPercent * 0.08}px)`
-              }}
-            />
-          </div>
-        </div>
-
         {/* ──────────────────────────────────────────────────────────
-            1. THE CURVED ARC OF CARDS (Driven by Cursor Position)
-            Moving cursor left/right dynamically rotates cards across the arc
+            1. THE CURVED ARC OF CARDS (Continuous Seamless Infinite Loop)
+            Each card wraps modulo 'count' so cards loop forever
         ─────────────────────────────────────────────────────────── */}
         <div 
           className="relative w-full overflow-hidden pointer-events-auto"
-          style={{ height: cardHeight * 1.5 + arcTop + 14 }}
+          style={{ height: cardHeight * 1.38 + arcTop + 20 }}
         >
+          {/* Quick Navigation Arrow Buttons */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+            aria-label="Previous service"
+            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-slate-900/80 hover:bg-blue-600 border border-slate-700/80 hover:border-blue-500 text-white flex items-center justify-center transition-all z-40 shadow-lg cursor-pointer active:scale-90"
+          >
+            <ChevronLeft className="w-4 sm:w-5 h-4 sm:h-5" />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+            aria-label="Next service"
+            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-slate-900/80 hover:bg-blue-600 border border-slate-700/80 hover:border-blue-500 text-white flex items-center justify-center transition-all z-40 shadow-lg cursor-pointer active:scale-90"
+          >
+            <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5" />
+          </button>
+
           {services.map((service, index) => {
-            // Distance from current continuous cursor float position
-            const diff = index - currentFloat;
+            // Distance from current continuous float in an infinite circular loop:
+            const normFloat = ((currentFloat % count) + count) % count;
+            let diff = index - normFloat;
+            if (diff > count / 2) diff -= count;
+            if (diff < -count / 2) diff += count;
             const absDiff = Math.abs(diff);
 
-            // Compute arc geometry using trigonometry
+            // Compute arc geometry using circular trigonometry
             const angleDeg = diff * stepAngleDeg;
             const angleRad = (angleDeg * Math.PI) / 180;
 
@@ -254,14 +287,14 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
             const posX = centerX + Math.sin(angleRad) * arcRadius - cardWidth / 2;
             const posY = arcTop + (1 - Math.cos(angleRad)) * (arcRadius * 0.44);
 
-            // Focus scale and opacity: apex card expands smoothly as cursor nears it
+            // Focus scale and opacity: apex card expands smoothly near center
             const isNearCenter = absDiff < 0.5;
-            const scale = Math.max(0.74, 1.35 - absDiff * 0.2);
-            const opacity = Math.max(0.35, 1.0 - absDiff * 0.28);
+            const scale = Math.max(0.76, 1.22 - absDiff * 0.16);
+            const opacity = Math.max(0.4, 1.0 - absDiff * 0.25);
             const zIndex = Math.round(100 - absDiff * 10);
 
             // Don't render cards that are rotated out of viewport
-            if (absDiff > 3.2) return null;
+            if (absDiff > 3.4) return null;
 
             return (
               <div
@@ -271,55 +304,51 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
                   if (absDiff < 0.35) {
                     onNavigate('service-slug', service.slug);
                   } else {
-                    targetFloatRef.current = index;
+                    rotateTo(index);
                   }
                 }}
                 className={`absolute top-0 left-0 cursor-pointer group transition-all duration-75 will-change-transform ${
                   isNearCenter ? 'ring-2 ring-blue-500/80 shadow-2xl' : 'hover:opacity-100'
                 }`}
                 style={{
-                  transform: `translate3d(${posX}px, ${posY}px, 0) rotate(${angleDeg}deg) scale(${scale})`,
-                  opacity: opacity,
-                  zIndex: zIndex,
-                  width: `${cardWidth}px`,
-                  height: `${cardHeight}px`,
-                  transformOrigin: '50% 50%',
-                  borderRadius: isMobile ? '16px' : '20px',
+                  width: cardWidth,
+                  height: cardHeight,
+                  transform: `translate3d(${posX}px, ${posY}px, 0px) rotate(${angleDeg * 0.42}deg) scale(${scale})`,
+                  opacity,
+                  zIndex,
+                  transformOrigin: '50% 50%'
                 }}
-                title={isNearCenter ? `Click to explore ${service.title}` : `Click to center ${service.title}`}
               >
-                {/* Card Inner Container with Rounded Corner Mask */}
-                <div 
-                  className="relative w-full h-full overflow-hidden bg-slate-900 border border-white/15 shadow-xl transition-shadow duration-300"
-                  style={{ borderRadius: isMobile ? '16px' : '20px' }}
-                >
-                  {/* Card Cover Image */}
+                {/* Individual Card Body */}
+                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 shadow-xl flex flex-col justify-between p-3 group-hover:border-blue-400 transition-colors">
+                  {/* Background Image / Cover */}
                   <img
                     src={service.coverImage}
                     alt={service.title}
-                    draggable={false}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-300"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = service.secondaryImage || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80';
+                    }}
                   />
 
-                  {/* Gradient Vignette Overlays */}
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                  
-                  {/* Top Badge: Category & Index */}
-                  <div className="absolute top-2 left-2 right-2 flex items-center justify-between pointer-events-none">
-                    <span className="px-2 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md text-[9px] font-mono font-bold text-blue-300 border border-white/10 flex items-center gap-1">
-                      {getServiceIcon(index)}
-                      <span>0{index + 1}</span>
-                    </span>
+                  {/* Gradient Overlay for Text Legibility */}
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/60 to-slate-950/20" />
 
-                    {isNearCenter && (
-                      <span className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xs">
-                        <ArrowUpRight className="w-3 h-3" />
+                  {/* Top Floating Badge */}
+                  <div className="relative z-10 flex items-center justify-between">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-950/80 backdrop-blur-md border border-slate-700/80 text-[9px] font-mono font-bold text-sky-300">
+                      #{index + 1}
+                    </span>
+                    {service.badge && (
+                      <span className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-blue-600/90 text-[8px] font-bold text-white uppercase tracking-wider">
+                        {service.badge}
                       </span>
                     )}
                   </div>
 
                   {/* Bottom Title on Card */}
-                  <div className="absolute bottom-2 left-2 right-2 pointer-events-none">
+                  <div className="relative z-10 pointer-events-none">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
                       {service.category}
                     </div>
@@ -334,12 +363,12 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
         </div>
 
         {/* ──────────────────────────────────────────────────────────
-            2. EDITORIAL CENTER FOCUS SECTION (Clean, without buttons)
-            Title, Subtitle, Key Metrics & CTAs smoothly updated by cursor
+            2. EDITORIAL CENTER FOCUS SECTION (Clean & Synced with Loop)
+            Title, Subtitle, Key Metrics & CTAs smoothly updated by the loop
         ─────────────────────────────────────────────────────────── */}
         <div className="relative z-20 px-4 sm:px-8 pb-10 max-w-4xl mx-auto flex flex-col items-center text-center pointer-events-auto">
           
-          {/* Dynamic Animated Title (No buttons, pure cursor control) */}
+          {/* Dynamic Animated Title */}
           <div className="w-full max-w-3xl px-2 mb-3">
             <AnimatePresence mode="wait">
               <motion.div
@@ -413,8 +442,8 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
           </div>
 
           {/* ──────────────────────────────────────────────────────────
-              3. PAGINATION DOTS ROW
-              Visual indicators synchronized with continuous cursor position
+              3. PAGINATION DOTS ROW (Infinite Loop Navigation)
+              Clicking any dot smoothly rotates the loop via the shortest path
           ─────────────────────────────────────────────────────────── */}
           <div className="flex items-center justify-center gap-2 mt-7">
             {services.map((item, idx) => {
@@ -423,9 +452,7 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => {
-                    targetFloatRef.current = idx;
-                  }}
+                  onClick={() => rotateTo(idx)}
                   aria-label={`Jump to ${item.title}`}
                   className={`rounded-full transition-all duration-300 cursor-pointer ${
                     isActive 

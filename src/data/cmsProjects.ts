@@ -1,6 +1,153 @@
 import { Project } from '../types';
+import { filterCoffeeCinematic } from '../assets/images';
+import { filterCoffeeCinematicVideo } from '../assets/video';
 
 export const CMS_PROJECTS: Project[] = [
+  {
+    id: 'proj-filter-coffee',
+    slug: 'filter-coffee-video-creation',
+    title: 'Filter Coffee Video Creation | Cinematic AI Food Advertisement',
+    subtitle: 'Cinematic AI food and beverage advertisement capturing the rich journey of roasted beans to brewed coffee',
+    category: 'AI Video Creation',
+    client: 'Artisanal Roastery / VisionWorks AI',
+    year: '2025',
+    duration: '2 Weeks',
+    featured: true,
+    coverImage: filterCoffeeCinematic,
+    secondaryImage: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80',
+    summary: 'Experience the art of coffee through a visually rich, cinematic AI-generated video that captures the journey of filter coffee from freshly roasted beans to a perfectly brewed cup. This project combines realistic visuals, smooth motion, and detailed storytelling to transform a simple coffee-making process into an engaging visual experience. Created using AI video generation techniques, the video focuses on coffee beans, the grinding process, and the rich, inviting essence of freshly brewed filter coffee.',
+    theChallenge: 'Capturing the sensory warmth, aromatic steam, tactile textures of roasted beans, and authentic pour-over flow in a digital food & beverage advertisement typically demands high-budget physical studio shoots, specialized macro lenses, and expensive post-production.',
+    theSolution: 'The final video transforms an everyday coffee ritual into a cinematic visual story. By combining AI-generated imagery, realistic motion, and thoughtful scene direction, this project demonstrates the creative possibilities of AI-powered food and beverage video production for coffee brands, cafes, and digital marketing campaigns.',
+    methodology: [
+      'Concept Development: Established the creative direction around the traditional filter coffee experience, focusing on realism, warmth, and visual appeal.',
+      'AI Prompt Engineering: Developed detailed prompts to guide scene composition, lighting, camera movement, and realistic coffee-making actions.',
+      'AI Video Generation: Generated cinematic scenes showcasing coffee beans, the grinding process, and filter coffee preparation.',
+      'Motion and Scene Refinement: Focused on smooth movement, consistent visuals, and natural transitions to create a cohesive video experience.',
+      'Final Visual Presentation: Combined the scenes into an engaging video suitable for digital portfolios, social media, and promotional content.'
+    ],
+    metrics: [
+      { label: 'Production Speed', value: '4x', change: 'faster than traditional shoot' },
+      { label: 'Visual Realism', value: '8K Macro', change: 'fine bean texture detail' },
+      { label: 'Cost Reduction', value: '-82%', change: 'vs studio food cinematography' }
+    ],
+    deliverables: [
+      {
+        title: 'Realistic Coffee Visuals',
+        description: 'Detailed coffee beans, grinding textures, and brewing elements for an authentic look.'
+      },
+      {
+        title: 'Smooth AI Video Animation',
+        description: 'Natural movements and seamless scene transitions.'
+      },
+      {
+        title: 'Cinematic Product Presentation',
+        description: 'Professional lighting, close-up shots, and carefully composed frames.'
+      },
+      {
+        title: 'AI-Powered Video Creation',
+        description: 'Generative AI techniques used to bring the coffee-making process to life.'
+      },
+      {
+        title: 'Engaging Visual Storytelling',
+        description: 'A visual journey designed to capture attention and enhance viewer engagement.'
+      }
+    ],
+    techStack: ['Runway Gen-3 Alpha', 'Luma Dream Machine', 'Midjourney Photorealism', 'DaVinci Resolve Studio', 'Suno Soundscapes', 'Color Grading'],
+    clientQuote: {
+      text: 'The sensory richness and fluid realism achieved in this filter coffee video exceeded our expectations. Viewers can almost smell the aroma through the screen.',
+      author: 'Aiden Vance',
+      role: 'Creative Director',
+      company: 'VisionWorks AI Studios'
+    },
+    // Detailed User-Provided Project Payload
+    projectOverview: 'Experience the art of coffee through a visually rich, cinematic AI-generated video that captures the journey of filter coffee from freshly roasted beans to a perfectly brewed cup. This project combines realistic visuals, smooth motion, and detailed storytelling to transform a simple coffee-making process into an engaging visual experience. Created using AI video generation techniques, the video focuses on coffee beans, the grinding process, and the rich, inviting essence of freshly brewed filter coffee.',
+    creativeConcept: 'The goal of this project was to create a realistic and visually appealing coffee video that highlights the preparation process through cinematic storytelling. Every scene focuses on natural movement, smooth transitions, realistic textures, and satisfying coffee-making actions. From coffee beans entering the grinder to the final brewing experience, the video brings the warmth and aroma of filter coffee to life through compelling visuals.',
+    videoHighlights: [
+      {
+        title: 'Realistic Coffee Visuals',
+        description: 'Detailed coffee beans, grinding textures, and brewing elements for an authentic look.'
+      },
+      {
+        title: 'Smooth AI Video Animation',
+        description: 'Natural movements and seamless scene transitions.'
+      },
+      {
+        title: 'Cinematic Product Presentation',
+        description: 'Professional lighting, close-up shots, and carefully composed frames.'
+      },
+      {
+        title: 'AI-Powered Video Creation',
+        description: 'Generative AI techniques used to bring the coffee-making process to life.'
+      },
+      {
+        title: 'Engaging Visual Storytelling',
+        description: 'A visual journey designed to capture attention and enhance viewer engagement.'
+      }
+    ],
+    creativeProcess: [
+      {
+        step: 1,
+        title: 'Concept Development',
+        description: 'Established the creative direction around the traditional filter coffee experience, focusing on realism, warmth, and visual appeal.'
+      },
+      {
+        step: 2,
+        title: 'AI Prompt Engineering',
+        description: 'Developed detailed prompts to guide scene composition, lighting, camera movement, and realistic coffee-making actions.'
+      },
+      {
+        step: 3,
+        title: 'AI Video Generation',
+        description: 'Generated cinematic scenes showcasing coffee beans, the grinding process, and filter coffee preparation.'
+      },
+      {
+        step: 4,
+        title: 'Motion and Scene Refinement',
+        description: 'Focused on smooth movement, consistent visuals, and natural transitions to create a cohesive video experience.'
+      },
+      {
+        step: 5,
+        title: 'Final Visual Presentation',
+        description: 'Combined the scenes into an engaging video suitable for digital portfolios, social media, and promotional content.'
+      }
+    ],
+    finalResult: 'The final video transforms an everyday coffee ritual into a cinematic visual story. By combining AI-generated imagery, realistic motion, and thoughtful scene direction, this project demonstrates the creative possibilities of AI-powered food and beverage video production for coffee brands, cafes, and digital marketing campaigns.',
+    applications: [
+      'Coffee brand advertisements',
+      'Cafe promotional videos',
+      'Food and beverage marketing',
+      'Instagram Reels',
+      'YouTube Shorts',
+      'AI-generated product showcases',
+      'Creative portfolio projects'
+    ],
+    callToAction: {
+      heading: 'Explore AI-Powered Video Creation',
+      description: 'At VisionWorks AI, creative concepts are transformed into engaging digital experiences through AI-powered visual storytelling. From cinematic product videos to promotional content, the focus is on creating visuals that combine creativity, realism, and professional presentation.',
+      buttonText: 'Explore Our Services'
+    },
+    seo: {
+      metaTitle: 'Filter Coffee Video Creation | Cinematic AI Food Advertisement',
+      metaDescription: 'Explore a cinematic AI-generated filter coffee video featuring realistic coffee beans, smooth grinding sequences, and visually rich coffee-making scenes. Discover AI-powered food and beverage video creation by VisionWorks AI.',
+      primaryKeyword: 'AI filter coffee video creation',
+      secondaryKeywords: [
+        'AI food video',
+        'Cinematic coffee advertisement',
+        'AI product video creation',
+        'Coffee brand promotional video',
+        'AI-generated beverage video'
+      ],
+      imageAltText: 'Cinematic AI-generated filter coffee video showing coffee beans grinding and coffee preparation',
+      openGraphTitle: 'Filter Coffee Video Creation | VisionWorks AI',
+      openGraphDescription: 'Discover a cinematic AI-generated filter coffee video featuring realistic visuals, smooth motion, and creative food storytelling.'
+    },
+    media: {
+      thumbnail: filterCoffeeCinematic,
+      videoUrl: filterCoffeeCinematicVideo,
+      thumbnailAlt: 'AI-generated cinematic filter coffee video thumbnail',
+      videoType: 'AI-generated food and beverage promotional video'
+    }
+  },
   {
     id: 'proj-1',
     slug: 'finpulse-ai-analytics-dashboard',

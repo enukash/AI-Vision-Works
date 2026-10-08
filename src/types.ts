@@ -16,6 +16,7 @@ export type ProjectCategory =
   | 'Logo Generation'
   | 'Social Media Posts'
   | 'Video Creation & Editing'
+  | 'AI Video Creation'
   | 'Digital & Visual Art'
   | 'Thumbnail Creation'
   | 'Agent Development';
@@ -29,6 +30,40 @@ export interface ProjectMetric {
 export interface ProjectDeliverable {
   title: string;
   description: string;
+}
+
+export interface ProjectVideoHighlight {
+  title: string;
+  description: string;
+}
+
+export interface ProjectCreativeProcessStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface ProjectCallToAction {
+  heading: string;
+  description: string;
+  buttonText: string;
+}
+
+export interface ProjectSEO {
+  metaTitle: string;
+  metaDescription: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
+  imageAltText?: string;
+  openGraphTitle?: string;
+  openGraphDescription?: string;
+}
+
+export interface ProjectMedia {
+  thumbnail?: string;
+  videoUrl?: string;
+  thumbnailAlt?: string;
+  videoType?: string;
 }
 
 export interface Project {
@@ -56,6 +91,16 @@ export interface Project {
     role: string;
     company: string;
   };
+  // Rich Project Fields
+  projectOverview?: string;
+  creativeConcept?: string;
+  videoHighlights?: ProjectVideoHighlight[];
+  creativeProcess?: ProjectCreativeProcessStep[];
+  finalResult?: string;
+  applications?: string[];
+  callToAction?: ProjectCallToAction;
+  seo?: ProjectSEO;
+  media?: ProjectMedia;
 }
 
 export interface BlogContentSection {
@@ -137,6 +182,97 @@ export interface ServiceRichContent {
     body: string;
     workflow: string[];
   };
+  whatIsVibeCoding?: {
+    heading: string;
+    description: string;
+    body: string;
+    workflow: string[];
+  };
+  whatIsBrandIdentity?: {
+    heading: string;
+    description: string;
+    body: string;
+    elements: string[];
+  };
+  whatIsAIvideoCreation?: {
+    heading: string;
+    description: string;
+    body: string;
+    workflow: string[];
+  };
+  whatIsDigitalVisualArt?: {
+    heading: string;
+    description: string;
+    body: string;
+    elements: string[];
+  };
+  whatIsThumbnailPackaging?: {
+    heading: string;
+    description: string;
+    body: string;
+    elements: string[];
+  };
+  whatIsSocialMediaPostDesign?: {
+    heading: string;
+    description: string;
+    body: string;
+    elements: string[];
+  };
+  brandElements?: {
+    heading: string;
+    description: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  creativeCapabilities?: {
+    heading: string;
+    description: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+  };
+  videoTypes?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
+  visualTypes?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
+  thumbnailTypes?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
+  postTypes?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
+  formats?: {
+    heading: string;
+    description: string;
+    items: Array<{
+      title: string;
+      description: string;
+    }>;
+    technicalNote?: string;
+  };
+  designSystem?: {
+    heading: string;
+    description: string;
+    items: string[];
+    highlight?: string;
+  };
   services?: {
     heading: string;
     items: Array<{
@@ -185,6 +321,62 @@ export interface ServiceRichContent {
     };
     conclusion?: string;
   };
+  traditionalVsVibeCoding?: {
+    heading: string;
+    traditionalDevelopment: {
+      title: string;
+      features: string[];
+    };
+    vibeCoding: {
+      title: string;
+      features: string[];
+    };
+    conclusion?: string;
+  };
+  brandVsRandomDesign?: {
+    heading: string;
+    randomDesign: {
+      title: string;
+      features: string[];
+    };
+    strategicBrandSystem: {
+      title: string;
+      features: string[];
+    };
+    conclusion?: string;
+  };
+  traditionalVsAI?: {
+    heading: string;
+    traditionalProduction?: {
+      title: string;
+      features: string[];
+    };
+    traditionalDesign?: {
+      title: string;
+      features: string[];
+    };
+    aiVideoCreation?: {
+      title: string;
+      features: string[];
+    };
+    aiVisualCreation?: {
+      title: string;
+      features: string[];
+    };
+    conclusion?: string;
+  };
+  genericVsStrategic?: {
+    heading: string;
+    genericDesign: {
+      title: string;
+      features: string[];
+    };
+    strategicDesign: {
+      title: string;
+      features: string[];
+    };
+    conclusion?: string;
+  };
   developmentProcess?: {
     heading: string;
     steps: Array<{
@@ -198,6 +390,11 @@ export interface ServiceRichContent {
     description: string;
     items: string[];
     cta?: string;
+  };
+  technology?: {
+    heading: string;
+    description: string;
+    areas: string[];
   };
   whyAIvisionWorks?: {
     heading: string;

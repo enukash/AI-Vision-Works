@@ -47,15 +47,6 @@ export const FloatingBackground: React.FC = () => {
         }}
         className="absolute -bottom-40 left-1/4 w-[32rem] h-[32rem] rounded-full bg-slate-400/10 blur-3xl"
       />
-
-      {/* Subtle architectural grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]" 
-        style={{
-          backgroundImage: `linear-gradient(to right, #0f172a 1px, transparent 1px), linear-gradient(to bottom, #0f172a 1px, transparent 1px)`,
-          backgroundSize: '48px 48px'
-        }}
-      />
     </div>
   );
 };

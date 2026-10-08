@@ -11,7 +11,9 @@ import {
   Code2, 
   Download, 
   Check, 
-  Layers 
+  Layers,
+  Play,
+  Film
 } from 'lucide-react';
 
 interface ProjectsPageProps {
@@ -31,6 +33,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
     'Logo Generation',
     'Social Media Posts',
     'Video Creation & Editing',
+    'AI Video Creation',
     'Digital & Visual Art',
     'Thumbnail Creation',
     'Agent Development'
@@ -169,12 +172,22 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-900 border border-slate-200/80 shadow-2xs">
-                      {project.category}
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-slate-900 border border-slate-200/80 shadow-2xs flex items-center gap-1.5">
+                      {(project.category === 'AI Video Creation' || project.category === 'Video Creation & Editing') && (
+                        <Film className="w-3 h-3 text-blue-600" />
+                      )}
+                      <span>{project.category}</span>
                     </div>
                     <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <ArrowUpRight className="w-4 h-4" />
                     </div>
+                    {(project.category === 'AI Video Creation' || project.category === 'Video Creation & Editing' || project.media) && (
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-10 h-10 rounded-full bg-slate-950/60 text-white backdrop-blur-xs flex items-center justify-center group-hover:scale-110 group-hover:bg-blue-600 transition-all duration-300 shadow-md">
+                          <Play className="w-4 h-4 fill-current ml-0.5" />
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Details */}
