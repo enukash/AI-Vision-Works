@@ -29,7 +29,7 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
   children,
   text,
   onClick,
-  accentColor = '#38bdf8',
+  accentColor = '#DFB6B2',
   glowColor,
   backgroundColor,
   textColor,
@@ -54,7 +54,7 @@ export const GlowButton: React.FC<GlowButtonProps> = ({
   `;
 
   const isPrimary = variant === 'primary';
-  const defaultBg = isPrimary ? (backgroundColor || activeGlow) : (backgroundColor || 'rgba(15, 23, 42, 0.95)');
+  const defaultBg = isPrimary ? (backgroundColor || activeGlow) : (backgroundColor || 'rgba(10, 11, 13, 0.96)');
   const defaultText = textColor || (isPrimary ? '#ffffff' : '#ffffff');
 
   return (

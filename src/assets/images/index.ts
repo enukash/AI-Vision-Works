@@ -13,6 +13,7 @@ import blueLitGraphicDesignerAtWork from './Blue-Lit Graphic Designer at Work.pn
 import creativeStudioThumbnailPlanning from './Creative Studio Thumbnail Planning.png';
 import socialMediaCreationStudio from './Social Media Creation Studio.png';
 import filterCoffeeCinematic from './Filter_coffee.43.34 PM (1).jpeg';
+import lemonateRefreshingLemonDrinkSplash from './Lemonate Refreshing Lemon Drink Splash.png';
 export {
   robotAiHologram,
   robotAiSolutions,
@@ -29,5 +30,6 @@ export {
   blueLitGraphicDesignerAtWork,
   creativeStudioThumbnailPlanning,
   socialMediaCreationStudio,
+  lemonateRefreshingLemonDrinkSplash,
   filterCoffeeCinematic,
 };

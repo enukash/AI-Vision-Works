@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 export const FloatingBackground: React.FC = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {/* Gentle floating ambient blue gradient spheres */}
+      {/* Gentle floating ambient gradient spheres from uploaded palette */}
       <motion.div
         animate={{
           x: [0, 40, -20, 0],
@@ -16,7 +16,7 @@ export const FloatingBackground: React.FC = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-blue-400/10 blur-3xl"
+        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#DFB6B2]/20 blur-3xl"
       />
 
       <motion.div
@@ -31,7 +31,7 @@ export const FloatingBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 2
         }}
-        className="absolute top-1/3 -right-32 w-[28rem] h-[28rem] rounded-full bg-blue-600/5 blur-3xl"
+        className="absolute top-1/3 -right-32 w-[28rem] h-[28rem] rounded-full bg-[#522B5B]/15 blur-3xl"
       />
 
       <motion.div
@@ -45,7 +45,7 @@ export const FloatingBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 4
         }}
-        className="absolute -bottom-40 left-1/4 w-[32rem] h-[32rem] rounded-full bg-slate-400/10 blur-3xl"
+        className="absolute -bottom-40 left-1/4 w-[32rem] h-[32rem] rounded-full bg-[#854F6C]/15 blur-3xl"
       />
     </div>
   );

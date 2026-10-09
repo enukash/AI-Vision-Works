@@ -497,7 +497,7 @@ export const InteractiveBook: React.FC<InteractiveBookProps> = ({ onNavigate }) 
               suffix="x"
               duration={1.6}
               valueSize={28}
-              valueColor="#0f172a"
+              valueColor="#0A0B0D"
               fontWeight={900}
               replayOnHover={true}
             />

@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PageRoute, Project } from '../types';
 import { CMS_PROJECTS } from '../data/cmsProjects';
-import { filterCoffeeCinematicVideo } from '../assets/video';
+import { filterCoffeeCinematicVideo, lemonate_drink_commercial } from '../assets/video';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -44,15 +44,27 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
   const nextProject = currentIndex < CMS_PROJECTS.length - 1 ? CMS_PROJECTS[currentIndex + 1] : CMS_PROJECTS[0];
 
   // Dynamic media space states for cover image and video
-  const defaultVideoAsset = currentProject.media?.videoUrl || (currentProject.slug === 'filter-coffee-video-creation' ? filterCoffeeCinematicVideo : '');
+  const defaultVideoAsset = currentProject.media?.videoUrl || 
+    (currentProject.slug === 'filter-coffee-video-creation' ? filterCoffeeCinematicVideo : 
+     currentProject.slug === 'lemonate-drink-commercial' ? lemonate_drink_commercial : '');
   const [customVideoUrl, setCustomVideoUrl] = useState(defaultVideoAsset);
   const [customCoverImage, setCustomCoverImage] = useState(currentProject.coverImage);
   const [showMediaSettings, setShowMediaSettings] = useState(false);
   const [mediaSettingsSaved, setMediaSettingsSaved] = useState(false);
   const [showImageZoom, setShowImageZoom] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoFit, setVideoFit] = useState<'contain' | 'cover'>('contain');
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Synchronize state when selected project changes
+  useEffect(() => {
+    const video = currentProject.media?.videoUrl || 
+      (currentProject.slug === 'filter-coffee-video-creation' ? filterCoffeeCinematicVideo : 
+       currentProject.slug === 'lemonate-drink-commercial' ? lemonate_drink_commercial : '');
+    setCustomVideoUrl(video);
+    setCustomCoverImage(currentProject.coverImage);
+  }, [currentProject.slug, currentProject.coverImage, currentProject.media?.videoUrl]);
 
   const activeVideoUrl = customVideoUrl || defaultVideoAsset || '';
 
@@ -79,7 +91,7 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
           </button>
 
           <span className="text-xs font-mono text-slate-400">
-            Case Study #{currentIndex + 1} of {CMS_PROJECTS.length}
+            {CMS_PROJECTS.length > 1 ? `Case Study #${currentIndex + 1} of ${CMS_PROJECTS.length}` : 'Featured Showcase Case Study'}
           </span>
         </div>
 
@@ -288,39 +300,49 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
             </div>
             <div className="space-y-1">
               <span className="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Color Palette</span>
-              <div className="font-bold text-amber-800 text-sm">Espresso & Amber</div>
-              <div className="text-[11px] text-slate-500">Warm golden rim lighting</div>
+              <div className="font-bold text-slate-900 text-sm">
+                {currentProject.slug === 'lemonate-drink-commercial' ? 'Vibrant Lemon & Frosted Ice' : 'Espresso & Amber'}
+              </div>
+              <div className="text-[11px] text-slate-500">
+                {currentProject.slug === 'lemonate-drink-commercial' ? 'Zesty citrus & sparkling highlights' : 'Warm golden rim lighting'}
+              </div>
             </div>
             <div className="space-y-1">
               <span className="text-slate-400 font-semibold uppercase tracking-wider text-[10px]">Texture Fidelity</span>
-              <div className="font-bold text-emerald-700 text-sm">Photorealistic Macro</div>
-              <div className="text-[11px] text-slate-500">Fine roast & aroma detail</div>
+              <div className="font-bold text-slate-900 text-sm">Photorealistic Macro</div>
+              <div className="text-[11px] text-slate-500">
+                {currentProject.slug === 'lemonate-drink-commercial' ? 'Chilled can & condensation droplets' : 'Fine roast & aroma detail'}
+              </div>
             </div>
           </div>
 
           {/* ========================================================================= */}
           {/* DEDICATED CINEMATIC AI VIDEO ASSET SHOWCASE */}
           {/* ========================================================================= */}
-          {activeVideoUrl && (
-            <div id="video-asset-showcase" className="pt-8 space-y-5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
-                <div className="flex items-center gap-2">
-                  <Film className="w-5 h-5 text-blue-600" />
-                  <h3 className="text-xl font-bold text-slate-950 font-heading">
-                    Cinematic AI Video Asset
-                  </h3>
-                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-bold">
-                    Bundled Asset Active
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="font-mono text-slate-500 font-semibold">1080p Full HD • 30 FPS • H.264</span>
-                </div>
+          <div id="video-asset-showcase" className="pt-8 space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
+              <div className="flex items-center gap-2">
+                <Film className="w-5 h-5 text-blue-600" />
+                <h3 className="text-xl font-bold text-slate-950 font-heading">
+                  Cinematic AI Video Asset
+                </h3>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+                  activeVideoUrl 
+                    ? 'bg-emerald-50 border border-emerald-200 text-emerald-700' 
+                    : 'bg-blue-50 border border-blue-200 text-blue-700'
+                }`}>
+                  {activeVideoUrl ? 'Bundled Asset Active' : 'Master Commercial Asset'}
+                </span>
               </div>
 
-              {/* Video Player */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-video group">
+              <div className="flex items-center gap-3 text-xs">
+                <span className="font-mono text-slate-500 font-semibold">1080p Full HD • 30 FPS • H.264</span>
+              </div>
+            </div>
+
+            {/* Video Player or Cinematic Cover Showcase */}
+            {activeVideoUrl ? (
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-video group flex items-center justify-center">
                 <video
                   ref={videoRef}
                   src={activeVideoUrl}
@@ -330,7 +352,7 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
                   loop
                   onPlay={() => setIsVideoPlaying(true)}
                   onPause={() => setIsVideoPlaying(false)}
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full ${videoFit === 'contain' ? 'object-contain' : 'object-cover'} bg-slate-950 transition-all duration-300`}
                 />
 
                 {/* Video Watermark / Corner Badge */}
@@ -340,14 +362,47 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
                     <span>AI Video Commercial Asset</span>
                   </div>
                 </div>
+
+                {/* Fit / Fill Switcher Control */}
+                <div className="absolute top-4 right-4 flex items-center gap-2 z-20">
+                  <button
+                    type="button"
+                    onClick={() => setVideoFit(videoFit === 'contain' ? 'cover' : 'contain')}
+                    className="bg-slate-950/85 hover:bg-slate-900 backdrop-blur-md px-3 py-1.5 rounded-full text-xs font-semibold text-slate-200 border border-slate-700/80 shadow-md flex items-center gap-1.5 transition-all cursor-pointer"
+                    title="Toggle Fit to Frame (Contain) vs Fill Frame (Cover)"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5 text-blue-400" />
+                    <span>{videoFit === 'contain' ? 'Fit to Frame' : 'Fill Frame'}</span>
+                  </button>
+                </div>
               </div>
+            ) : (
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-950 aspect-video group">
+                <img
+                  src={customCoverImage}
+                  alt={currentProject.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/90 via-slate-950/35 to-transparent flex flex-col items-center justify-center p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white shadow-2xl mb-3 group-hover:scale-110 transition-transform">
+                    <Play className="w-7 h-7 fill-white translate-x-0.5" />
+                  </div>
+                  <span className="text-base font-bold text-white font-heading">
+                    {currentProject.title}
+                  </span>
+                  <p className="text-xs text-slate-300 max-w-md mt-1">
+                    Cinematic AI beverage commercial featuring hyper-realistic condensation droplets, vibrant lighting, and fluid camera motion.
+                  </p>
+                </div>
+              </div>
+            )}
 
               {/* Video Asset Technical Specifications Metadata */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-5 rounded-2xl bg-slate-900 text-white text-xs border border-slate-800 shadow-md">
                 <div>
                   <span className="text-slate-400 text-[10px] uppercase font-semibold block">Asset Location</span>
-                  <div className="font-mono text-blue-400 font-bold truncate mt-0.5 text-[11px]" title="src/assets/video/filter_coffee_cinematic.mp4">
-                    src/assets/video/filter_coffee_cinematic.mp4
+                  <div className="font-mono text-blue-400 font-bold truncate mt-0.5 text-[11px]" title={currentProject.slug === 'filter-coffee-video-creation' ? 'src/assets/video/Video Project 15 (1) (1).mp4' : 'Commercial Master Render'}>
+                    {currentProject.slug === 'filter-coffee-video-creation' ? 'src/assets/video/Video Project 15 (1) (1).mp4' : 'Production AI Commercial Asset'}
                   </div>
                 </div>
                 <div>
@@ -359,7 +414,7 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
                 <div>
                   <span className="text-slate-400 text-[10px] uppercase font-semibold block">Motion Style</span>
                   <div className="text-amber-400 font-bold mt-0.5 text-[11px]">
-                    Fluid Pour-Over Flow & Bean Macro
+                    {currentProject.slug === 'lemonate-drink-commercial' ? 'Dynamic Can Spin & Splash Macro' : 'Fluid Pour-Over Flow & Bean Macro'}
                   </div>
                 </div>
                 <div>
@@ -370,7 +425,6 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
                 </div>
               </div>
             </div>
-          )}
 
           {/* Full Screen Image Zoom Lightbox */}
           {showImageZoom && (
@@ -673,34 +727,48 @@ export const ProjectSlugPage: React.FC<ProjectSlugPageProps> = ({ slug, onNaviga
 
         {/* Project Navigation (Previous / Next) */}
         <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 mb-16">
-          <button
-            onClick={() => onNavigate('project-slug', prevProject.slug)}
-            className="w-full sm:w-auto p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-400 transition-colors flex items-center gap-3 text-left group cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:-translate-x-1 transition-transform" />
-            <div>
-              <div className="text-[10px] uppercase font-bold text-slate-400">Previous Project</div>
-              <div className="text-xs font-bold text-slate-900 line-clamp-1">{prevProject.title}</div>
-            </div>
-          </button>
+          {CMS_PROJECTS.length > 1 ? (
+            <>
+              <button
+                onClick={() => onNavigate('project-slug', prevProject.slug)}
+                className="w-full sm:w-auto p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-400 transition-colors flex items-center gap-3 text-left group cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:-translate-x-1 transition-transform" />
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Previous Project</div>
+                  <div className="text-xs font-bold text-slate-900 line-clamp-1">{prevProject.title}</div>
+                </div>
+              </button>
 
-          <button
-            onClick={() => onNavigate('projects')}
-            className="px-4 py-2 rounded-full text-xs font-bold text-slate-600 hover:text-slate-900 cursor-pointer"
-          >
-            All Projects
-          </button>
+              <button
+                onClick={() => onNavigate('projects')}
+                className="px-4 py-2 rounded-full text-xs font-bold text-slate-600 hover:text-slate-900 cursor-pointer"
+              >
+                All Projects
+              </button>
 
-          <button
-            onClick={() => onNavigate('project-slug', nextProject.slug)}
-            className="w-full sm:w-auto p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-400 transition-colors flex items-center justify-end gap-3 text-right group cursor-pointer"
-          >
-            <div>
-              <div className="text-[10px] uppercase font-bold text-slate-400">Next Project</div>
-              <div className="text-xs font-bold text-slate-900 line-clamp-1">{nextProject.title}</div>
+              <button
+                onClick={() => onNavigate('project-slug', nextProject.slug)}
+                className="w-full sm:w-auto p-4 rounded-xl bg-white border border-slate-200 hover:border-blue-400 transition-colors flex items-center justify-end gap-3 text-right group cursor-pointer"
+              >
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Next Project</div>
+                  <div className="text-xs font-bold text-slate-900 line-clamp-1">{nextProject.title}</div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </>
+          ) : (
+            <div className="w-full flex items-center justify-center">
+              <button
+                onClick={() => onNavigate('projects')}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back to Projects Gallery</span>
+              </button>
             </div>
-            <ArrowRight className="w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-          </button>
+          )}
         </div>
 
         {/* Call to action for this project type */}

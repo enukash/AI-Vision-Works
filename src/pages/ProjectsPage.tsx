@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { PageRoute, ProjectCategory } from '../types';
 import { CMS_PROJECTS } from '../data/cmsProjects';
 import { ScrollFadeIn } from '../components/ScrollFadeIn';
@@ -21,23 +21,15 @@ interface ProjectsPageProps {
 }
 
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ onNavigate }) => {
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all');
+  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [showJsonModal, setShowJsonModal] = useState(false);
   const [copiedJson, setCopiedJson] = useState(false);
 
-  const categories: ProjectCategory[] = [
-    'all',
-    'UI/UX Designing',
-    'Poster Creation',
-    'Logo Generation',
-    'Social Media Posts',
-    'Video Creation & Editing',
-    'AI Video Creation',
-    'Digital & Visual Art',
-    'Thumbnail Creation',
-    'Agent Development'
-  ];
+  const categories = useMemo(() => {
+    const projectCategories = Array.from(new Set(CMS_PROJECTS.map((p) => p.category)));
+    return ['all', ...projectCategories] as (ProjectCategory | 'all')[];
+  }, []);
 
   const filteredProjects = CMS_PROJECTS.filter((proj) => {
     const matchesCategory = selectedCategory === 'all' || proj.category === selectedCategory;

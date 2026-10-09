@@ -132,7 +132,7 @@ export const RotatingScrollGallery: React.FC<RotatingScrollGalleryProps> = ({
   items = DEFAULT_GALLERY_ITEMS,
   marquee = 'AI VISION WORKS | AGI ROBOT SOLUTIONS | CREATIVE CODE | AUTONOMOUS AGENTS | SCROLL GALLERY',
   separator = '/',
-  marqueeColor = '#BEAF6E',
+  marqueeColor = '#DFB6B2',
   marqueeSize = 104,
   blend = 'difference',
   background = 'transparent',
@@ -332,7 +332,7 @@ export const RotatingScrollGallery: React.FC<RotatingScrollGalleryProps> = ({
           will-change: transform;
           box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.4);
           border: 1px solid rgba(255, 255, 255, 0.15);
-          background: #0f172a;
+          background: #0A0B0D;
         }
         .${scopedClass} .rsg-media {
           position: absolute;

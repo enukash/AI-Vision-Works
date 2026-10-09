@@ -49,8 +49,8 @@ export const SCENE_THEMES: SceneTheme[] = [
     description: 'I build smart AI agents that handle repetitive tasks, connect to your existing software, and work 24/7 without costly human delays.',
     bgImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_ai_solutions_1789208998741.jpg',
-    accentColor: '#38bdf8',
-    glowColor: 'rgba(56, 189, 248, 0.4)',
+    accentColor: '#DFB6B2',
+    glowColor: 'rgba(223, 182, 178, 0.45)',
     badge: '01 · Autonomous AI Agents',
     icon: Workflow,
     telemetry: {
@@ -69,8 +69,8 @@ export const SCENE_THEMES: SceneTheme[] = [
     description: 'From logos and color palettes to website design systems, I help companies look polished, trustworthy, and ready to win customers.',
     bgImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_turning_bulb_1789365471785.jpg',
-    accentColor: '#f59e0b',
-    glowColor: 'rgba(245, 158, 11, 0.4)',
+    accentColor: '#FBE4D8',
+    glowColor: 'rgba(251, 228, 216, 0.45)',
     badge: '02 · Brand & Design Systems',
     icon: Palette,
     telemetry: {
@@ -89,8 +89,8 @@ export const SCENE_THEMES: SceneTheme[] = [
     description: 'I craft custom prompts, instructions, and guardrails so your AI gives consistent, high-quality answers without making mistakes.',
     bgImage: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_thinking_wide_1789365436523.jpg',
-    accentColor: '#a855f7',
-    glowColor: 'rgba(168, 85, 247, 0.4)',
+    accentColor: '#DFB6B2',
+    glowColor: 'rgba(223, 182, 178, 0.4)',
     badge: '03 · Prompt Engineering',
     icon: Cpu,
     telemetry: {
@@ -109,8 +109,8 @@ export const SCENE_THEMES: SceneTheme[] = [
     description: 'Using modern AI-assisted coding and React, I quickly build clean, responsive websites, web apps, and MVPs so you can launch fast.',
     bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1920&q=85',
     cardImage: '/assets/images/robot_ai_hologram_1789209021516.jpg',
-    accentColor: '#10b981',
-    glowColor: 'rgba(16, 185, 129, 0.4)',
+    accentColor: '#854F6C',
+    glowColor: 'rgba(133, 79, 108, 0.45)',
     badge: '04 · Vibe Coding & Web Apps',
     icon: Code2,
     telemetry: {
@@ -317,7 +317,7 @@ export const SoftRotateScenesHero: React.FC<SoftRotateScenesHeroProps> = ({
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(circle at 75% 45%, rgba(0,0,0,0.1) 15%, rgba(2, 6, 23, 0.92) 85%)',
+            background: 'radial-gradient(circle at 75% 45%, rgba(0,0,0,0.1) 15%, rgba(10, 11, 13, 0.95) 85%)',
           }}
         />
 

@@ -1,5 +1,64 @@
 @import "tailwindcss";
 
+@theme {
+  /* -------------------------------------------------------------
+     UPLOADED COLOR THEORY PALETTE:
+     Swatch 1: #190019 (Deepest Night Plum)
+     Swatch 2: #2B124C (Royal Indigo Purple)
+     Swatch 3: #522B5B (Velvet Berry Plum)
+     Swatch 4: #854F6C (Muted Rose Mauve)
+     Swatch 5: #DFB6B2 (Soft Blush Mauve)
+     Swatch 6: #FBE4D8 (Warm Porcelain Cream)
+  ------------------------------------------------------------- */
+  --color-swatch-1: #190019;
+  --color-swatch-2: #2B124C;
+  --color-swatch-3: #522B5B;
+  --color-swatch-4: #854F6C;
+  --color-swatch-5: #DFB6B2;
+  --color-swatch-6: #FBE4D8;
+
+  --color-palette-noir: #190019;
+  --color-palette-midnight: #2B124C;
+  --color-palette-plum: #522B5B;
+  --color-palette-mauve: #854F6C;
+  --color-palette-blush: #DFB6B2;
+  --color-palette-cream: #FBE4D8;
+
+  /* Primary Brand Scale (Mapped directly to uploaded Color Theory) */
+  --color-blue-50: #FDF8F6;
+  --color-blue-100: #FBE4D8;
+  --color-blue-200: #EED1CC;
+  --color-blue-300: #DFB6B2;
+  --color-blue-400: #A86D8B;
+  --color-blue-500: #854F6C;
+  --color-blue-600: #522B5B;
+  --color-blue-700: #3E1E49;
+  --color-blue-800: #2B124C;
+  --color-blue-900: #200928;
+  --color-blue-950: #190019;
+
+  /* Surface & Neutral Scale (Tinted with uploaded warm cream & night plum tones) */
+  --color-slate-50: #FAF8F6;
+  --color-slate-100: #F5EFEB;
+  --color-slate-200: #ECE0DA;
+  --color-slate-300: #DFD0CA;
+  --color-slate-400: #9E8A90;
+  --color-slate-500: #715E65;
+  --color-slate-600: #503E48;
+  --color-slate-700: #382733;
+  --color-slate-800: #251424;
+  --color-slate-900: #1D0A1D;
+  --color-slate-950: #190019;
+
+  /* Direct Theme Token Classes */
+  --color-theme-noir: #190019;
+  --color-theme-midnight: #2B124C;
+  --color-theme-plum: #522B5B;
+  --color-theme-mauve: #854F6C;
+  --color-theme-blush: #DFB6B2;
+  --color-theme-cream: #FBE4D8;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -31,10 +90,15 @@
 
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #0f172a;
-    background-color: #f8fafc;
+    color: #0A0B0D;
+    background-color: #F8F9FA;
     overflow-x: hidden;
     overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background-color: #522B5B;
+    color: #FBE4D8;
   }
 
   /* Universal hardware acceleration & fluid transforms */
@@ -144,12 +208,12 @@
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #FAF8F6;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #854F6C;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #522B5B;
 }

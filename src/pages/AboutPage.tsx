@@ -141,8 +141,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               method="dither"
               columns={40}
               fontSize={11}
-              textColor="#38bdf8"
-              backgroundColor="#020617"
+              textColor="#DFB6B2"
+              backgroundColor="#190019"
             />
 
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">

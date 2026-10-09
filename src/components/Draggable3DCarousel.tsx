@@ -547,24 +547,28 @@ export const Draggable3DCarousel: React.FC<Draggable3DCarouselProps> = ({ projec
         </div>
 
         {/* Infinite Navigation Prev Button (Never disabled) */}
-        <button
-          type="button"
-          onClick={goPrev}
-          aria-label="Previous slide in loop"
-          className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-800 hover:text-blue-600 shadow-md backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
+        {baseCount > 1 && (
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="Previous slide in loop"
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-800 hover:text-blue-600 shadow-md backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+        )}
 
         {/* Infinite Navigation Next Button (Never disabled) */}
-        <button
-          type="button"
-          onClick={goNext}
-          aria-label="Next slide in loop"
-          className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-800 hover:text-blue-600 shadow-md backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
+        {baseCount > 1 && (
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="Next slide in loop"
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/90 hover:bg-white border border-slate-200 text-slate-800 hover:text-blue-600 shadow-md backdrop-blur-md flex items-center justify-center transition-all cursor-pointer active:scale-95"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        )}
 
         {/* Center Bottom Active Project Glance Pill with Loop Indicator */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-auto bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/90 shadow-sm flex items-center gap-3 max-w-[90%]">
@@ -593,27 +597,29 @@ export const Draggable3DCarousel: React.FC<Draggable3DCarouselProps> = ({ projec
       </div>
 
       {/* Pagination Dots Row with Shortest Loop Routing */}
-      <div className="flex items-center justify-center gap-2 mt-4">
-        {projects.map((proj, idx) => (
-          <button
-            key={proj.id}
-            type="button"
-            onClick={() => {
-              const currentNorm = ((indexRef.current % baseCount) + baseCount) % baseCount;
-              let diff = idx - currentNorm;
-              if (diff > baseCount / 2) diff -= baseCount;
-              if (diff < -baseCount / 2) diff += baseCount;
-              snapTo(indexRef.current + diff);
-            }}
-            aria-label={`Go to slide ${idx + 1}: ${proj.title}`}
-            className={`transition-all duration-300 rounded-full cursor-pointer ${
-              normalizedActiveIndex === idx 
-                ? 'w-7 h-2 bg-blue-600' 
-                : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
-            }`}
-          />
-        ))}
-      </div>
+      {baseCount > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-4">
+          {projects.map((proj, idx) => (
+            <button
+              key={proj.id}
+              type="button"
+              onClick={() => {
+                const currentNorm = ((indexRef.current % baseCount) + baseCount) % baseCount;
+                let diff = idx - currentNorm;
+                if (diff > baseCount / 2) diff -= baseCount;
+                if (diff < -baseCount / 2) diff += baseCount;
+                snapTo(indexRef.current + diff);
+              }}
+              aria-label={`Go to slide ${idx + 1}: ${proj.title}`}
+              className={`transition-all duration-300 rounded-full cursor-pointer ${
+                normalizedActiveIndex === idx 
+                  ? 'w-7 h-2 bg-blue-600' 
+                  : 'w-2 h-2 bg-slate-300 hover:bg-slate-400'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -50,14 +50,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* 2. MOVING SKILLS MARQUEE (7 Skills per prompt) */}
-      <ScrollFadeIn as="section" direction="none" duration={0.5} className="py-6 bg-blue-600 text-white overflow-hidden border-y border-blue-550">
+      <ScrollFadeIn as="section" direction="none" duration={0.5} className="py-6 bg-[#18181B] text-[#F4D8D8] overflow-hidden border-y border-zinc-800 shadow-sm">
         <div className="flex whitespace-nowrap animate-marquee">
           {[...CORE_SKILLS, ...CORE_SKILLS].map((skill, index) => (
             <div key={`${skill.id}-${index}`} className="flex items-center gap-6 mx-6">
-              <span className="text-sm font-bold tracking-wider uppercase font-heading text-white">
+              <span className="text-sm font-bold tracking-wider uppercase font-heading text-[#F4D8D8]">
                 {skill.name}
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-white-800" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#BEA8A7]" />
             </div>
           ))}
         </div>
@@ -103,7 +103,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               onClick={() => onNavigate('projects')}
               className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors self-start md:self-auto cursor-pointer"
             >
-              <span>View All Projects ({CMS_PROJECTS.length})</span>
+              <span>View Projects ({CMS_PROJECTS.length})</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </ScrollFadeIn>
