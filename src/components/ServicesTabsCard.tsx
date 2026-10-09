@@ -32,7 +32,7 @@ export const ServicesTabsCard: React.FC<ServicesArcFocusCarouselProps> = ({
   const INITIAL_CARD_INDEX = 2; // Start card index
 
   // Infinite continuous float position
-  const targetFloatRef = useRef<number>(INITIAL_CARD_INDEX);
+    const targetFloatRef = useRef<number>(INITIAL_CARD_INDEX);
   const [currentFloat, setCurrentFloat] = useState<number>(INITIAL_CARD_INDEX);
   const [activeIndex, setActiveIndex] = useState<number>(INITIAL_CARD_INDEX);
   const [isHovered, setIsHovered] = useState<boolean>(false);

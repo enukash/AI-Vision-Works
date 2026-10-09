@@ -48,7 +48,7 @@ export const CardShowcase: React.FC<CardShowcaseProps> = ({
   cards,
   animationSpeed = 5.5,
   loop = true,
-  progressColor = '#18181B', // obsidian noir
+  progressColor = '#775144', // charcoal graphite taupe
   className = '',
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);

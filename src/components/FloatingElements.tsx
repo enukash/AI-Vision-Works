@@ -16,7 +16,7 @@ export const FloatingBackground: React.FC = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#DFB6B2]/20 blur-3xl"
+        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#BEA8A7]/25 blur-3xl transform-gpu will-change-transform"
       />
 
       <motion.div
@@ -31,7 +31,7 @@ export const FloatingBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 2
         }}
-        className="absolute top-1/3 -right-32 w-[28rem] h-[28rem] rounded-full bg-[#522B5B]/15 blur-3xl"
+        className="absolute top-1/3 -right-32 w-[28rem] h-[28rem] rounded-full bg-[#775144]/15 blur-3xl transform-gpu will-change-transform"
       />
 
       <motion.div
@@ -45,7 +45,7 @@ export const FloatingBackground: React.FC = () => {
           ease: "easeInOut",
           delay: 4
         }}
-        className="absolute -bottom-40 left-1/4 w-[32rem] h-[32rem] rounded-full bg-[#854F6C]/15 blur-3xl"
+        className="absolute -bottom-40 left-1/4 w-[32rem] h-[32rem] rounded-full bg-[#C09891]/20 blur-3xl transform-gpu will-change-transform"
       />
     </div>
   );

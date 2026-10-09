@@ -81,12 +81,12 @@ export const FramerChangelog: React.FC<FramerChangelogProps> = ({
       impactMetric: '99.98% parser accuracy'
     }
   ],
-  accentColor = '#2B124C', // royal indigo purple
-  lineColor = '#DFD0CA',   // warm rose border
+  accentColor = '#775144', // charcoal graphite taupe
+  lineColor = '#E6DFDD',   // porcelain silver border
   bgColor = 'transparent',
-  textColor = '#190019',   // deep plum
-  mutedColor = '#715E65',  // muted plum slate
-  featureColor = '#522B5B',// royal berry plum
+  textColor = '#2A0800',   // obsidian noir
+  mutedColor = '#7E706D',  // cashmere charcoal
+  featureColor = '#C09891',// metallic titanium
   fixColor = '#f59e0b',    // amber-500
   improvementColor = '#10b981', // emerald-500
   breakingColor = '#ef4444',    // red-500

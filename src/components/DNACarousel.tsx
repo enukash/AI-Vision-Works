@@ -338,17 +338,17 @@ export const DNACarousel: React.FC<DNACarouselProps> = ({ projects, onNavigate }
     velocityRef.current = clamp(velocityRef.current, -2.5, 2.5);
   };
 
-  // Wheel horizontal / vertical scroll support
+  // Wheel horizontal swipe support without blocking vertical page scroll
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    const settings = settingsRef.current;
-    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-    if (Math.abs(delta) < 0.01) return;
-
-    positionRef.current += delta * 0.002 * settings.dragSensitivity;
-    velocityRef.current += delta * 0.0004 * settings.dragSensitivity;
-    velocityRef.current = clamp(velocityRef.current, -1.8, 1.8);
-    renderCards();
-    event.preventDefault();
+    // Only capture horizontal gestures; allow vertical scroll to pass through smoothly
+    if (Math.abs(event.deltaX) > Math.abs(event.deltaY) && Math.abs(event.deltaX) > 4) {
+      const settings = settingsRef.current;
+      positionRef.current += event.deltaX * 0.002 * settings.dragSensitivity;
+      velocityRef.current += event.deltaX * 0.0004 * settings.dragSensitivity;
+      velocityRef.current = clamp(velocityRef.current, -1.8, 1.8);
+      renderCards();
+      event.preventDefault();
+    }
   };
 
   // Keyboard navigation

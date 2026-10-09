@@ -50,7 +50,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       </section>
 
       {/* 2. MOVING SKILLS MARQUEE (7 Skills per prompt) */}
-      <ScrollFadeIn as="section" direction="none" duration={0.5} className="py-6 bg-[#18181B] text-[#F4D8D8] overflow-hidden border-y border-zinc-800 shadow-sm">
+      <ScrollFadeIn as="section" direction="none" duration={0.5} className="py-6 bg-[#2A0800] text-[#F4D8D8] overflow-hidden border-y border-[#775144]/40 shadow-sm">
         <div className="flex whitespace-nowrap animate-marquee">
           {[...CORE_SKILLS, ...CORE_SKILLS].map((skill, index) => (
             <div key={`${skill.id}-${index}`} className="flex items-center gap-6 mx-6">
@@ -143,9 +143,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="w-full max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <ScrollFadeIn className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
             <div>
-              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
-                What I Do
-              </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 font-heading mt-3">
                 Full-Stack AI Solutions & Creative Services
               </h2>

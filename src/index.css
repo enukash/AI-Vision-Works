@@ -2,66 +2,55 @@
 
 @theme {
   /* -------------------------------------------------------------
-     UPLOADED COLOR THEORY PALETTE:
-     Swatch 1: #190019 (Deepest Night Plum)
-     Swatch 2: #2B124C (Royal Indigo Purple)
-     Swatch 3: #522B5B (Velvet Berry Plum)
-     Swatch 4: #854F6C (Muted Rose Mauve)
-     Swatch 5: #DFB6B2 (Soft Blush Mauve)
-     Swatch 6: #FBE4D8 (Warm Porcelain Cream)
+     UPLOADED COLOR PALETTE THEME
+     Swatch 1: #2A0800 (Obsidian Carbon Noir)
+     Swatch 2: #775144 (Charcoal Graphite Taupe)
+     Swatch 3: #C09891 (Metallic Silver Titanium)
+     Swatch 4: #BEA8A7 (Cashmere Platinum Silver)
+     Swatch 5: #F4D8D8 (Porcelain Pearl White)
   ------------------------------------------------------------- */
-  --color-swatch-1: #190019;
-  --color-swatch-2: #2B124C;
-  --color-swatch-3: #522B5B;
-  --color-swatch-4: #854F6C;
-  --color-swatch-5: #DFB6B2;
-  --color-swatch-6: #FBE4D8;
+  --color-swatch-1: #2A0800;
+  --color-swatch-2: #775144;
+  --color-swatch-3: #C09891;
+  --color-swatch-4: #BEA8A7;
+  --color-swatch-5: #F4D8D8;
 
-  --color-palette-noir: #190019;
-  --color-palette-midnight: #2B124C;
-  --color-palette-plum: #522B5B;
-  --color-palette-mauve: #854F6C;
-  --color-palette-blush: #DFB6B2;
-  --color-palette-cream: #FBE4D8;
+  --color-theme-obsidian: #2A0800;
+  --color-theme-charcoal: #775144;
+  --color-theme-titanium: #C09891;
+  --color-theme-platinum: #BEA8A7;
+  --color-theme-porcelain: #F4D8D8;
 
-  /* Primary Brand Scale (Mapped directly to uploaded Color Theory) */
-  --color-blue-50: #FDF8F6;
-  --color-blue-100: #FBE4D8;
-  --color-blue-200: #EED1CC;
-  --color-blue-300: #DFB6B2;
-  --color-blue-400: #A86D8B;
-  --color-blue-500: #854F6C;
-  --color-blue-600: #522B5B;
-  --color-blue-700: #3E1E49;
-  --color-blue-800: #2B124C;
-  --color-blue-900: #200928;
-  --color-blue-950: #190019;
+  /* Primary Brand Scale (Overriding Tailwind "blue" to apply uploaded theme site-wide) */
+  --color-blue-50: #FAF4F4;
+  --color-blue-100: #F4D8D8;
+  --color-blue-200: #E3C3C0;
+  --color-blue-300: #BEA8A7;
+  --color-blue-400: #C09891;
+  --color-blue-500: #9B6C5F;
+  --color-blue-600: #775144;
+  --color-blue-700: #57372D;
+  --color-blue-800: #3E1E16;
+  --color-blue-900: #2A0800;
+  --color-blue-950: #190500;
 
-  /* Surface & Neutral Scale (Tinted with uploaded warm cream & night plum tones) */
-  --color-slate-50: #FAF8F6;
-  --color-slate-100: #F5EFEB;
-  --color-slate-200: #ECE0DA;
-  --color-slate-300: #DFD0CA;
-  --color-slate-400: #9E8A90;
-  --color-slate-500: #715E65;
-  --color-slate-600: #503E48;
-  --color-slate-700: #382733;
-  --color-slate-800: #251424;
-  --color-slate-900: #1D0A1D;
-  --color-slate-950: #190019;
-
-  /* Direct Theme Token Classes */
-  --color-theme-noir: #190019;
-  --color-theme-midnight: #2B124C;
-  --color-theme-plum: #522B5B;
-  --color-theme-mauve: #854F6C;
-  --color-theme-blush: #DFB6B2;
-  --color-theme-cream: #FBE4D8;
+  /* Surface & Neutral Scale (Overriding Tailwind "slate" with warm obsidian & porcelain shades) */
+  --color-slate-50: #FAF8F7;
+  --color-slate-100: #F3EEED;
+  --color-slate-200: #E6DFDD;
+  --color-slate-300: #D3C9C7;
+  --color-slate-400: #A89B98;
+  --color-slate-500: #7E706D;
+  --color-slate-600: #5C504D;
+  --color-slate-700: #423634;
+  --color-slate-800: #2C211F;
+  --color-slate-900: #1B110F;
+  --color-slate-950: #0E0705;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -90,20 +79,24 @@
 
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: #0A0B0D;
-    background-color: #F8F9FA;
+    color: #2A0800;
+    background-color: #FAF8F7;
     overflow-x: hidden;
     overscroll-behavior-y: none;
   }
 
   ::selection {
-    background-color: #522B5B;
-    color: #FBE4D8;
+    background-color: #775144;
+    color: #F4D8D8;
   }
 
   /* Universal hardware acceleration & fluid transforms */
   * {
     -webkit-tap-highlight-color: transparent;
+  }
+
+  a, button {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   img, video {
@@ -118,19 +111,19 @@
 
 @keyframes float-slow {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translateY(-12px) rotate(1deg);
+    transform: translate3d(0, -12px, 0) rotate(1deg);
   }
 }
 
 @keyframes float-reverse {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
   50% {
-    transform: translateY(12px) rotate(-1deg);
+    transform: translate3d(0, 12px, 0) rotate(-1deg);
   }
 }
 
@@ -141,16 +134,16 @@
   }
   50% {
     opacity: 0.9;
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 }
 
 @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -208,12 +201,12 @@
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF8F6;
+  background: #FAF8F7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #854F6C;
+  background: #C09891;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #522B5B;
+  background: #775144;
 }

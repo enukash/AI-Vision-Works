@@ -23,17 +23,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer id="main-footer-section" className="bg-linear-to-b from-[#190019] via-[#100010] to-[#0A000A] text-slate-200 pt-16 pb-12 border-t border-[#2B124C]/60 relative overflow-hidden">
+    <footer id="main-footer-section" className="bg-linear-to-b from-[#2A0800] via-[#1A0500] to-[#0E0300] text-slate-200 pt-16 pb-12 border-t border-[#775144]/40 relative overflow-hidden">
       {/* Ambient Gradient Glows from Uploaded Palette */}
-      <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#522B5B]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-[#2B124C]/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-24 left-1/4 w-96 h-96 bg-[#775144]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-[#C09891]/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-14 border-b border-[#2B124C]/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-14 border-b border-[#775144]/40">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-5">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-[#522B5B] text-[#FBE4D8] flex items-center justify-center font-bold text-sm shadow-md font-heading border border-[#854F6C]/40">
+              <div className="w-9 h-9 rounded-lg bg-[#775144] text-[#F4D8D8] flex items-center justify-center font-bold text-sm shadow-md font-heading border border-[#C09891]/40">
                 AVW
               </div>
               <span className="text-xl font-bold text-white tracking-tight font-heading">AI VISION WORKS</span>
@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
 
             {/* Availability Indicator */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#2B124C]/90 border border-[#522B5B]/60 text-xs font-medium text-[#FBE4D8] backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#775144]/90 border border-[#C09891]/40 text-xs font-medium text-[#F4D8D8] backdrop-blur-sm">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
